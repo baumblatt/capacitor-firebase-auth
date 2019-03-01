@@ -5,5 +5,6 @@ declare global {
 }
 
 export interface CapacitorFirebaseAuthPlugin {
-  echo(options: { value: string }): Promise<{value: string}>;
+  signIn(options: {provider: {providerId: string;}}): Promise<{providerId: string; displayName?: string; idToken?: string}>;
+  signOut(options: {provider: {providerId: string;}}): Promise<void>;
 }

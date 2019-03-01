@@ -9,9 +9,13 @@ export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFire
     });
   }
 
-  async echo(options: { value: string }): Promise<{value: string}> {
-    console.log('ECHO', options);
-    return options;
+  async signIn(options: {provider: {providerId: string;}}): Promise<{provider: {providerId: string; displayName?: string; idToken?: string}}> {
+    return Promise.resolve(options);
+  }
+
+  async signOut(options: {provider: {providerId: string;}}): Promise<void> {
+    options.provider;
+    return Promise.resolve();
   }
 }
 

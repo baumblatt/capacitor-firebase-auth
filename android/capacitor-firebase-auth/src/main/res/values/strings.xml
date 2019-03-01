@@ -1,3 +1,5 @@
 <resources>
-    <string name="my_string">Just a simple string</string>
+    <string name="loading">Loading…</string>
+    <string name="google_provider_id">google.com</string>
+    <string name="label_google_sign_in">Google Sign In</string>
 </resources>
