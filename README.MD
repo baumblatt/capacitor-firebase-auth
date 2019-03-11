@@ -6,13 +6,15 @@ Capacitor plugin for Firebase Authentication
 
 ## What news
 
-Google Provider authentication in Android platform. 
+Google Provider authentication in iOS Platform
 
 ## Old news 
 
+- Google Provider authentication in Android platform.
 - Scaffolding do plugin (npx @capacitor/cli plugin:generate)
 
 ## Next steps
 
-1. Google Provider authentication in iOS Platform.
-2. All the rest ... 
+1. Twitter Provider
+2. Facebook Provider
+3. All the rest ... 

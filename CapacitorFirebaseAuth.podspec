@@ -10,4 +10,8 @@
     s.source_files = 'ios/Plugin/Plugin/**/*.{swift,h,m,c,cc,mm,cpp}'
     s.ios.deployment_target  = '11.0'
     s.dependency 'Capacitor'
+    s.dependency 'GoogleSignIn'
+    s.dependency 'Firebase/Core'
+    s.dependency 'Firebase/Auth'
+    s.static_framework = true
   end
