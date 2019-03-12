@@ -13,6 +13,7 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -70,6 +71,7 @@ public class CapacitorFirebaseAuth extends Plugin {
             Log.w(PLUGIN_TAG, "Provider not supported");
             call.reject("Provider not supported");
         } else {
+            this.saveCall(call);
             this.signIn(handler, call);
         }
     }
@@ -149,6 +151,14 @@ public class CapacitorFirebaseAuth extends Plugin {
                                     savedCall.reject("Firebase Sign In with Credential failure.");
                                 }
                             }
+                        }).addOnFailureListener(this.getActivity(), new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception ex) {
+                                // If sign in fails, display a message to the user.
+                                Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", ex);
+                                savedCall.reject("Firebase Sign In with Credential failure.");
+
+                            }
                         });
             }
 
@@ -159,6 +169,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         Log.d(PLUGIN_TAG, "Parsing Firebase user.");
 
         JSObject jsUser = new JSObject();
+        jsUser.put("callbackId", call.getCallbackId());
         jsUser.put("providerId", user.getProviderId());
         jsUser.put("displayName", user.getDisplayName());
         jsUser.put("idToken", token);

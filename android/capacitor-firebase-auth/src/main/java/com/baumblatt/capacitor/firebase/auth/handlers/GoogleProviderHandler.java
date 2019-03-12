@@ -26,6 +26,7 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
     private static final String GOOGLE_TAG = "GoogleProviderHandler";
 
     private GoogleSignInClient mGoogleSignInClient;
+    private Activity activity;
 
     @Override
     public int getRequestCode() {
@@ -34,6 +35,7 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
 
     @Override
     public void init(Context context, Activity activity) {
+        this.activity = activity;
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(context);
         if (result == ConnectionResult.SUCCESS) {
@@ -107,7 +109,12 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
 
     @Override
     public void signOut() {
-        this.mGoogleSignInClient.signOut();
+        this.mGoogleSignInClient.signOut().addOnCompleteListener(this.activity, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.i(GOOGLE_TAG, "Google Sign Out succeed.");
+            }
+        });
     }
 
     @Override

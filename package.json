@@ -18,6 +18,10 @@
   "devDependencies": {
     "typescript": "^2.6.2"
   },
+  "peerDependencies": {
+    "firebase": "^5.8.6",
+    "rxjs": "^6.4.0"
+  },
   "files": [
     "dist/",
     "ios/",
@@ -43,5 +47,6 @@
   },
   "bugs": {
     "url": "https://github.com/baumblatt/capacitor-firebase-auth.git/issues"
-  }
+  },
+  "_where": "/Users/baumblatt/wks/cap-fire-playground"
 }

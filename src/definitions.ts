@@ -4,7 +4,14 @@ declare global {
   }
 }
 
+export interface SignInResult {
+  providerId: string;
+  displayName?: string;
+  idToken?: string;
+  secret?: string;
+}
+
 export interface CapacitorFirebaseAuthPlugin {
-  signIn(options: {provider: {providerId: string;}}): Promise<{providerId: string; displayName?: string; idToken?: string}>;
+  signIn(options: {provider: {providerId: string;}}): Promise<SignInResult>;
   signOut(options: {provider: {providerId: string;}}): Promise<void>;
 }
