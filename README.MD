@@ -6,12 +6,13 @@ Capacitor plugin for Firebase Authentication
 
 ## What news
 
-The Typescript facade for the plugin
+- Twitter Provider authentication in Android platform
 
 ## Old news 
 
+- The Typescript facade for the plugin
 - Google Provider authentication in iOS Platform
-- Google Provider authentication in Android platform.
+- Google Provider authentication in Android platform
 - Scaffolding do plugin (npx @capacitor/cli plugin:generate)
 
 ## Next steps

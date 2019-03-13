@@ -1,12 +1,13 @@
 package com.baumblatt.capacitor.firebase.auth.handlers;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
 import com.baumblatt.capacitor.firebase.auth.R;
+import com.getcapacitor.JSObject;
+import com.getcapacitor.PluginCall;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,25 +20,22 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.OnConnectionFailedListener {
     public static final int RC_GOOGLE_SIGN_IN = 9001;
     private static final String GOOGLE_TAG = "GoogleProviderHandler";
 
+    private CapacitorFirebaseAuth plugin;
     private GoogleSignInClient mGoogleSignInClient;
-    private Activity activity;
 
     @Override
-    public int getRequestCode() {
-        return RC_GOOGLE_SIGN_IN;
-    }
+    public void init(CapacitorFirebaseAuth plugin) {
+        this.plugin = plugin;
 
-    @Override
-    public void init(Context context, Activity activity) {
-        this.activity = activity;
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
-        int result = googleAPI.isGooglePlayServicesAvailable(context);
+        int result = googleAPI.isGooglePlayServicesAvailable(this.plugin.getContext());
         if (result == ConnectionResult.SUCCESS) {
             Log.d(GOOGLE_TAG, "Google Api is Available.");
         } else {
@@ -45,71 +43,58 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
         }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(R.string.default_web_client_id))
+                .requestIdToken(this.plugin.getContext().getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        this.mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
+        this.mGoogleSignInClient = GoogleSignIn.getClient(this.plugin.getActivity(), gso);
     }
 
     @Override
-    public Intent getIntent() {
-        return this.mGoogleSignInClient.getSignInIntent();
+    public void signIn(PluginCall call) {
+        Log.d(GOOGLE_TAG, "Google SignIn starts..");
+        Intent intent = this.mGoogleSignInClient.getSignInIntent();
+        this.plugin.startActivityForResult(call, intent, RC_GOOGLE_SIGN_IN);
     }
 
     @Override
-    public String getIdToken(Intent data) {
+    public int getRequestCode() {
+        return RC_GOOGLE_SIGN_IN;
+    }
+
+    @Override
+    public void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(GOOGLE_TAG, "Google SignIn activity result.");
+
         try {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             // Google Sign In was successful, authenticate with Firebase
             GoogleSignInAccount account = task.getResult(ApiException.class);
 
             if(account != null) {
                 Log.d(GOOGLE_TAG, "Google Sign In succeed.");
-                return account.getIdToken();
+                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+                this.plugin.handleAuthCredentials(account.getIdToken(), credential);
+                return;
             }
-
-        } catch (ApiException e) {
+        } catch (ApiException exception) {
             // Google Sign In failed, update UI appropriately
-            Log.w(GOOGLE_TAG, GoogleSignInStatusCodes.getStatusCodeString(e.getStatusCode()), e);
-
-
+            Log.w(GOOGLE_TAG, GoogleSignInStatusCodes.getStatusCodeString(exception.getStatusCode()), exception);
+            plugin.handleFailure("Google Sign In failure.", exception);
+            return;
         }
 
-        // Google Sign In failed, update UI appropriately
-        Log.w(GOOGLE_TAG, "Google Sign In failed.");
-        return null;
+        plugin.handleFailure("Google Sign In failure.", null);
     }
 
     @Override
-    public AuthCredential getAuthCredential(Intent data)  {
-        try {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+    public void fillUser(JSObject jsUser, FirebaseUser user) {
 
-            // Google Sign In was successful, authenticate with Firebase
-            GoogleSignInAccount account = task.getResult(ApiException.class);
-
-            if(account != null) {
-                Log.d(GOOGLE_TAG, "Google Sign In succeed.");
-                return GoogleAuthProvider.getCredential(account.getIdToken(), null);
-            }
-
-        } catch (ApiException e) {
-            // Google Sign In failed, update UI appropriately
-            Log.w(GOOGLE_TAG, GoogleSignInStatusCodes.getStatusCodeString(e.getStatusCode()), e);
-
-
-        }
-
-        // Google Sign In failed, update UI appropriately
-        Log.w(GOOGLE_TAG, "Google Sign In failed.");
-        return null;
     }
 
     @Override
     public void signOut() {
-        this.mGoogleSignInClient.signOut().addOnCompleteListener(this.activity, new OnCompleteListener<Void>() {
+        this.mGoogleSignInClient.signOut().addOnCompleteListener(this.plugin.getActivity(), new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Log.i(GOOGLE_TAG, "Google Sign Out succeed.");

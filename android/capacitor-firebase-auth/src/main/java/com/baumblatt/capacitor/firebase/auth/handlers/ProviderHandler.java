@@ -1,16 +1,20 @@
 package com.baumblatt.capacitor.firebase.auth.handlers;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
-import com.google.firebase.auth.AuthCredential;
+import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
+import com.getcapacitor.JSObject;
+import com.getcapacitor.PluginCall;
+import com.google.firebase.auth.FirebaseUser;
 
 public interface ProviderHandler {
-    void init(Context context, Activity activity);
-    Intent getIntent();
-    int getRequestCode();
-    AuthCredential getAuthCredential(Intent data);
-    String getIdToken(Intent data);
+    void init(CapacitorFirebaseAuth plugin);
+
+    void signIn(PluginCall call);
     void signOut();
+
+    int getRequestCode();
+    void handleOnActivityResult(int requestCode, int resultCode, Intent data);
+
+    void fillUser(JSObject object, FirebaseUser user);
 }
