@@ -70,19 +70,18 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate, GIDSi
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        do {
-            try self.signOut();
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
+        self.signOut()
     }
     
     func signIn() {
-       GIDSignIn.sharedInstance()?.signIn();
+        GIDSignIn.sharedInstance()?.signIn();
     }
     
-    func signOut() throws -> Void {
+    func fillUser(data: PluginResultData) -> PluginResultData {
+        return data
+    }
+    
+    func signOut(){
         GIDSignIn.sharedInstance()?.signOut()
-        try Auth.auth().signOut()
     }
 }

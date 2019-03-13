@@ -11,6 +11,7 @@
     s.ios.deployment_target  = '11.0'
     s.dependency 'Capacitor'
     s.dependency 'GoogleSignIn'
+    s.dependency 'TwitterKit'
     s.dependency 'Firebase/Core'
     s.dependency 'Firebase/Auth'
     s.static_framework = true

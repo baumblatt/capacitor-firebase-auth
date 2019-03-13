@@ -6,10 +6,11 @@ Capacitor plugin for Firebase Authentication
 
 ## What news
 
-- Twitter Provider authentication in Android platform
+- Twitter Provider authentication in iOS platform
 
 ## Old news 
 
+- Twitter Provider authentication in Android platform
 - The Typescript facade for the plugin
 - Google Provider authentication in iOS Platform
 - Google Provider authentication in Android platform
@@ -17,6 +18,7 @@ Capacitor plugin for Firebase Authentication
 
 ## Next steps
 
-1. Twitter Provider
-2. Facebook Provider
-3. All the rest ... 
+1. Facebook Provider
+2. How to use
+3. Phone Number Provider
+4. Email/Password Provider

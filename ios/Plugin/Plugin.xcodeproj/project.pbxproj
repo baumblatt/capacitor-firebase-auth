@@ -17,6 +17,7 @@
 		50E1A94820377CB70090CE1A /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A94720377CB70090CE1A /* Plugin.swift */; };
 		DA34D39B22328D9400326C50 /* ProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34D39A22328D9400326C50 /* ProviderHandler.swift */; };
 		DA34D39D22328E4900326C50 /* GoogleProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34D39C22328E4900326C50 /* GoogleProviderHandler.swift */; };
+		DA8E24E4223977D60030886C /* TwitterProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8E24E3223977D60030886C /* TwitterProviderHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		DA34D39C22328E4900326C50 /* GoogleProviderHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleProviderHandler.swift; sourceTree = "<group>"; };
 		DA5BC0DB22338541006F86D1 /* Plugin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Plugin-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA5BC0DE2236BDDB006F86D1 /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA8E24E3223977D60030886C /* TwitterProviderHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterProviderHandler.swift; sourceTree = "<group>"; };
 		F65BB2953ECE002E1EF3E424 /* Pods-PluginTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PluginTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PluginTests/Pods-PluginTests.release.xcconfig"; sourceTree = "<group>"; };
 		F6753A823D3815DB436415E3 /* Pods_PluginTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PluginTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -142,6 +144,7 @@
 			children = (
 				DA34D39A22328D9400326C50 /* ProviderHandler.swift */,
 				DA34D39C22328E4900326C50 /* GoogleProviderHandler.swift */,
+				DA8E24E3223977D60030886C /* TwitterProviderHandler.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -284,10 +287,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PluginTests/Pods-PluginTests-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -320,10 +325,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Plugin/Pods-Plugin-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -343,6 +350,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -353,6 +362,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,6 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8E24E4223977D60030886C /* TwitterProviderHandler.swift in Sources */,
 				DA34D39D22328E4900326C50 /* GoogleProviderHandler.swift in Sources */,
 				DA34D39B22328D9400326C50 /* ProviderHandler.swift in Sources */,
 				50E1A94820377CB70090CE1A /* Plugin.swift in Sources */,
