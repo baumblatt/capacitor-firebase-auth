@@ -1,7 +1,5 @@
 package com.baumblatt.capacitor.firebase.auth.handlers;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -16,7 +14,6 @@ import com.google.firebase.auth.TwitterAuthProvider;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterCore;
@@ -28,7 +25,6 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 public class TwitterProviderHandler implements ProviderHandler {
 
-    public static final int RC_TWITTER_SIGN_IN = 9001;
     private static final String TWITTER_TAG = "TwitterProviderHandler";
 
     private CapacitorFirebaseAuth plugin;

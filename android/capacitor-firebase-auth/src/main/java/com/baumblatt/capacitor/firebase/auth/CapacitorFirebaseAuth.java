@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.baumblatt.capacitor.firebase.auth.handlers.FacebookProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.ProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.TwitterProviderHandler;
@@ -25,7 +26,11 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import java.util.HashMap;
 import java.util.Map;
 
-@NativePlugin(requestCodes = {GoogleProviderHandler.RC_GOOGLE_SIGN_IN, TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE})
+@NativePlugin(requestCodes = {
+        GoogleProviderHandler.RC_GOOGLE_SIGN_IN,
+        TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE,
+        FacebookProviderHandler.RC_FACEBOOK_LOGIN
+})
 public class CapacitorFirebaseAuth extends Plugin {
     private static final String PLUGIN_TAG = "CapacitorFirebaseAuth";
 
@@ -51,6 +56,12 @@ public class CapacitorFirebaseAuth extends Plugin {
         this.providerHandlers.put(provider, new TwitterProviderHandler());
         this.providerHandlers.get(provider).init(this);
         Log.d(PLUGIN_TAG, "Twitter Provider Initialized");
+
+        Log.d(PLUGIN_TAG, "Initializing Facebook Provider");
+        provider = getContext().getString(R.string.facebook_provider_id);
+        this.providerHandlers.put(provider, new FacebookProviderHandler());
+        this.providerHandlers.get(provider).init(this);
+        Log.d(PLUGIN_TAG, "Facebook Provider Initialized");
 
         for (ProviderHandler providerHandler : this.providerHandlers.values()) {
             this.providerHandlerByRC.put(providerHandler.getRequestCode(), providerHandler);
@@ -165,13 +176,13 @@ public class CapacitorFirebaseAuth extends Plugin {
                             }
                         }
                     }).addOnFailureListener(this.getActivity(), new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception ex) {
-                    // If sign in fails, display a message to the user.
-                    Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", ex);
-                    savedCall.reject("Firebase Sign In with Credential failure.");
+                        @Override
+                        public void onFailure(@NonNull Exception ex) {
+                            // If sign in fails, display a message to the user.
+                            Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", ex);
+                            savedCall.reject("Firebase Sign In with Credential failure.");
 
-                }
+                        }
             });
         }
     }
