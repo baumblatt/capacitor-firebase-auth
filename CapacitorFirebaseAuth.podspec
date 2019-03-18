@@ -12,6 +12,8 @@
     s.dependency 'Capacitor'
     s.dependency 'GoogleSignIn'
     s.dependency 'TwitterKit'
+    s.dependency 'FBSDKCoreKit'
+    s.dependency 'FBSDKLoginKit'
     s.dependency 'Firebase/Core'
     s.dependency 'Firebase/Auth'
     s.static_framework = true

@@ -2,14 +2,19 @@
 
 Capacitor plugin for Firebase Authentication
 
-> This is a working in progress plugins, please do not use in production mode.
+> This is a working in progress plugins.
 
+## How to use
+
+Looking forward to write how to use this plugin.
+ 
 ## What news
 
-- Facebook Provider authentication in Android platform
+- Facebook Provider authentication in iOS platform
 
 ## Old news 
 
+- Facebook Provider authentication in Android platform
 - Twitter Provider authentication in iOS platform
 - Twitter Provider authentication in Android platform
 - The Typescript facade for the plugin
@@ -19,7 +24,6 @@ Capacitor plugin for Firebase Authentication
 
 ## Next steps
 
-1. Facebook Provider authentication in iOS platform
-2. How to use
-3. Phone Number Provider
-4. Email/Password Provider
+1. How to use
+2. Phone Number Provider
+3. Email/Password Provider

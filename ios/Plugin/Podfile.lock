@@ -1,8 +1,18 @@
 PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - Capacitor (0.0.113):
     - CapacitorCordova (= 0.0.113)
     - GCDWebServer (~> 3.0)
   - CapacitorCordova (0.0.113)
+  - FBSDKCoreKit (4.40.0):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.40.0):
+    - FBSDKCoreKit
   - Firebase/Auth (5.18.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.4.0)
@@ -83,6 +93,8 @@ PODS:
 
 DEPENDENCIES:
   - Capacitor
+  - FBSDKCoreKit
+  - FBSDKLoginKit
   - Firebase/Auth
   - Firebase/Core
   - GoogleSignIn
@@ -90,8 +102,11 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bolts
     - Capacitor
     - CapacitorCordova
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -109,8 +124,11 @@ SPEC REPOS:
     - TwitterKit
 
 SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Capacitor: b37060b0b2685257bedbc69e49a54a74ef30fb9a
   CapacitorCordova: a923a32bc7ad5f1f3d69664ca86ff69580343ed3
+  FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
+  FBSDKLoginKit: 7a1e411d46acc8834588eca437daf34de42e1d52
   Firebase: 02f3281965c075426141a0ce1277e9de6649cab9
   FirebaseAnalytics: 23851fe602c872130a2c5c55040b302120346cc2
   FirebaseAuth: d85d052354447f30b4b2a805ab91b511458b56a6
@@ -127,6 +145,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: fbde6f6cb06fa009616bb461ca369833a916ef48
+PODFILE CHECKSUM: 4707f7975c123ec729bb064a46eb62a2b2528f83
 
 COCOAPODS: 1.6.0

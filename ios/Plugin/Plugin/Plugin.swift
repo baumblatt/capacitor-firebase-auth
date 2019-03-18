@@ -23,33 +23,26 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
         self.providers = [
             "google.com": GoogleProviderHandler(),
-            "twitter.com": TwitterProviderHandler()
+            "twitter.com": TwitterProviderHandler(),
+            "facebook.com": FacebookProviderHandler(),
         ]
 
         self.providers["google.com"]?.initialize(plugin: self)
         self.providers["twitter.com"]?.initialize(plugin: self)
+        self.providers["facebook.com"]?.initialize(plugin: self)
     }
 
     @objc func signIn(_ call: CAPPluginCall) {
-        guard let provider = call.getObject("provider") else {
-            call.error("The provider is required")
+        guard let theProvider = self.getProvider(call: call) else {
+            // call.reject inside getProvider
             return
         }
-
-        guard let providerId = provider["providerId"] as? String else {
-            call.error("The provider Id is required")
-            return
-        }
-
-        guard let theProvider = self.providers[providerId] else {
-            call.error("Unsupported provider")
-            return
-        }
-
+        
         guard let callbackId = call.callbackId else {
             call.error("The call has no callbackId")
             return
         }
+
 
         self.callbackId = callbackId
         theProvider.signIn()
@@ -84,6 +77,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
             guard let user = authResult?.user else {
                 print("There is no user on firebase AuthResult")
+                self.handleError(message: "There is no token in Facebook sign in.")
                 return
             }
 
@@ -93,11 +87,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
     func parseUser(idToken: String, user: User) {
         guard let callbackId = self.callbackId else {
-            print("Ops, there is no callbackId for this call")
+            print("Ops, there is no callbackId parsing user")
             return
         }
 
         guard let call = self.bridge.getSavedCall(callbackId) else {
+            print("Ops, there is no saved call parsing user")
             return
         }
 
@@ -116,32 +111,27 @@ public class CapacitorFirebaseAuth: CAPPlugin {
     }
 
     func handleError(message: String) {
+        print(message)
+        
         guard let callbackId = self.callbackId else {
-            print("Ops, there is no callbackId for this call")
+            print("Ops, there is no callbackId handling error")
+            return
+        }
+        
+        guard let call = self.bridge.getSavedCall(callbackId) else {
+            print("Ops, there is no saved call handling error")
             return
         }
 
-        let call = self.bridge.getSavedCall(callbackId)
-        print(message)
-        call?.reject(message)
+        call.reject(message)
     }
 
     @objc func signOut(_ call: CAPPluginCall){
-        guard let provider = call.getObject("provider") else {
-            call.error("The provider is required")
+        guard let theProvider = self.getProvider(call: call) else {
+            // call.reject inside getProvider
             return
         }
-
-        guard let providerId = provider["providerId"] as? String else {
-            call.error("The provider Id is required")
-            return
-        }
-
-        guard let theProvider = self.providers[providerId] else {
-            call.error("Unsupported provider")
-            return
-        }
-
+        
         do {
             try theProvider.signOut()
             try Auth.auth().signOut()

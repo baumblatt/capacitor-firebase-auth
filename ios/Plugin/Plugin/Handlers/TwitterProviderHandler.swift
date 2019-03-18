@@ -35,7 +35,7 @@ class TwitterProviderHandler: NSObject, ProviderHandler {
             TWTRTwitter.sharedInstance().logIn(with: self.plugin?.bridge.viewController) { (session, error) in
                 
                 guard let session = session else {
-                    self.plugin?.handleError(message: "There is no session in Twitter provider.")
+                    self.plugin?.handleError(message: "There is no session in Twitter sign in.")
                     return
                 }
                 
