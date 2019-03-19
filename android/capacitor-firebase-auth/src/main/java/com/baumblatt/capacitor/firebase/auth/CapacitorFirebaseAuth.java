@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import java.util.HashMap;
@@ -97,15 +98,23 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     @PluginMethod()
     public void signOut(PluginCall call) {
-        if (!call.getData().has("provider")) {
-            call.reject("The provider is required");
-            return;
-        }
+        if (call.getData().has("provider")) {
+            ProviderHandler handler = this.getProviderHandler(call);
 
-        ProviderHandler handler = this.getProviderHandler(call);
+            if (handler != null) {
+                handler.signOut();
+            }
+        } else {
+            FirebaseUser currentUser = this.mAuth.getCurrentUser();
 
-        if (handler != null) {
-            handler.signOut();
+            if (currentUser != null) {
+                for (UserInfo userInfo : currentUser.getProviderData()) {
+                    ProviderHandler handler = this.providerHandlers.get(userInfo.getProviderId());
+                    if (handler != null) {
+                        handler.signOut();
+                    }
+                }
+            }
         }
 
         FirebaseAuth.getInstance().signOut();

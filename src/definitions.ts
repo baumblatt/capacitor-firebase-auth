@@ -13,5 +13,5 @@ export interface SignInResult {
 
 export interface CapacitorFirebaseAuthPlugin {
   signIn(options: {provider: {providerId: string;}}): Promise<SignInResult>;
-  signOut(options: {provider: {providerId: string;}}): Promise<void>;
+  signOut(options: {provider?: {providerId: string;}}): Promise<void>;
 }
