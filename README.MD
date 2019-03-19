@@ -83,6 +83,17 @@ npm install --save capacitor-firebase-auth
     ```
     > Don't forget to replace `[APP_ID]` and `[APP_SECRET]` by your Twitter **App ID** and **App Secret** respectively.
 
+2. In file `android/app/build.gradle` add the following lines : 
+    ```
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+    ```
+    > Please See: [Invoke-customs are only supported starting with android 0 --min-api 26](https://stackoverflow.com/questions/49891730/invoke-customs-are-only-supported-starting-with-android-0-min-api-26) on stackoverflow.com.
+
 #### Twitter iOS specific configurations
 
 1. Create the file `ios/App/App/Twitter-Info.plist` and configure your `[APP_ID]` and `[APP_SECRET]`.
