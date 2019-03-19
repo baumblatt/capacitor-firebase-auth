@@ -11,6 +11,8 @@ The Phone Number and Email/Password providers are in the Road Map.
 ## What news
 
 - How to install and config on Google, Twitter and Facebook.
+- Fix to work without Facebook configurations.
+- Better sign out implementation.
 
 ## Old news
  
@@ -38,6 +40,20 @@ npm install --save capacitor-firebase-auth
 ```
  
 ### How to Config
+
+## Capacitor Plugins
+
+1. In file `android/app/src/main/java/br/com/petrobras/br/ma02/MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
+    ```
+    [...]
+    // Initializes the Bridge
+    this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
+      // Additional plugins you've installed go here
+      // Ex: add(TotallyAwesomePlugin.class);
+      add(CapacitorFirebaseAuth.class);
+    }});
+    [...]
+    ```
 
 ## Firebase
 
