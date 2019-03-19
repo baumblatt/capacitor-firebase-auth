@@ -33,25 +33,35 @@ public class FacebookProviderHandler implements ProviderHandler {
 
         this.mCallbackManager = CallbackManager.Factory.create();
 
-        this.loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(FACEBOOK_TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
+        try {
+            this.loginButton = new LoginButton(this.plugin.getContext());
+            this.loginButton.setReadPermissions("email", "public_profile");
 
-            @Override
-            public void onCancel() {
-                Log.d(FACEBOOK_TAG, "facebook:onCancel");
-                plugin.handleFailure("Facebook Sign In cancel.", null);
-            }
+            this.mCallbackManager = CallbackManager.Factory.create();
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(FACEBOOK_TAG, "facebook:onError", error);
-                plugin.handleFailure("Facebook Sign In failure.", error);
-            }
-        });
+            this.loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d(FACEBOOK_TAG, "facebook:onSuccess:" + loginResult);
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d(FACEBOOK_TAG, "facebook:onCancel");
+                    plugin.handleFailure("Facebook Sign In cancel.", null);
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(FACEBOOK_TAG, "facebook:onError", error);
+                    plugin.handleFailure("Facebook Sign In failure.", error);
+                }
+            });
+
+        } catch (FacebookException error) {
+            Log.w(FACEBOOK_TAG, "Facebook initialization error, review your configs", error);
+        }
 
     }
 
@@ -72,7 +82,7 @@ public class FacebookProviderHandler implements ProviderHandler {
 
     @Override
     public int getRequestCode() {
-        return this.loginButton.getRequestCode();
+        return FacebookProviderHandler.RC_FACEBOOK_LOGIN;
     }
 
     @Override
