@@ -28,10 +28,6 @@ public class FacebookProviderHandler implements ProviderHandler {
     @Override
     public void init(final CapacitorFirebaseAuth plugin) {
         this.plugin = plugin;
-        this.loginButton = new LoginButton(this.plugin.getContext());
-        this.loginButton.setReadPermissions("email", "public_profile");
-
-        this.mCallbackManager = CallbackManager.Factory.create();
 
         try {
             this.loginButton = new LoginButton(this.plugin.getContext());
