@@ -105,33 +105,12 @@ export const cfaSignInFacebook = (name?: string): Observable<User> => {
 };
 
 /**
- * Call sign out method on native and web layers.
- * If providerId is undefined sing out from all signed providers.
- * @param providerId The provider identification (optional)
- * @param name The Firebase application name (optional)
- */
-export const cfaSignOut = (providerId?: string, name?: string): Observable<void> => {
-	switch (providerId) {
-		case auth.GoogleAuthProvider.PROVIDER_ID:
-			return cfaSignOutGoogle(name);
-		case auth.TwitterAuthProvider.PROVIDER_ID:
-			return cfaSignOutTwitter(name);
-		case auth.FacebookAuthProvider.PROVIDER_ID:
-			return cfaSignOutFacebook(name);
-		default:
-			return cfaSignOutProvider(undefined, name);
-	}
-};
-
-/**
  * Call Google sign out method on native and web layers.
- * If providerId is undefined sing out from all signed providers.
- * @param providerId The provider identification (optional)
  * @param name The Firebase application name (optional)
  */
-const cfaSignOutProvider = (providerId?: string, name?: string): Observable<void> => {
+export const cfaSignOut = (name?: string): Observable<void> => {
 	return new Observable(observer => {
-		plugin.signOut(providerId ? {provider: {providerId}} : {}).then(() => {
+		plugin.signOut( {name}).then(() => {
 			// web sign in
 			app(name).auth().signOut()
 				.then(() => {
@@ -141,34 +120,4 @@ const cfaSignOutProvider = (providerId?: string, name?: string): Observable<void
 				.catch(reject => observer.error(reject));
 		});
 	});
-};
-
-/**
- * Call Google sign out method on native and web layers.
- * @param name The Firebase application name (optional)
- */
-export const cfaSignOutGoogle = (name?: string): Observable<void> => {
-	// get the provider id
-	const providerId = auth.GoogleAuthProvider.PROVIDER_ID;
-	return cfaSignOutProvider(providerId, name);
-};
-
-/**
- * Call Twitter sign out method on native and web layers.
- * @param name The Firebase application name (optional)
- */
-export const cfaSignOutTwitter = (name?: string): Observable<void> => {
-	// get the provider id
-	const providerId = auth.TwitterAuthProvider.PROVIDER_ID;
-	return cfaSignOutProvider(providerId, name);
-};
-
-/**
- * Call Facebook sign out method on native and web layers.
- * @param name The Firebase application name (optional)
- */
-export const cfaSignOutFacebook = (name?: string): Observable<void> => {
-	// get the provider id
-	const providerId = auth.FacebookAuthProvider.PROVIDER_ID;
-	return cfaSignOutProvider(providerId, name);
 };

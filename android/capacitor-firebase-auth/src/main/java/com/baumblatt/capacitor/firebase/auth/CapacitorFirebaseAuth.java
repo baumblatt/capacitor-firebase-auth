@@ -79,18 +79,15 @@ public class CapacitorFirebaseAuth extends Plugin {
         JSObject provider = call.getObject("provider", new JSObject());
         String providerId = provider.getString("providerId", null);
 
-//        FirebaseUser currentUser = this.mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            CapacitorFirebaseAuth.parseUser(currentUser, call, this.getActivity());
-//            return;
-//        }
-
         ProviderHandler handler = this.providerHandlers.get(providerId);
 
         if (handler == null) {
             Log.w(PLUGIN_TAG, "Provider not supported");
             call.reject("Provider not supported");
         } else {
+
+            //TODO: Try get the previous authentication in the provider data.
+
             this.saveCall(call);
             handler.signIn(call);
         }
@@ -98,21 +95,13 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     @PluginMethod()
     public void signOut(PluginCall call) {
-        if (call.getData().has("provider")) {
-            ProviderHandler handler = this.getProviderHandler(call);
+        FirebaseUser currentUser = this.mAuth.getCurrentUser();
 
-            if (handler != null) {
-                handler.signOut();
-            }
-        } else {
-            FirebaseUser currentUser = this.mAuth.getCurrentUser();
-
-            if (currentUser != null) {
-                for (UserInfo userInfo : currentUser.getProviderData()) {
-                    ProviderHandler handler = this.providerHandlers.get(userInfo.getProviderId());
-                    if (handler != null) {
-                        handler.signOut();
-                    }
+        if (currentUser != null) {
+            for (UserInfo userInfo : currentUser.getProviderData()) {
+                ProviderHandler handler = this.providerHandlers.get(userInfo.getProviderId());
+                if (handler != null) {
+                    handler.signOut();
                 }
             }
         }
