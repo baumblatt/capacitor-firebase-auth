@@ -13,6 +13,7 @@ The Phone Number and Email/Password providers are in the Road Map.
 - How to install and config on Google, Twitter and Facebook.
 - Fix to work without Facebook configurations.
 - Better sign out implementation.
+- Better observable implementations on js facade.
 
 ## Old news
  
