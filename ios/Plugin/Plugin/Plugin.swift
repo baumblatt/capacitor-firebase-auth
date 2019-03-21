@@ -127,13 +127,18 @@ public class CapacitorFirebaseAuth: CAPPlugin {
     }
 
     @objc func signOut(_ call: CAPPluginCall){
-        guard let theProvider = self.getProvider(call: call) else {
-            // call.reject inside getProvider
+        guard let userInfos = Auth.auth().currentUser else {
+            // there is no user to sign out
             return
         }
         
         do {
-            try theProvider.signOut()
+            for userInfo in userInfos.providerData {
+                if (self.providers[userInfo.providerID] != nil) {
+                    try self.providers[userInfo.providerID]?.signOut()
+                }
+            }
+            
             try Auth.auth().signOut()
             call.success()
         } catch let signOutError as NSError {

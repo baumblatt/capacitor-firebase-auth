@@ -63,6 +63,19 @@ npm install --save capacitor-firebase-auth
     * [Add Firebase to your iOS project ](https://firebase.google.com/docs/ios/setup)
 2. If you haven't yet connected your app to your Firebase project, do so from the [Firebase console](https://console.firebase.google.com/).
 
+#### Firebase iOS specific configurations
+
+3. Add the pods that you want to install. You can include a Pod in your Podfile like this:
+
+    ```
+    target 'App' do
+      capacitor_pods
+      # Add your Pods here
+        pod 'Firebase/Core'
+        pod 'Firebase/Auth'
+    end
+    ```
+
 ## Google
 
 #### Google global configurations
@@ -79,7 +92,7 @@ npm install --save capacitor-firebase-auth
 
 1. Add custom URL schemes to your Xcode project:
     * Open your project configuration: double-click the project name in the left tree view. Select your app from the **TARGETS** section, then select the **Info** tab, and expand the **URL Types** section.
-    * Click the **+** button, and add a `URL` scheme for your reversed client ID. To find this value, open the `GoogleService-Info.plist` configuration file, and look for the `REVERSED_CLIENT_ID` key. Copy the value of that key, and paste it into the **URL Schemes** box on the configuration page. Leave the other fields blank.
+    * Click the **+** button, and add a `URL scheme` for your reversed client ID. To find this value, open the `GoogleService-Info.plist` configuration file, and look for the `REVERSED_CLIENT_ID` key. Copy the value of that key, and paste it into the **URL Schemes** box on the configuration page. Leave the other fields blank.
 
 ## Twitter
 
@@ -218,7 +231,20 @@ npm install --save capacitor-firebase-auth
    * Open your project configuration: double-click the project name in the left tree view. Select your app from the **TARGETS** section, then select the **Info** tab, and expand the **URL Types** section.
    * Click the **+** button, and add a `URL` scheme for the Callback URL of Facebook Kit for iOS. In **URL Schemes** box on the configuration page use `fb[APP_ID]`. Leave the other fields blank.
 
-3. Dispatch the designated callback URL to Facebook Kit in your `ios/App/App/AppDelegate.swift` file. 
+3. Add the pods that you want to install. You can include a Pod in your Podfile like this:
+
+    ```
+    target 'App' do
+      capacitor_pods
+      # Add your Pods here
+        pod 'Firebase/Core'
+        pod 'Firebase/Auth'
+        pod 'FBSDKCoreKit'
+        pod 'FBSDKLoginKit'
+    end
+    ```
+
+4. Dispatch the designated callback URL to Facebook Kit in your `ios/App/App/AppDelegate.swift` file. 
     ```
       func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Called when the app was launched with a url. Feel free to add additional processing here,
@@ -246,4 +272,10 @@ Work in progress
 
 #### Sing out
 
-Work in progress
+```typescript
+import {cfaSignOut} from 'capacitor-firebase-auth';
+
+[...]
+
+cfaSignOut().subscribe()
+```
