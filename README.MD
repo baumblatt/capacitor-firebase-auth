@@ -10,13 +10,14 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
+- Phone verification sign in on Android platform.
+
+## Old news
+ 
 - How to install and config on Google, Twitter and Facebook.
 - Fix to work without Facebook configurations.
 - Better sign out implementation.
 - Better observable implementations on js facade.
-
-## Old news
- 
 - Facebook Provider authentication in iOS platform
 - Facebook Provider authentication in Android platform
 - Twitter Provider authentication in iOS platform
@@ -28,9 +29,8 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## Next steps
 
-1. How to use in web view.
-2. Phone Number Provider
-3. Email/Password Provider
+1. Phone Number Provider in iOS platform
+2. Email/Password Provider
 
 ### How to Install
 
@@ -62,6 +62,8 @@ npm install --save capacitor-firebase-auth
     * [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
     * [Add Firebase to your iOS project ](https://firebase.google.com/docs/ios/setup)
 2. If you haven't yet connected your app to your Firebase project, do so from the [Firebase console](https://console.firebase.google.com/).
+
+> Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
 
 #### Firebase iOS specific configurations
 
@@ -268,14 +270,26 @@ npm install --save capacitor-firebase-auth
 
 #### Sign in
 
-Work in progress
+```typescript
+import {cfaSignIn} from 'capacitor-firebase-auth';
+
+cfaSignIn('google.com').subscribe(
+	user => console.log(user.displayName);
+)
+```
 
 #### Sing out
 
 ```typescript
 import {cfaSignOut} from 'capacitor-firebase-auth';
 
-[...]
+//[...]
 
 cfaSignOut().subscribe()
 ```
+
+## Known limitations
+
+#### Phone Verification
+
+The user will be **signed in** only in web layer. This limitation is due to the **verification code** only works once. So, there is no way to authenticate the user in both layers (native and web) with just one SMS Code.

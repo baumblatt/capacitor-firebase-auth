@@ -7,6 +7,7 @@ import android.util.SparseArray;
 
 import com.baumblatt.capacitor.firebase.auth.handlers.FacebookProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
+import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.ProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.TwitterProviderHandler;
 import com.getcapacitor.JSObject;
@@ -45,6 +46,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         //TODO Get the Firebase App
         Log.d(PLUGIN_TAG, "Retrieving FirebaseAuth instance");
         this.mAuth = FirebaseAuth.getInstance();
+        this.mAuth.setLanguageCode("pt");
 
         Log.d(PLUGIN_TAG, "Initializing Google Provider");
         String provider = getContext().getString(R.string.google_provider_id);
@@ -63,6 +65,12 @@ public class CapacitorFirebaseAuth extends Plugin {
         this.providerHandlers.put(provider, new FacebookProviderHandler());
         this.providerHandlers.get(provider).init(this);
         Log.d(PLUGIN_TAG, "Facebook Provider Initialized");
+
+        Log.d(PLUGIN_TAG, "Initializing Phone Provider");
+        provider = getContext().getString(R.string.phone_provider_id);
+        this.providerHandlers.put(provider, new PhoneProviderHandler());
+        this.providerHandlers.get(provider).init(this);
+        Log.d(PLUGIN_TAG, "Phone Provider Initialized");
 
         for (ProviderHandler providerHandler : this.providerHandlers.values()) {
             this.providerHandlerByRC.put(providerHandler.getRequestCode(), providerHandler);
@@ -199,7 +207,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
     }
 
-    private void parseUser(String token, FirebaseUser user, PluginCall call) {
+    public void parseUser(String token, FirebaseUser user, PluginCall call) {
         Log.d(PLUGIN_TAG, "Parsing Firebase user.");
 
         JSObject jsUser = new JSObject();

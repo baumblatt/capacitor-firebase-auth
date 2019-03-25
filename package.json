@@ -13,10 +13,11 @@
   "author": "Bernardo Baumblatt",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "latest"
+    "@capacitor/core": "latest",
+    "rxjs": "^6.4.0"
   },
   "devDependencies": {
-    "typescript": "^2.6.2"
+    "typescript": "~3.2.2"
   },
   "peerDependencies": {
     "firebase": "^5.8.6",

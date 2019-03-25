@@ -4,4 +4,5 @@
     <string name="label_google_sign_in">Google Sign In</string>
     <string name="twitter_provider_id">twitter.com</string>
     <string name="facebook_provider_id">facebook.com</string>
+    <string name="phone_provider_id">phone</string>
 </resources>
