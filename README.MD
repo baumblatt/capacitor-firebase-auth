@@ -1,3 +1,6 @@
+
+[![npm version](https://badge.fury.io/js/capacitor-firebase-auth.svg)](https://badge.fury.io/js/capacitor-firebase-auth)
+
 # capacitor-firebase-auth
 
 Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sing in process complete the user will be signed in in both tiers.
