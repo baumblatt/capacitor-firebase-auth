@@ -74,7 +74,7 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
             if(account != null) {
                 Log.d(GOOGLE_TAG, "Google Sign In succeed.");
                 AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-                this.plugin.handleAuthCredentials(account.getIdToken(), credential);
+                this.plugin.handleAuthCredentials(credential);
                 return;
             }
         } catch (ApiException exception) {
@@ -88,8 +88,15 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
     }
 
     @Override
-    public void fillUser(JSObject jsUser, FirebaseUser user) {
+    public boolean isAuthenticated() {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this.plugin.getContext());
+        return account != null;
+    }
 
+    @Override
+    public void fillResult(JSObject jsResult) {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this.plugin.getContext());
+        jsResult.put("idToken", account.getIdToken());
     }
 
     @Override

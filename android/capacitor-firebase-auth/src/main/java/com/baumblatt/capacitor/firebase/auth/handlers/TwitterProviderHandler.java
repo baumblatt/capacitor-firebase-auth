@@ -83,13 +83,20 @@ public class TwitterProviderHandler implements ProviderHandler {
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
 
-        this.plugin.handleAuthCredentials(session.getAuthToken().token, credential);
+        this.plugin.handleAuthCredentials(credential);
     }
 
     @Override
-    public void fillUser(JSObject jsUser, FirebaseUser user) {
+    public boolean isAuthenticated() {
         TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-        jsUser.put("secret", session.getAuthToken().secret);
+        return session != null;
+    }
+
+    @Override
+    public void fillResult(JSObject jsResult) {
+        TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+        jsResult.put("idToken", session.getAuthToken().token);
+        jsResult.put("secret", session.getAuthToken().secret);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.ProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.TwitterProviderHandler;
+import com.getcapacitor.Config;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
@@ -18,6 +19,7 @@ import com.getcapacitor.PluginMethod;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,16 +36,20 @@ import java.util.Map;
         FacebookProviderHandler.RC_FACEBOOK_LOGIN
 })
 public class CapacitorFirebaseAuth extends Plugin {
+    public static final String CONFIG_KEY_PREFIX = "plugins.CapacitorFirebaseAuth.";
     private static final String PLUGIN_TAG = "CapacitorFirebaseAuth";
 
     private FirebaseAuth mAuth;
     private Map<String, ProviderHandler> providerHandlers = new HashMap<>();
     private SparseArray<ProviderHandler> providerHandlerByRC = new SparseArray<>();
 
+    private boolean nativeAuth = false;
+
     public void load() {
         super.load();
 
-        //TODO Get the Firebase App
+        this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
+
         Log.d(PLUGIN_TAG, "Retrieving FirebaseAuth instance");
         this.mAuth = FirebaseAuth.getInstance();
         this.mAuth.setLanguageCode("pt");
@@ -79,42 +85,42 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     @PluginMethod()
     public void signIn(PluginCall call) {
-        if (!call.getData().has("provider")) {
-            call.reject("The provider is required");
+        if (!call.getData().has("providerId")) {
+            call.reject("The provider id is required");
             return;
         }
 
-        JSObject provider = call.getObject("provider", new JSObject());
-        String providerId = provider.getString("providerId", null);
-
-        ProviderHandler handler = this.providerHandlers.get(providerId);
+        ProviderHandler handler = this.getProviderHandler(call);
 
         if (handler == null) {
             Log.w(PLUGIN_TAG, "Provider not supported");
             call.reject("Provider not supported");
         } else {
 
-            //TODO: Try get the previous authentication in the provider data.
+            if (handler.isAuthenticated()) {
+                JSObject jsResult = this.build(call);
+                call.success(jsResult);
+            } else {
+                this.saveCall(call);
+                handler.signIn(call);
+            }
 
-            this.saveCall(call);
-            handler.signIn(call);
         }
     }
 
     @PluginMethod()
     public void signOut(PluginCall call) {
-        FirebaseUser currentUser = this.mAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            for (UserInfo userInfo : currentUser.getProviderData()) {
-                ProviderHandler handler = this.providerHandlers.get(userInfo.getProviderId());
-                if (handler != null) {
-                    handler.signOut();
-                }
-            }
+        // sing out from providers
+        for (ProviderHandler providerHandler : this.providerHandlers.values()) {
+            providerHandler.signOut();
         }
 
-        FirebaseAuth.getInstance().signOut();
+        // sign out from firebase
+        FirebaseUser currentUser = this.mAuth.getCurrentUser();
+        if (currentUser != null) {
+            this.mAuth.signOut();
+        }
+
         call.success();
     }
 
@@ -124,9 +130,7 @@ public class CapacitorFirebaseAuth extends Plugin {
     }
 
     private ProviderHandler getProviderHandler(PluginCall call) {
-        JSObject provider = call.getObject("provider", new JSObject());
-        String providerId = provider.getString("providerId", null);
-
+        String providerId = call.getString("providerId", null);
         return this.providerHandlers.get(providerId);
     }
 
@@ -149,7 +153,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
     }
 
-    public void handleAuthCredentials(final String idToken, final AuthCredential credential) {
+    public void handleAuthCredentials(AuthCredential credential) {
         final PluginCall savedCall = getSavedCall();
         if (savedCall == null) {
             Log.d(PLUGIN_TAG, "No saved call on activity result.");
@@ -159,38 +163,49 @@ public class CapacitorFirebaseAuth extends Plugin {
         if (credential == null) {
             Log.w(PLUGIN_TAG, "Sign In failure: credentials.");
             savedCall.reject("Sign In failure: credentials.");
-        } else {
-            FirebaseAuth.getInstance().signInWithCredential(credential)
-                    .addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(PLUGIN_TAG, "Firebase Sign In with Credential succeed.");
-                                FirebaseUser user = mAuth.getCurrentUser();
-
-                                if (user == null) {
-                                    Log.w(PLUGIN_TAG, "Ops, no Firebase user after Sign In with Credential succeed.");
-                                    savedCall.reject("Ops, no Firebase user after Sign In with Credential succeed");
-                                } else {
-                                    parseUser(idToken, user, savedCall);
-                                }
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", task.getException());
-                                savedCall.reject("Firebase Sign In with Credential failure.");
-                            }
-                        }
-                    }).addOnFailureListener(this.getActivity(), new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception ex) {
-                            // If sign in fails, display a message to the user.
-                            Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", ex);
-                            savedCall.reject("Firebase Sign In with Credential failure.");
-
-                        }
-            });
+            return;
         }
+
+        if (this.nativeAuth) {
+            nativeAuth(savedCall, credential);
+        } else {
+            JSObject jsResult = this.build(savedCall);
+            savedCall.success(jsResult);
+        }
+    }
+
+    private void nativeAuth(final PluginCall savedCall, final AuthCredential credential) {
+        this.mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(PLUGIN_TAG, "Firebase Sign In with Credential succeed.");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            if (user == null) {
+                                Log.w(PLUGIN_TAG, "Ops, no Firebase user after Sign In with Credential succeed.");
+                                savedCall.reject("Ops, no Firebase user after Sign In with Credential succeed");
+                            } else {
+                                JSObject jsResult = build(savedCall);
+                                savedCall.success(jsResult);
+                            }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", task.getException());
+                            savedCall.reject("Firebase Sign In with Credential failure.");
+                        }
+                    }
+                }).addOnFailureListener(this.getActivity(), new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception ex) {
+                        // If sign in fails, display a message to the user.
+                        Log.w(PLUGIN_TAG, "Firebase Sign In with Credential failure.", ex);
+                        savedCall.reject("Firebase Sign In with Credential failure.");
+
+                    }
+        });
     }
 
     public void handleFailure(String message, Exception e) {
@@ -207,21 +222,18 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
     }
 
-    public void parseUser(String token, FirebaseUser user, PluginCall call) {
-        Log.d(PLUGIN_TAG, "Parsing Firebase user.");
+    private JSObject build(PluginCall call) {
+        Log.d(PLUGIN_TAG, "Building authentication result");
 
-        JSObject jsUser = new JSObject();
-        jsUser.put("callbackId", call.getCallbackId());
-        jsUser.put("providerId", user.getProviderId());
-        jsUser.put("displayName", user.getDisplayName());
-        jsUser.put("idToken", token);
+        JSObject jsResult = new JSObject();
+        jsResult.put("callbackId", call.getCallbackId());
+        jsResult.put("providerId", call.getString("providerId"));
 
         ProviderHandler handler = this.getProviderHandler(call);
         if (handler != null) {
-            handler.fillUser(jsUser, user);
+            handler.fillResult(jsResult);
         }
 
-        Log.d(PLUGIN_TAG, "Firebase user parsed.");
-        call.success(jsUser);
+        return jsResult;
     }
 }

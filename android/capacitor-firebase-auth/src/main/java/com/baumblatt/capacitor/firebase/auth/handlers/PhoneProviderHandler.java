@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
-import com.baumblatt.capacitor.firebase.auth.R;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
@@ -50,9 +48,6 @@ public class PhoneProviderHandler implements ProviderHandler {
                 jsUser.put("verificationCode", mVerificationCode);
 
                 call.success(jsUser);
-
-                // For awhile, is not possible to sign in the user in both layers.
-                // plugin.handleAuthCredentials(null, credential);
             }
 
             @Override
@@ -99,7 +94,7 @@ public class PhoneProviderHandler implements ProviderHandler {
             return;
         }
 
-        String code = data.getString("code", "");
+        String code = data.getString("verificationCode", "");
         if(code.equalsIgnoreCase("null") || code.equalsIgnoreCase("")) {
             PhoneAuthProvider.getInstance().verifyPhoneNumber
                     (phone, 60, TimeUnit.SECONDS, this.plugin.getActivity(), this.mCallbacks);
@@ -107,7 +102,7 @@ public class PhoneProviderHandler implements ProviderHandler {
         } else {
             AuthCredential credential = PhoneAuthProvider.getCredential(this.mVerificationId, code);
             this.mVerificationCode = code;
-            plugin.handleAuthCredentials(null, credential);
+            plugin.handleAuthCredentials(credential);
         }
 
         mVerificationInProgress = true;
@@ -129,7 +124,12 @@ public class PhoneProviderHandler implements ProviderHandler {
     }
 
     @Override
-    public void fillUser(JSObject jsUser, FirebaseUser user) {
+    public boolean isAuthenticated() {
+        return false;
+    }
+
+    @Override
+    public void fillResult(JSObject jsUser) {
         jsUser.put("verificationId", this.mVerificationId);
         jsUser.put("verificationCode", this.mVerificationCode);
 

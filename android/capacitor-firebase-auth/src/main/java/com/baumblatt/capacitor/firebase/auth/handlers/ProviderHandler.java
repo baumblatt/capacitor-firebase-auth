@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 
 public interface ProviderHandler {
@@ -16,5 +17,7 @@ public interface ProviderHandler {
     int getRequestCode();
     void handleOnActivityResult(int requestCode, int resultCode, Intent data);
 
-    void fillUser(JSObject object, FirebaseUser user);
+    boolean isAuthenticated();
+
+    void fillResult(JSObject object);
 }

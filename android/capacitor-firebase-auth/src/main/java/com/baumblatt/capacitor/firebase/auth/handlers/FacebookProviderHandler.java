@@ -15,7 +15,6 @@ import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseUser;
 
 public class FacebookProviderHandler implements ProviderHandler {
     private static final String FACEBOOK_TAG = "TwitterProviderHandler";
@@ -63,7 +62,7 @@ public class FacebookProviderHandler implements ProviderHandler {
 
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        this.plugin.handleAuthCredentials(token.getToken(), credential);
+        this.plugin.handleAuthCredentials(credential);
     }
 
     @Override
@@ -88,7 +87,16 @@ public class FacebookProviderHandler implements ProviderHandler {
     }
 
     @Override
-    public void fillUser(JSObject object, FirebaseUser user) {
+    public boolean isAuthenticated() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null && !accessToken.isExpired();
+    }
 
+    @Override
+    public void fillResult(JSObject jsResult) {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if(accessToken != null && !accessToken.isExpired()) {
+            jsResult.put("idToken", accessToken.getToken());
+        }
     }
 }
