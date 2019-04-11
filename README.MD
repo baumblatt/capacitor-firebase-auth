@@ -13,10 +13,11 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
-- Phone verification sign in on Android platform.
+- Configuration for when authenticate on native layer (default false to avoid double billing)
+- WIP: Phone verification sign in on iOS platform.
 
 ## Old news
- 
+- Phone verification sign in on Android platform. 
 - How to install and config on Google, Twitter and Facebook.
 - Fix to work without Facebook configurations.
 - Better sign out implementation.
@@ -58,6 +59,18 @@ npm install --save capacitor-firebase-auth
     }});
     [...]
     ```
+    
+2. In file `capacitor.config.json` config the native authentication as desired
+    ```
+    [...]
+      "plugins": {
+        "CapacitorFirebaseAuth": {
+          "nativeAuth": false
+        }
+      }
+    [...]
+    ```
+> By default the plugin does not authenticate on native layer to avoid double billing, if needed just change the param to `true`.
 
 ## Firebase
 
