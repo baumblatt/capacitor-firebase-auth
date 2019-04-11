@@ -15,7 +15,7 @@ class FacebookProviderHandler: NSObject, ProviderHandler {
         self.loginManager = FBSDKLoginManager()
     }
     
-    func signIn() {
+    func signIn(call: CAPPluginCall) {
         self.loginManager!.logIn(withReadPermissions: ["public_profile", "email"], from: self.plugin!.bridge.viewController) {
             ( result: FBSDKLoginManagerLoginResult?, error: Error?) in
             
@@ -32,12 +32,27 @@ class FacebookProviderHandler: NSObject, ProviderHandler {
             }
 
             let credential = FacebookAuthProvider.credential(withAccessToken: token.tokenString)
-            self.plugin!.authenticate(idToken: token.tokenString, credential: credential)
+            self.plugin?.handleAuthCredentials(credential: credential)
         }
     }
     
-    func fillUser(data: PluginResultData) -> PluginResultData {
-        return data
+    func isAuthenticated() -> Bool {
+        return FBSDKAccessToken.current() != nil
+    }
+    
+    func fillResult(data: PluginResultData) -> PluginResultData {
+        guard let accessToken = FBSDKAccessToken.current() else {
+            return data
+        }
+        
+        var jsResult: PluginResultData = [:]
+        data.map { (key, value) in
+            jsResult[key] = value
+        }
+        
+        jsResult["idToken"] = accessToken.tokenString
+        
+        return jsResult
     }
     
     func signOut(){

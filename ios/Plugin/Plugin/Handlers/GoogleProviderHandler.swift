@@ -65,20 +65,34 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate, GIDSi
         }
         
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        
-        self.plugin?.authenticate(idToken: authentication.idToken, credential: credential);
+        self.plugin?.handleAuthCredentials(credential: credential);
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         self.signOut()
     }
     
-    func signIn() {
+    func signIn(call: CAPPluginCall) {
         GIDSignIn.sharedInstance()?.signIn();
     }
     
-    func fillUser(data: PluginResultData) -> PluginResultData {
-        return data
+    func isAuthenticated() -> Bool {
+        return GIDSignIn.sharedInstance()?.currentUser != nil
+    }
+    
+    func fillResult(data: PluginResultData) -> PluginResultData {
+        guard let currentUser = GIDSignIn.sharedInstance()?.currentUser else {
+            return data
+        }
+        
+        var jsResult: PluginResultData = [:]
+        data.map { (key, value) in
+            jsResult[key] = value
+        }
+    
+        jsResult["idToken"] = currentUser.authentication.idToken
+    
+        return jsResult
     }
     
     func signOut(){

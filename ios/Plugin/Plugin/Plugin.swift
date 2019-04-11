@@ -14,26 +14,34 @@ typealias ProvidersMap = [String:ProviderHandler]
  */
 @objc(CapacitorFirebaseAuth)
 public class CapacitorFirebaseAuth: CAPPlugin {
+    
+    var nativeAuth: Bool = false
 
     var callbackId: String? = nil
     var providers: ProvidersMap = [:]
 
     public override func load() {
-        FirebaseApp.configure()
+        self.nativeAuth = self.getConfigValue("nativeAuth") as? Bool ?? false
+        
+        if (FirebaseApp.app() == nil) {
+            FirebaseApp.configure()
+        }
 
         self.providers = [
             "google.com": GoogleProviderHandler(),
             "twitter.com": TwitterProviderHandler(),
             "facebook.com": FacebookProviderHandler(),
+            "phone": PhoneNumberProviderHandler()
         ]
 
         self.providers["google.com"]?.initialize(plugin: self)
         self.providers["twitter.com"]?.initialize(plugin: self)
         self.providers["facebook.com"]?.initialize(plugin: self)
+        self.providers["phone"]?.initialize(plugin: self)
     }
 
     @objc func signIn(_ call: CAPPluginCall) {
-        guard let theProvider = self.getProvider(call: call) else {
+        guard let theProvider : ProviderHandler = self.getProvider(call: call) else {
             // call.reject inside getProvider
             return
         }
@@ -43,19 +51,22 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-
         self.callbackId = callbackId
-        theProvider.signIn()
         call.save()
+        
+        DispatchQueue.main.async {
+            if (theProvider.isAuthenticated()) {
+                self.buildResult();
+                return
+            }
+            
+            theProvider.signIn(call: call)
+        }
+
     }
 
     func getProvider(call: CAPPluginCall) -> ProviderHandler? {
-        guard let provider = call.getObject("provider") else {
-            call.error("The provider is required")
-            return nil
-        }
-
-        guard let providerId = provider["providerId"] as? String else {
+        guard let providerId = call.getString("providerId") else {
             call.error("The provider Id is required")
             return nil
         }
@@ -67,8 +78,16 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
         return theProvider
     }
+    
+    func handleAuthCredentials(credential: AuthCredential) {
+        if (self.nativeAuth) {
+            self.authenticate(credential: credential)
+        } else {
+            self.buildResult()
+        }
+    }
 
-    func authenticate(idToken: String, credential: AuthCredential) {
+    func authenticate(credential: AuthCredential) {
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
                 self.handleError(message: error.localizedDescription)
@@ -81,33 +100,41 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 return
             }
 
-            self.parseUser(idToken: idToken, user: user);
+            guard let callbackId = self.callbackId else {
+                print("Ops, there is no callbackId building result")
+                return
+            }
+            
+            guard let call = self.bridge.getSavedCall(callbackId) else {
+                print("Ops, there is no saved call building result")
+                return
+            }
+            
+            self.buildResult();
         }
     }
-
-    func parseUser(idToken: String, user: User) {
+    
+    func buildResult() {
         guard let callbackId = self.callbackId else {
-            print("Ops, there is no callbackId parsing user")
+            print("Ops, there is no callbackId building result")
             return
         }
 
         guard let call = self.bridge.getSavedCall(callbackId) else {
-            print("Ops, there is no saved call parsing user")
+            print("Ops, there is no saved call building result")
             return
         }
-
-        let jsUser: PluginResultData = [
-            "providerId": user.providerID,
-            "displayName": user.displayName,
-            "idToken": idToken
+        
+        let jsResult: PluginResultData = [
+            "callbackId": callbackId,
+            "providerId": call.getString("providerId"),
         ]
-
-        guard let provider = self.getProvider(call: call) else {
-            call.success(jsUser)
+        
+        guard let provider: ProviderHandler = self.getProvider(call: call) else {
             return
         }
 
-        call.success(provider.fillUser(data: jsUser))
+        call.success(provider.fillResult(data: jsResult));
     }
 
     func handleError(message: String) {
@@ -127,19 +154,15 @@ public class CapacitorFirebaseAuth: CAPPlugin {
     }
 
     @objc func signOut(_ call: CAPPluginCall){
-        guard let userInfos = Auth.auth().currentUser else {
-            // there is no user to sign out
-            return
-        }
-        
         do {
-            for userInfo in userInfos.providerData {
-                if (self.providers[userInfo.providerID] != nil) {
-                    try self.providers[userInfo.providerID]?.signOut()
-                }
+            for provider in self.providers.values {
+                try provider.signOut()
             }
             
-            try Auth.auth().signOut()
+            if (Auth.auth().currentUser != nil) {
+                try Auth.auth().signOut()
+            }
+            
             call.success()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)

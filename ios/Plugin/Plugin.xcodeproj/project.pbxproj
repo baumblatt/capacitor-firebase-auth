@@ -18,6 +18,7 @@
 		DA34D39B22328D9400326C50 /* ProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34D39A22328D9400326C50 /* ProviderHandler.swift */; };
 		DA34D39D22328E4900326C50 /* GoogleProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34D39C22328E4900326C50 /* GoogleProviderHandler.swift */; };
 		DA8E24E4223977D60030886C /* TwitterProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8E24E3223977D60030886C /* TwitterProviderHandler.swift */; };
+		DAF56119224A506B00751B26 /* PhoneNumberProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF56118224A506B00751B26 /* PhoneNumberProvider.swift */; };
 		DAFD89D6223ED7D20082332B /* FacebookProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFD89D5223ED7D20082332B /* FacebookProviderHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		DA5BC0DB22338541006F86D1 /* Plugin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Plugin-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA5BC0DE2236BDDB006F86D1 /* FirebaseCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8E24E3223977D60030886C /* TwitterProviderHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterProviderHandler.swift; sourceTree = "<group>"; };
+		DAF56118224A506B00751B26 /* PhoneNumberProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberProvider.swift; sourceTree = "<group>"; };
 		DAFD89D5223ED7D20082332B /* FacebookProviderHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookProviderHandler.swift; sourceTree = "<group>"; };
 		F65BB2953ECE002E1EF3E424 /* Pods-PluginTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PluginTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PluginTests/Pods-PluginTests.release.xcconfig"; sourceTree = "<group>"; };
 		F6753A823D3815DB436415E3 /* Pods_PluginTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PluginTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +150,7 @@
 				DA34D39A22328D9400326C50 /* ProviderHandler.swift */,
 				DA34D39C22328E4900326C50 /* GoogleProviderHandler.swift */,
 				DA8E24E3223977D60030886C /* TwitterProviderHandler.swift */,
+				DAF56118224A506B00751B26 /* PhoneNumberProvider.swift */,
 			);
 			path = Handlers;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 			files = (
 				DA8E24E4223977D60030886C /* TwitterProviderHandler.swift in Sources */,
 				DA34D39D22328E4900326C50 /* GoogleProviderHandler.swift in Sources */,
+				DAF56119224A506B00751B26 /* PhoneNumberProvider.swift in Sources */,
 				DA34D39B22328D9400326C50 /* ProviderHandler.swift in Sources */,
 				DAFD89D6223ED7D20082332B /* FacebookProviderHandler.swift in Sources */,
 				50E1A94820377CB70090CE1A /* Plugin.swift in Sources */,

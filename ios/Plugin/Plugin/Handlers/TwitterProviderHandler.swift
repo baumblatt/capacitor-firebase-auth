@@ -30,7 +30,7 @@ class TwitterProviderHandler: NSObject, ProviderHandler {
         TWTRTwitter.sharedInstance().start(withConsumerKey: apiKey, consumerSecret: apiSecret)
     }
 
-    func signIn() {
+    func signIn(call: CAPPluginCall) {
         DispatchQueue.main.async {
             TWTRTwitter.sharedInstance().logIn(with: self.plugin?.bridge.viewController) { (session, error) in
                 
@@ -40,24 +40,29 @@ class TwitterProviderHandler: NSObject, ProviderHandler {
                 }
                 
                 let credential = TwitterAuthProvider.credential(withToken: session.authToken, secret: session.authTokenSecret);
-                self.plugin?.authenticate(idToken: session.authToken, credential: credential)
+                self.plugin?.handleAuthCredentials(credential: credential)
             }
         }
     }
     
-    func fillUser(data: PluginResultData) -> PluginResultData {
+    func isAuthenticated() -> Bool {
+        return TWTRTwitter.sharedInstance().sessionStore.session() != nil
+    }
+    
+    func fillResult(data: PluginResultData) -> PluginResultData {
         guard let session = TWTRTwitter.sharedInstance().sessionStore.session() else {
             return data;
         }
-
-        var jsUser: PluginResultData = [:]
+        
+        var jsResult: PluginResultData = [:]
         data.map { (key, value) in
-            jsUser[key] = value
+            jsResult[key] = value
         }
         
-        jsUser["secret"] = session.authTokenSecret
+        jsResult["idToken"] = session.authToken
+        jsResult["secret"] = session.authTokenSecret
         
-        return jsUser
+        return jsResult
     }
     
     func signOut() {
