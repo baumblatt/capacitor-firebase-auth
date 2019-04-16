@@ -50,6 +50,13 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
 
+        // FirebaseApp is not initialized in this process - Error #1
+        Log.d(PLUGIN_TAG, "Verifying if the default FirebaseApp was initialized.");
+        if(FirebaseApp.getInstance() == null) {
+            Log.d(PLUGIN_TAG, "Initializing the default FirebaseApp ");
+            FirebaseApp.initializeApp(this.getContext());
+        }
+
         Log.d(PLUGIN_TAG, "Retrieving FirebaseAuth instance");
         this.mAuth = FirebaseAuth.getInstance();
         this.mAuth.setLanguageCode("pt");

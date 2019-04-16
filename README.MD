@@ -14,6 +14,7 @@ The Phone Number and Email/Password providers are in the Road Map.
 ## What news
 
 - Configuration for when authenticate on native layer (default false to avoid double billing)
+- Fix the issue #1: Default FirebaseApp is not initialized on Android platform
 - WIP: Phone verification sign in on iOS platform.
 
 ## Old news
@@ -48,7 +49,19 @@ npm install --save capacitor-firebase-auth
 
 ## Capacitor Plugins
 
-1. In file `android/app/src/main/java/br/com/petrobras/br/ma02/MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
+1. In file `capacitor.config.json` config the native authentication as desired
+    ```
+    [...]
+      "plugins": {
+        "CapacitorFirebaseAuth": {
+          "nativeAuth": false
+        }
+      }
+    [...]
+    ```
+
+
+2. In file `android/app/src/main/java/br/com/petrobras/br/ma02/MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
     ```
     [...]
     // Initializes the Bridge
@@ -60,17 +73,16 @@ npm install --save capacitor-firebase-auth
     [...]
     ```
     
-2. In file `capacitor.config.json` config the native authentication as desired
+3. In file `android/app/build.gradle` add the following lines : 
     ```
-    [...]
-      "plugins": {
-        "CapacitorFirebaseAuth": {
-          "nativeAuth": false
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
-      }
-    [...]
+    }
     ```
-> By default the plugin does not authenticate on native layer to avoid double billing, if needed just change the param to `true`.
+    > Sorry, but even if you are not using Twitter authentication, this will be needed, see Twitter section for detail.
 
 ## Firebase
 
