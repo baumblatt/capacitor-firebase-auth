@@ -103,7 +103,7 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         if (handler == null) {
             Log.w(PLUGIN_TAG, "Provider not supported");
-            call.reject("Provider not configured or not supported");
+            call.reject("The provider is disable or unsupported");
         } else {
 
             if (handler.isAuthenticated()) {
