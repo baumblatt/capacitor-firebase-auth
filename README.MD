@@ -13,11 +13,13 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
+- Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
+- Dependency updates for android platform (Firebase 17 and Facebook 5)
+
+## Old news
 - Configuration for when authenticate on native layer (default false to avoid double billing)
 - Fix the issue #1: Default FirebaseApp is not initialized on Android platform
 - WIP: Phone verification sign in on iOS platform.
-
-## Old news
 - Phone verification sign in on Android platform. 
 - How to install and config on Google, Twitter and Facebook.
 - Fix to work without Facebook configurations.
@@ -49,11 +51,12 @@ npm install --save capacitor-firebase-auth
 
 ## Capacitor Plugins
 
-1. In file `capacitor.config.json` config the native authentication as desired
+1. In file `capacitor.config.json` config the providers list and native authentication as desired
     ```
     [...]
       "plugins": {
         "CapacitorFirebaseAuth": {
+          "providers": ["google.com", "twitter.com", "facebook.com", "phone"]
           "nativeAuth": false
         }
       }
@@ -274,7 +277,25 @@ npm install --save capacitor-firebase-auth
     end
     ```
 
-4. Dispatch the designated callback URL to Facebook Kit in your `ios/App/App/AppDelegate.swift` file. 
+4. Dispatch the designated callback URL to Facebook Kit in your `ios/App/App/AppDelegate.swift` file.
+
+    Facebook SDK >= 5.0.0
+    ```
+      func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        // Called when the app was launched with a url. Feel free to add additional processing here,
+        // but if you want the App API to support tracking app url opens, make sure to keep this call
+        
+        if let scheme = url.scheme, let host = url.host {
+            if scheme == "fb\(String(describing: Settings.appID))" && host == "authorize" {
+                return ApplicationDelegate.shared.application(app, open: url, options: options)
+            }
+        }
+        
+        return CAPBridge.handleOpenUrl(url, options)
+      }
+    ```
+
+    FaceBook SDK <= 4.41.0
     ```
       func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Called when the app was launched with a url. Feel free to add additional processing here,
