@@ -43,11 +43,13 @@ public class CapacitorFirebaseAuth extends Plugin {
     private Map<String, ProviderHandler> providerHandlers = new HashMap<>();
     private SparseArray<ProviderHandler> providerHandlerByRC = new SparseArray<>();
 
+    private String[] providers;
     private boolean nativeAuth = false;
 
     public void load() {
         super.load();
 
+        this.providers = Config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
         this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
 
         // FirebaseApp is not initialized in this process - Error #1
@@ -61,29 +63,29 @@ public class CapacitorFirebaseAuth extends Plugin {
         this.mAuth = FirebaseAuth.getInstance();
         this.mAuth.setLanguageCode("pt");
 
-        Log.d(PLUGIN_TAG, "Initializing Google Provider");
-        String provider = getContext().getString(R.string.google_provider_id);
-        this.providerHandlers.put(provider, new GoogleProviderHandler());
-        this.providerHandlers.get(provider).init(this);
-        Log.d(PLUGIN_TAG, "Google Provider Initialized");
-
-        Log.d(PLUGIN_TAG, "Initializing Twitter Provider");
-        provider = getContext().getString(R.string.twitter_provider_id);
-        this.providerHandlers.put(provider, new TwitterProviderHandler());
-        this.providerHandlers.get(provider).init(this);
-        Log.d(PLUGIN_TAG, "Twitter Provider Initialized");
-
-        Log.d(PLUGIN_TAG, "Initializing Facebook Provider");
-        provider = getContext().getString(R.string.facebook_provider_id);
-        this.providerHandlers.put(provider, new FacebookProviderHandler());
-        this.providerHandlers.get(provider).init(this);
-        Log.d(PLUGIN_TAG, "Facebook Provider Initialized");
-
-        Log.d(PLUGIN_TAG, "Initializing Phone Provider");
-        provider = getContext().getString(R.string.phone_provider_id);
-        this.providerHandlers.put(provider, new PhoneProviderHandler());
-        this.providerHandlers.get(provider).init(this);
-        Log.d(PLUGIN_TAG, "Phone Provider Initialized");
+        for (String provider: this.providers) {
+            if (provider.equalsIgnoreCase(getContext().getString(R.string.google_provider_id))) {
+                Log.d(PLUGIN_TAG, "Initializing Google Provider");
+                this.providerHandlers.put(provider, new GoogleProviderHandler());
+                this.providerHandlers.get(provider).init(this);
+                Log.d(PLUGIN_TAG, "Google Provider Initialized");
+            } else if (provider.equalsIgnoreCase(getContext().getString(R.string.twitter_provider_id))) {
+                Log.d(PLUGIN_TAG, "Initializing Twitter Provider");
+                this.providerHandlers.put(provider, new TwitterProviderHandler());
+                this.providerHandlers.get(provider).init(this);
+                Log.d(PLUGIN_TAG, "Twitter Provider Initialized");
+            } else if (provider.equalsIgnoreCase(getContext().getString(R.string.facebook_provider_id))) {
+                Log.d(PLUGIN_TAG, "Initializing Facebook Provider");
+                this.providerHandlers.put(provider, new FacebookProviderHandler());
+                this.providerHandlers.get(provider).init(this);
+                Log.d(PLUGIN_TAG, "Facebook Provider Initialized");
+            } else if (provider.equalsIgnoreCase(getContext().getString(R.string.phone_provider_id))) {
+                Log.d(PLUGIN_TAG, "Initializing Phone Provider");
+                this.providerHandlers.put(provider, new PhoneProviderHandler());
+                this.providerHandlers.get(provider).init(this);
+                Log.d(PLUGIN_TAG, "Phone Provider Initialized");
+            }
+        }
 
         for (ProviderHandler providerHandler : this.providerHandlers.values()) {
             this.providerHandlerByRC.put(providerHandler.getRequestCode(), providerHandler);
@@ -101,7 +103,7 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         if (handler == null) {
             Log.w(PLUGIN_TAG, "Provider not supported");
-            call.reject("Provider not supported");
+            call.reject("Provider not configured or not supported");
         } else {
 
             if (handler.isAuthenticated()) {
