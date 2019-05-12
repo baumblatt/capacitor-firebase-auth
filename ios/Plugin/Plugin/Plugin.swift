@@ -15,29 +15,35 @@ typealias ProvidersMap = [String:ProviderHandler]
 @objc(CapacitorFirebaseAuth)
 public class CapacitorFirebaseAuth: CAPPlugin {
     
+    var providersNames: [String] = [];
     var nativeAuth: Bool = false
 
     var callbackId: String? = nil
     var providers: ProvidersMap = [:]
 
     public override func load() {
+        self.providersNames = self.getConfigValue("providers") as? [String] ?? []
         self.nativeAuth = self.getConfigValue("nativeAuth") as? Bool ?? false
         
         if (FirebaseApp.app() == nil) {
             FirebaseApp.configure()
         }
-
-        self.providers = [
-            "google.com": GoogleProviderHandler(),
-            "twitter.com": TwitterProviderHandler(),
-            "facebook.com": FacebookProviderHandler(),
-            "phone": PhoneNumberProviderHandler()
-        ]
-
-        self.providers["google.com"]?.initialize(plugin: self)
-        self.providers["twitter.com"]?.initialize(plugin: self)
-        self.providers["facebook.com"]?.initialize(plugin: self)
-        self.providers["phone"]?.initialize(plugin: self)
+        
+        for provider in self.providersNames {
+            if ("google.com" == provider) {
+                self.providers["google.com"] = GoogleProviderHandler()
+                self.providers["google.com"]?.initialize(plugin: self)
+            } else if ("twitter.com" == provider) {
+                self.providers["twitter.com"] = TwitterProviderHandler()
+                self.providers["twitter.com"]?.initialize(plugin: self)
+            } else if ("facebook.com" == provider) {
+                self.providers["facebook.com"] = FacebookProviderHandler()
+                self.providers["facebook.com"]?.initialize(plugin: self)
+            } else if ("phone" == provider) {
+                self.providers["phone"] = PhoneNumberProviderHandler()
+                self.providers["phone"]?.initialize(plugin: self)
+            }
+        }
     }
 
     @objc func signIn(_ call: CAPPluginCall) {
@@ -72,7 +78,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         }
 
         guard let theProvider = self.providers[providerId] else {
-            call.error("Unsupported provider")
+            call.error("The provider is disable or unsupported")
             return nil
         }
 
