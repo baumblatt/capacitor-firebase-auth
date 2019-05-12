@@ -6,18 +6,18 @@ import FBSDKLoginKit
 
 class FacebookProviderHandler: NSObject, ProviderHandler {
     var plugin: CapacitorFirebaseAuth? = nil
-    var loginManager: FBSDKLoginManager? = nil
+    var loginManager: LoginManager? = nil
     
     func initialize(plugin: CapacitorFirebaseAuth) {
         print("Initializing Facebook Provider Handler")
         self.plugin = plugin
         
-        self.loginManager = FBSDKLoginManager()
+        self.loginManager = LoginManager()
     }
     
     func signIn(call: CAPPluginCall) {
-        self.loginManager!.logIn(withReadPermissions: ["public_profile", "email"], from: self.plugin!.bridge.viewController) {
-            ( result: FBSDKLoginManagerLoginResult?, error: Error?) in
+        self.loginManager!.logIn(permissions: ["public_profile", "email"], from: self.plugin!.bridge.viewController) {
+            ( result: LoginManagerLoginResult?, error: Error?) in
             
             if let error = error {
                 print(error.localizedDescription)
@@ -25,7 +25,7 @@ class FacebookProviderHandler: NSObject, ProviderHandler {
                 return
             }
             
-            guard let token: FBSDKAccessToken = result?.token else {
+            guard let token: AccessToken = result?.token else {
                 print("There is no token in Facebook sign in.")
                 self.plugin?.handleError(message: "There is no token in Facebook sign in.")
                 return
@@ -37,11 +37,11 @@ class FacebookProviderHandler: NSObject, ProviderHandler {
     }
     
     func isAuthenticated() -> Bool {
-        return FBSDKAccessToken.current() != nil
+        return AccessToken.current != nil
     }
     
     func fillResult(data: PluginResultData) -> PluginResultData {
-        guard let accessToken = FBSDKAccessToken.current() else {
+        guard let accessToken = AccessToken.current else {
             return data
         }
         
