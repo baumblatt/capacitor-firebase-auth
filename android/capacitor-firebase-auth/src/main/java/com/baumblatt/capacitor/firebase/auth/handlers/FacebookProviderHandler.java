@@ -30,7 +30,7 @@ public class FacebookProviderHandler implements ProviderHandler {
 
         try {
             this.loginButton = new LoginButton(this.plugin.getContext());
-            this.loginButton.setReadPermissions("email", "public_profile");
+            this.loginButton.setPermissions("email", "public_profile");
 
             this.mCallbackManager = CallbackManager.Factory.create();
 
