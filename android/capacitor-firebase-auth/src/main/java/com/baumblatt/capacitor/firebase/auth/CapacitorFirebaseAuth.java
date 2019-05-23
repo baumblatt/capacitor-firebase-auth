@@ -138,6 +138,11 @@ public class CapacitorFirebaseAuth extends Plugin {
         super.startActivityForResult(call, intent, resultCode);
     }
 
+    @Override
+    public void notifyListeners(String eventName, JSObject data) {
+        super.notifyListeners(eventName, data);
+    }
+
     private ProviderHandler getProviderHandler(PluginCall call) {
         String providerId = call.getString("providerId", null);
         return this.providerHandlers.get(providerId);

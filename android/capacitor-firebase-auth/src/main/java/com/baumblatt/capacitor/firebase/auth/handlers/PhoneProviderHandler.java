@@ -20,7 +20,6 @@ public class PhoneProviderHandler implements ProviderHandler {
 
     private String mVerificationId;
     private String mVerificationCode;
-    private boolean mVerificationInProgress = false;
 
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -35,11 +34,14 @@ public class PhoneProviderHandler implements ProviderHandler {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
                 Log.d(PHONE_TAG, "PhoneAuth:onVerificationCompleted:" + credential);
-                mVerificationInProgress = false;
                 mVerificationCode = credential.getSmsCode();
 
                 PluginCall call = plugin.getSavedCall();
 
+                // Notify listeners of Code Received event.
+                JSObject jsEvent = new JSObject();
+                jsEvent.put("verificationCode", mVerificationCode);
+                plugin.notifyListeners("cfaPhoneVerificationCodeReceived", jsEvent);
 
                 JSObject jsUser = new JSObject();
                 jsUser.put("callbackId", call.getCallbackId());
@@ -53,7 +55,6 @@ public class PhoneProviderHandler implements ProviderHandler {
             @Override
             public void onVerificationFailed(FirebaseException error) {
                 Log.w(PHONE_TAG, "PhoneAuth:onVerificationFailed:" + error);
-                mVerificationInProgress = false;
 
                 if (error instanceof FirebaseAuthInvalidCredentialsException) {
                     plugin.handleFailure("Invalid phone number.", error);
@@ -75,6 +76,11 @@ public class PhoneProviderHandler implements ProviderHandler {
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 mResendToken = token;
+
+                // Notify listeners of Code Sent event.
+                JSObject jsEvent = new JSObject();
+                jsEvent.put("verificationId", mVerificationId);
+                plugin.notifyListeners("cfaPhoneVerificationCodeSent", jsEvent);
             }
         };
     }
@@ -98,14 +104,11 @@ public class PhoneProviderHandler implements ProviderHandler {
         if(code.equalsIgnoreCase("null") || code.equalsIgnoreCase("")) {
             PhoneAuthProvider.getInstance().verifyPhoneNumber
                     (phone, 60, TimeUnit.SECONDS, this.plugin.getActivity(), this.mCallbacks);
-            mVerificationInProgress = true;
         } else {
             AuthCredential credential = PhoneAuthProvider.getCredential(this.mVerificationId, code);
             this.mVerificationCode = code;
             plugin.handleAuthCredentials(credential);
         }
-
-        mVerificationInProgress = true;
     }
 
     @Override
@@ -135,6 +138,5 @@ public class PhoneProviderHandler implements ProviderHandler {
 
         this.mVerificationId = null;
         this.mVerificationCode = null;
-        this.mVerificationInProgress = false;
     }
 }
