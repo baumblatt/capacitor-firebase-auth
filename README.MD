@@ -13,10 +13,11 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
-- Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
-- Dependency updates for android platform (Firebase 17 and Facebook 5)
+- `Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
 
 ## Old news
+- Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
+- Dependency updates for android platform (Firebase 17 and Facebook 5)
 - Configuration for when authenticate on native layer (default false to avoid double billing)
 - Fix the issue #1: Default FirebaseApp is not initialized on Android platform
 - WIP: Phone verification sign in on iOS platform.
@@ -336,6 +337,24 @@ import {cfaSignOut} from 'capacitor-firebase-auth';
 
 cfaSignOut().subscribe()
 ```
+
+#### Notification for Phone Verification step
+
+```typescript
+import {cfaSignInPhoneOnCodeSent, cfaSignInPhoneOnCodeReceived} from 'capacitor-firebase-auth';
+
+//[...]
+
+cfaSignInPhoneOnCodeSent().subscribe(
+	verificationId => console.log(verificationId)
+)
+
+cfaSignInPhoneOnCodeReceived().subscribe(
+	(event: {verificationId: string, verificationCode: string}) => console.log(`${event.verificationId}:${event.verificationCode}`)
+)
+
+```
+ 
 
 ## Known limitations
 

@@ -40,8 +40,9 @@ public class PhoneProviderHandler implements ProviderHandler {
 
                 // Notify listeners of Code Received event.
                 JSObject jsEvent = new JSObject();
+                jsEvent.put("verificationId", mVerificationId);
                 jsEvent.put("verificationCode", mVerificationCode);
-                plugin.notifyListeners("cfaPhoneVerificationCodeReceived", jsEvent);
+                plugin.notifyListeners("cfaSignInPhoneOnCodeReceived", jsEvent);
 
                 JSObject jsUser = new JSObject();
                 jsUser.put("callbackId", call.getCallbackId());
@@ -80,7 +81,7 @@ public class PhoneProviderHandler implements ProviderHandler {
                 // Notify listeners of Code Sent event.
                 JSObject jsEvent = new JSObject();
                 jsEvent.put("verificationId", mVerificationId);
-                plugin.notifyListeners("cfaPhoneVerificationCodeSent", jsEvent);
+                plugin.notifyListeners("cfaSignInPhoneOnCodeSent", jsEvent);
             }
         };
     }

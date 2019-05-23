@@ -1,14 +1,7 @@
 import {Plugins} from '@capacitor/core';
 import {app, auth, User} from 'firebase/app';
 import {Observable, throwError} from 'rxjs';
-import {
-	CapacitorFirebaseAuthPlugin,
-	FacebookSignInResult,
-	GoogleSignInResult,
-	PhoneSignInResult,
-	SignInOptions,
-	TwitterSignInResult
-} from './definitions';
+import {CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult, PhoneSignInResult, SignInOptions, TwitterSignInResult} from './definitions';
 
 const plugin: CapacitorFirebaseAuthPlugin = Plugins.CapacitorFirebaseAuth;
 
@@ -134,6 +127,32 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string) : Obser
 
 		}).catch(reject => observer.error(reject));
 
+	});
+};
+
+/**
+ * Observable of one notification of <code>On Code Sent</code>event from Phone Verification process.
+ */
+export const cfaSignInPhoneOnCodeSent = () : Observable<string> => {
+	return new Observable<string>(observer => {
+		// @ts-ignore
+		return plugin.addListener('cfaSignInPhoneOnCodeSent', (event: { verificationId: string }) => {
+			observer.next(event.verificationId);
+			observer.complete();
+		});
+	});
+};
+
+/**
+ * Observable of one notification of <code>On Code Received</code> event from Phone Verification process.
+ */
+export const cfaSignInPhoneOnCodeReceived = () : Observable<{verificationId: string, verificationCode: string}> => {
+	return new Observable<{verificationId: string, verificationCode: string}>(observer => {
+		// @ts-ignore
+		return plugin.addListener('cfaSignInPhoneOnCodeReceived', (event: { verificationId: string, verificationCode: string }) => {
+			observer.next(event);
+			observer.complete();
+		});
 	});
 };
 
