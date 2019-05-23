@@ -13,7 +13,8 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
-- `Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
+- Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
+- Notifications for `On Code Sent` from Phone Verification process for iOS Platform (The Firebase does not read the SMS on iOS platform, so there is no way to notify `On Code Received`).
 
 ## Old news
 - Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
@@ -328,6 +329,7 @@ cfaSignIn('google.com').subscribe(
 )
 ```
 
+
 #### Sing out
 
 ```typescript
@@ -338,6 +340,17 @@ import {cfaSignOut} from 'capacitor-firebase-auth';
 cfaSignOut().subscribe()
 ```
 
+#### Phone Verification
+
+```typescript
+import {cfaSignIn} from 'capacitor-firebase-auth';
+
+cfaSignIn('phone', {phone: +16505551234}).subscribe(
+	user => console.log(user.phoneNumber)
+)
+```
+> On iOS platform the observable will complete without emit (like EMPTY), follow the notifications below to sign on Firebase.
+
 #### Notification for Phone Verification step
 
 ```typescript
@@ -345,10 +358,12 @@ import {cfaSignInPhoneOnCodeSent, cfaSignInPhoneOnCodeReceived} from 'capacitor-
 
 //[...]
 
+// Android and iOS
 cfaSignInPhoneOnCodeSent().subscribe(
 	verificationId => console.log(verificationId)
 )
 
+// Android Only
 cfaSignInPhoneOnCodeReceived().subscribe(
 	(event: {verificationId: string, verificationCode: string}) => console.log(`${event.verificationId}:${event.verificationCode}`)
 )

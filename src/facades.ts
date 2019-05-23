@@ -114,6 +114,11 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string) : Obser
 		const providerId = auth.PhoneAuthProvider.PROVIDER_ID;
 
 		plugin.signIn({providerId, data:{phone, verificationCode}}).then((result: PhoneSignInResult) => {
+			// if there is no verification code
+			if (!result.verificationCode) {
+				return observer.complete();
+			}
+
 			// create the credentials
 			const credential = auth.PhoneAuthProvider.credential(result.verificationId, result.verificationCode);
 
