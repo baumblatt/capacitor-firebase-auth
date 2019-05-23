@@ -54,7 +54,7 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         // FirebaseApp is not initialized in this process - Error #1
         Log.d(PLUGIN_TAG, "Verifying if the default FirebaseApp was initialized.");
-        if(FirebaseApp.getInstance() == null) {
+        if(FirebaseApp.getApps(this.getContext()).size() == 0) {
             Log.d(PLUGIN_TAG, "Initializing the default FirebaseApp ");
             FirebaseApp.initializeApp(this.getContext());
         }
