@@ -6,6 +6,11 @@ declare global {
   }
 }
 
+export interface CapacitorFirebaseAuthPlugin {
+  signIn(options: {providerId: string, data?: SignInOptions}): Promise<SignInResult>;
+  signOut(options: {}): Promise<void>;
+}
+
 export class GoogleSignInResult{
   providerId = auth.GoogleAuthProvider.PROVIDER_ID;
   constructor(public idToken: string) {
@@ -34,12 +39,7 @@ export type SignInResult = GoogleSignInResult | TwitterSignInResult | FacebookSi
 
 export interface PhoneSignInOptions {
   phone: string,
-  verificationCode: string
+  verificationCode?: string
 }
 
 export type SignInOptions = PhoneSignInOptions;
-
-export interface CapacitorFirebaseAuthPlugin {
-  signIn(options: {providerId: string, data?: SignInOptions}): Promise<SignInResult>;
-  signOut(options: {}): Promise<void>;
-}
