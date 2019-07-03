@@ -64,9 +64,10 @@ npm install --save capacitor-firebase-auth
     ```
 
 
-2. In file `android/app/src/main/java/br/com/petrobras/br/ma02/MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
+2. In file `android/app/src/main/java/br/.../MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
     ```
     [...]
+    import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
     // Initializes the Bridge
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
       // Additional plugins you've installed go here
