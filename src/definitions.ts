@@ -1,6 +1,7 @@
-import {auth} from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
-declare global {
+declare module "@capacitor/core" {
   interface PluginRegistry {
     CapacitorFirebaseAuth?: CapacitorFirebaseAuthPlugin;
   }
@@ -12,25 +13,25 @@ export interface CapacitorFirebaseAuthPlugin {
 }
 
 export class GoogleSignInResult{
-  providerId = auth.GoogleAuthProvider.PROVIDER_ID;
+  providerId = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
   constructor(public idToken: string) {
   }
 }
 
 export class TwitterSignInResult {
-  providerId = auth.TwitterAuthProvider.PROVIDER_ID;
+  providerId = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
   constructor(public idToken: string, public secret: string) {
   }
 }
 
 export class FacebookSignInResult {
-  providerId = auth.FacebookAuthProvider.PROVIDER_ID;
+  providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
   constructor(public idToken: string) {
   }
 }
 
 export class PhoneSignInResult {
-  providerId = auth.PhoneAuthProvider.PROVIDER_ID;
+  providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
   constructor(public verificationId: string, public verificationCode: string) {
   }
 }
