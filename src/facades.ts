@@ -52,12 +52,12 @@ export const cfaSignInGoogle = (): Observable<firebase.User> => {
 			const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken);
 
 			// web sign in
-			firebase.app().auth().signInAndRetrieveDataWithCredential(credential)
+			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
 					observer.next(userCredential.user);
 					observer.complete();
 				})
-				.catch(reject => {
+				.catch((reject: any) => {
 					observer.error(reject);
 				});
 		}).catch(reject => {
@@ -80,12 +80,12 @@ export const cfaSignInTwitter = (): Observable<firebase.User> => {
 			const credential = firebase.auth.TwitterAuthProvider.credential(result.idToken, result.secret);
 
 			// web sign in
-			firebase.app().auth().signInAndRetrieveDataWithCredential(credential)
+			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
 					observer.next(userCredential.user);
 					observer.complete();
 				})
-				.catch(reject => observer.error(reject));
+				.catch((reject: any) => observer.error(reject));
 
 		}).catch(reject => observer.error(reject));
 	});
@@ -105,12 +105,12 @@ export const cfaSignInFacebook = (): Observable<firebase.User> => {
 			const credential = firebase.auth.FacebookAuthProvider.credential(result.idToken);
 
 			// web sign in
-			firebase.app().auth().signInAndRetrieveDataWithCredential(credential)
+			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
 					observer.next(userCredential.user);
 					observer.complete();
 				})
-				.catch(reject => observer.error(reject));
+				.catch((reject: any) => observer.error(reject));
 
 		}).catch(reject => observer.error(reject));
 	});
@@ -136,12 +136,12 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string) : Obser
 			const credential = firebase.auth.PhoneAuthProvider.credential(result.verificationId, result.verificationCode);
 
 			// web sign in
-			firebase.app().auth().signInAndRetrieveDataWithCredential(credential)
+			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
 					observer.next(userCredential.user);
 					observer.complete();
 				})
-				.catch(reject => observer.error(reject));
+				.catch((reject: any) => observer.error(reject));
 
 		}).catch(reject => observer.error(reject));
 
@@ -180,13 +180,13 @@ export const cfaSignInPhoneOnCodeReceived = () : Observable<{verificationId: str
 export const cfaSignOut = (): Observable<void> => {
 	return new Observable(observer => {
 		plugin.signOut({}).then(() => {
-			// web sign in
+			// web sign out
 			firebase.app().auth().signOut()
 				.then(() => {
 					observer.next();
 					observer.complete();
 				})
-				.catch(reject => observer.error(reject));
+				.catch((reject: any) => observer.error(reject));
 		});
 	});
 };

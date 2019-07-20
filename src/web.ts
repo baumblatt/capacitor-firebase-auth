@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { CapacitorFirebaseAuthPlugin } from './definitions';
+import {CapacitorFirebaseAuthPlugin, SignInResult} from './definitions';
 
 export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFirebaseAuthPlugin {
   constructor() {
@@ -9,12 +9,12 @@ export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFire
     });
   }
 
-  async signIn(options: {provider: {providerId: string;}}): Promise<{providerId: string; displayName?: string; idToken?: string}> {
-    return Promise.resolve({providerId: options.provider.providerId});
+  async signIn(options: {providerId: string;}): Promise<SignInResult> {
+    return Promise.resolve({providerId: options.providerId, idToken: undefined});
   }
 
-  async signOut(options: {provider: {providerId: string;}}): Promise<void> {
-    options.provider;
+  // @ts-ignore
+  async signOut(options: {}): Promise<void> {
     return Promise.resolve();
   }
 }

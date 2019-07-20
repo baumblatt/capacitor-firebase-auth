@@ -119,12 +119,13 @@ public class PhoneProviderHandler implements ProviderHandler {
 
     @Override
     public int getRequestCode() {
+        // there is nothing to do here
         return 0;
     }
 
     @Override
     public void handleOnActivityResult(int requestCode, int resultCode, Intent data) {
-
+        // there is nothing to do here
     }
 
     @Override

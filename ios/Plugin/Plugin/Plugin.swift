@@ -16,6 +16,7 @@ typealias ProvidersMap = [String:ProviderHandler]
 public class CapacitorFirebaseAuth: CAPPlugin {
     
     var providersNames: [String] = [];
+    var languageCode: String = "en"
     var nativeAuth: Bool = false
 
     var callbackId: String? = nil
@@ -24,9 +25,11 @@ public class CapacitorFirebaseAuth: CAPPlugin {
     public override func load() {
         self.providersNames = self.getConfigValue("providers") as? [String] ?? []
         self.nativeAuth = self.getConfigValue("nativeAuth") as? Bool ?? false
+        self.languageCode = self.getConfigValue("languageCode") as? String ?? "en"
         
         if (FirebaseApp.app() == nil) {
             FirebaseApp.configure()
+            Auth.auth().languageCode = self.languageCode;
         }
         
         for provider in self.providersNames {

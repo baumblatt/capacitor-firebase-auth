@@ -36,21 +36,21 @@ import java.util.Map;
         FacebookProviderHandler.RC_FACEBOOK_LOGIN
 })
 public class CapacitorFirebaseAuth extends Plugin {
-    public static final String CONFIG_KEY_PREFIX = "plugins.CapacitorFirebaseAuth.";
+    private static final String CONFIG_KEY_PREFIX = "plugins.CapacitorFirebaseAuth.";
     private static final String PLUGIN_TAG = "CapacitorFirebaseAuth";
 
     private FirebaseAuth mAuth;
     private Map<String, ProviderHandler> providerHandlers = new HashMap<>();
     private SparseArray<ProviderHandler> providerHandlerByRC = new SparseArray<>();
 
-    private String[] providers;
     private boolean nativeAuth = false;
 
     public void load() {
         super.load();
 
-        this.providers = Config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
+        String[] providers = Config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
         this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
+        String languageCode = Config.getString(CONFIG_KEY_PREFIX+"languageCode", "en");
 
         // FirebaseApp is not initialized in this process - Error #1
         Log.d(PLUGIN_TAG, "Verifying if the default FirebaseApp was initialized.");
@@ -61,9 +61,9 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         Log.d(PLUGIN_TAG, "Retrieving FirebaseAuth instance");
         this.mAuth = FirebaseAuth.getInstance();
-        this.mAuth.setLanguageCode("pt");
+        this.mAuth.setLanguageCode(languageCode);
 
-        for (String provider: this.providers) {
+        for (String provider: providers) {
             if (provider.equalsIgnoreCase(getContext().getString(R.string.google_provider_id))) {
                 Log.d(PLUGIN_TAG, "Initializing Google Provider");
                 this.providerHandlers.put(provider, new GoogleProviderHandler());
