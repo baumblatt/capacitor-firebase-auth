@@ -327,13 +327,25 @@ npm install --save capacitor-firebase-auth
 #### Sign in
 
 ```typescript
+import {User} from 'firebase/app'
 import {cfaSignIn} from 'capacitor-firebase-auth';
 
 cfaSignIn('google.com').subscribe(
-	user => console.log(user.displayName);
+	(user: User) => console.log(user.displayName);
 )
 ```
 
+#### Sign in mapping User to UserInfo
+```typescript
+ import {cfaSignIn, mapUserToUserInfo} from 'capacitor-firebase-auth';
+ import {UserInfo} from 'firebase/app';
+ 
+ cfaSignIn('google.com').pipe(
+ 	mapUserToUserInfo(),
+ ).subscribe(
+    (user: UserInfo) => console.log(user.displayName);
+ )
+```
 
 #### Sing out
 
