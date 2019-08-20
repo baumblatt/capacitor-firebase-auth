@@ -13,11 +13,12 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
+- Issue #13: Operator to map firebase.User to firebase.userInfo.
+
+## History
 - Issue #9: Support for language configurations (Phone Verification)
 - Capacitor v1.1.1
 - Better Facade code (Thanks for @trentcrockett contribution).
-
-## History
 - Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
 - Notifications for `On Code Sent` from Phone Verification process for iOS Platform (The Firebase does not read the SMS on iOS platform, so there is no way to notify `On Code Received`).
 - Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
