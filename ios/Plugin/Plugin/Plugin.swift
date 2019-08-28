@@ -97,13 +97,13 @@ public class CapacitorFirebaseAuth: CAPPlugin {
     }
 
     func authenticate(credential: AuthCredential) {
-        Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+        Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
                 self.handleError(message: error.localizedDescription)
                 return
             }
 
-            guard let user = authResult?.user else {
+            guard (authResult?.user) != nil else {
                 print("There is no user on firebase AuthResult")
                 self.handleError(message: "There is no token in Facebook sign in.")
                 return
@@ -114,7 +114,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 return
             }
             
-            guard let call = self.bridge.getSavedCall(callbackId) else {
+            guard self.bridge.getSavedCall(callbackId) != nil else {
                 print("Ops, there is no saved call building result")
                 return
             }
@@ -136,7 +136,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         
         let jsResult: PluginResultData = [
             "callbackId": callbackId,
-            "providerId": call.getString("providerId"),
+            "providerId": call.getString("providerId") ?? "",
         ]
         
         guard let provider: ProviderHandler = self.getProvider(call: call) else {

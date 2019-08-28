@@ -13,9 +13,11 @@ The Phone Number and Email/Password providers are in the Road Map.
 
 ## What news
 
-- Issue #13: Operator to map firebase.User to firebase.userInfo.
+- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
+> Users migrating from version 0.1.x to 0.2.x must update run `pod update`
 
 ## History
+- Issue #13: Operator to map firebase.User to firebase.userInfo.
 - Issue #9: Support for language configurations (Phone Verification)
 - Capacitor v1.1.1
 - Better Facade code (Thanks for @trentcrockett contribution).
@@ -54,6 +56,12 @@ npm install --save capacitor-firebase-auth
 ```
  
 ### How to Config
+
+### Minimal version of some peer dependencies that breaks with previous versions
+
+- FBSDKCoreKit 5.0.0 (see issue #12)
+- FBSDKLoginKit 5.0.0 (see issue #12)
+- GoogleSignIn 5.0.0 (see issue #14 and #15)
 
 ## Capacitor Plugins
 
