@@ -5,18 +5,18 @@
 
 Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sing in process complete the user will be signed in in both tiers.
 
-Actually the plugins support Google, Twitter and Facebook providers in Android and iOS.
-
-The Phone Number and Email/Password providers are in the Road Map.
-
-> This is a working in progress plugins, as soon as we have notices that some one is using this in production without problems we will remove this disclaimer.
+Actually the plugins support Google, Twitter, Facebook and Phone providers in Android and iOS.
 
 ## What news
 
-- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
-> Users migrating from version 0.1.x to 0.2.x must update run `pod update`
+- Issue #16 - Support for Google Sign In Scopes.
+
+## Important notes for upgrading between minor or major versions.
+
+- from 0.1.x to 0.2.0: required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
 
 ## History
+- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
 - Issue #13: Operator to map firebase.User to firebase.userInfo.
 - Issue #9: Support for language configurations (Phone Verification)
 - Capacitor v1.1.1
@@ -72,7 +72,10 @@ npm install --save capacitor-firebase-auth
         "CapacitorFirebaseAuth": {
           "providers": ["google.com", "twitter.com", "facebook.com", "phone"],
           "languageCode": "en"
-          "nativeAuth": false
+          "nativeAuth": false,
+          "permissions": {
+               "google": ["profile", "https://www.googleapis.com/auth/drive", ...]
+           }
         }
       }
     [...]
