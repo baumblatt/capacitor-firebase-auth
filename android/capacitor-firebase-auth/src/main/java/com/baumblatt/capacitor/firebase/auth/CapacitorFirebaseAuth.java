@@ -24,8 +24,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ import java.util.Map;
         FacebookProviderHandler.RC_FACEBOOK_LOGIN
 })
 public class CapacitorFirebaseAuth extends Plugin {
-    private static final String CONFIG_KEY_PREFIX = "plugins.CapacitorFirebaseAuth.";
+    public static final String CONFIG_KEY_PREFIX = "plugins.CapacitorFirebaseAuth.";
     private static final String PLUGIN_TAG = "CapacitorFirebaseAuth";
 
     private FirebaseAuth mAuth;
@@ -47,6 +48,8 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     public void load() {
         super.load();
+
+        getConfigValue("nada");
 
         String[] providers = Config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
         this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
 import com.baumblatt.capacitor.firebase.auth.R;
+import com.getcapacitor.Config;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -17,11 +18,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import static com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth.CONFIG_KEY_PREFIX;
 
 public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.OnConnectionFailedListener {
     public static final int RC_GOOGLE_SIGN_IN = 9001;
@@ -34,6 +37,8 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
     public void init(CapacitorFirebaseAuth plugin) {
         this.plugin = plugin;
 
+        String[] permissions = Config.getArray(CONFIG_KEY_PREFIX + "permissions.google", new String[0]);
+
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this.plugin.getContext());
         if (result == ConnectionResult.SUCCESS) {
@@ -42,11 +47,20 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
             Log.w(GOOGLE_TAG, "Google Api is not Available.");
         }
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions.Builder gsBuilder = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(this.plugin.getContext().getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+                .requestEmail();
 
+
+        for (String permission: permissions) {
+            try {
+                gsBuilder.requestScopes(new Scope(permission));
+            } catch (Exception e) {
+                Log.w(GOOGLE_TAG, "Failure requesting the scope at index "+permission);
+            }
+        }
+
+        GoogleSignInOptions gso = gsBuilder.build();
         this.mGoogleSignInClient = GoogleSignIn.getClient(this.plugin.getActivity(), gso);
     }
 
