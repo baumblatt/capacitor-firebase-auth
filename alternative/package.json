@@ -1,0 +1,6 @@
+{
+	"name": "capacitor-firebase-auth/alternative",
+	"main": "../dist/esm/alternative/lindex.js",
+	"types": "../dist/esm/alternative/index.d.ts",
+	"sideEffects": false
+}

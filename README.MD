@@ -9,13 +9,14 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 
 ## What news
 
-- Issue #16 - Support for Google Sign In Scopes.
+- Issue #23 - Alternative Facade for receive more information from the authentication providers.
 
 ## Important notes for upgrading between minor or major versions.
 
 - from 0.1.x to 0.2.0: required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
 
 ## History
+- Issue #16 - Support for Google Sign In Scopes.
 - Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
 - Issue #13: Operator to map firebase.User to firebase.userInfo.
 - Issue #9: Support for language configurations (Phone Verification)
@@ -44,8 +45,8 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 
 ## Next steps
 
-1. Phone Number Provider in iOS platform
-2. Email/Password Provider
+1. Support for PWA 
+2. Email/Password Provider (Should we do this? It's very simple to authenticate on WebView without any plugin. For awhile, waiting a good reason to do it.)
 
 ### How to Install
 
@@ -409,8 +410,65 @@ const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, ve
 firebase.auth().signInWithCredential(credential);
 ```
 
+## Alterantive use of Javascript facade
+
+This implementations of the javascript facade calls, return in addition to the Firebase user 
+the information returned by the plugin from the native layer. For example, in Twitter sign in
+the token and secret are returned for use with Twitter User API. 
+
+> Specials thanks for [@go-u](https://github.com/go-u), by this suggested improvement, more information please see issue [#23](https://github.com/baumblatt/capacitor-firebase-auth/issues/23)!
+
+#### Sign in
+
+```typescript
+import * as firebase from 'firebase/app';
+import {cfaSignIn, SignInResult} from 'capacitor-firebase-auth/alternative'; import {SignInResult} from './definitions';
+
+cfaSignIn('twitter.com').subscribe(
+	({userCredential, result}: {userCredential: firebase.auth.UserCredential, result: SignInResult}) => {
+		console.log(userCredential.user.displayName);
+		console.log(result) // will print (providerId, idToken and secret)
+	}
+)
+```
+
+#### Sign In using direct twitter method
+
+```typescript
+import * as firebase from 'firebase/app';
+import {cfaSignInTwitter, TwitterSignInResult} from 'capacitor-firebase-auth/alternative'; import {SignInResult} from './definitions';
+
+cfaSignInTwitter().subscribe(
+	({userCredential, result}: {userCredential: firebase.auth.UserCredential, result: TwitterSignInResult}) => {
+		console.log(userCredential.user.displayName);
+		console.log(result.idToken)
+	}
+)
+```
+
+#### Sign In;  Use credentials for something; and map to UserInfo
+
+```typescript
+import {UserInfo} from 'firebase'; 
+import {cfaSignInTwitter, TwitterSignInResult, mapUserCredentialToUserInfo} from 'capacitor-firebase-auth/alternative'; 
+import {tap} from 'rxjs/operators';
+
+cfaSignInTwitter().pipe(
+    tap(({result}:{result: TwitterSignInResult}) => console.log(result.idToken)),
+    mapUserCredentialToUserInfo(),
+).subscribe(
+	(user: UserInfo) => console.log(user.displayName)
+)
+```
+
 ## Known limitations
 
 #### Phone Verification
 
 The user will be **signed in** only in web layer. This limitation is due to the **verification code** only works once. So, there is no way to authenticate the user in both layers (native and web) with just one SMS Code.
+
+## Buy me a beer
+
+If you feel that project is useful, please, considered to buy me a beer through [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=GWR8QXSQ7TT8U&item_name=Capacitor+Firebase+Auth&currency_code=BRL&source=url)
+
+Looking forward to FUNDING.yml.

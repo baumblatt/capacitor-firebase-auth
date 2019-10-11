@@ -14,17 +14,18 @@
   "license": "MIT",
   "dependencies": {
     "@capacitor/core": "latest",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.3"
   },
   "devDependencies": {
     "rimraf": "^2.6.3",
     "typescript": "~3.2.2"
   },
   "peerDependencies": {
-    "firebase": "^6.2.4",
-    "rxjs": "~6.5.2"
+    "firebase": "^6.6.1",
+    "rxjs": "~6.5.3"
   },
   "files": [
+	  "alternative/",
     "dist/",
     "ios/",
     "android/",
