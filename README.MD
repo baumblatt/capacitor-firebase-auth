@@ -10,6 +10,7 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 ## What news
 
 - Issue #23 - Alternative Facade for receive more information from the authentication providers.
+- Issue #26 - No callback when error/cancel in Google SignUp.
 
 ## Important notes for upgrading between minor or major versions.
 
