@@ -471,4 +471,4 @@ The user will be **signed in** only in web layer. This limitation is due to the 
 
 If you feel that project is useful, please, considered to buy me a beer through [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=GWR8QXSQ7TT8U&item_name=Capacitor+Firebase+Auth&currency_code=BRL&source=url)
 
-Looking forward to FUNDING.yml.
+Looking forward to enable FUNDING.yml soon.
