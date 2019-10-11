@@ -31,12 +31,12 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
     @objc
     func handleOpenUrl(_ notification: Notification) {
         guard let object = notification.object as? JSObject else {
-            print("There is no object on handleOpenUrl")
+            self.plugin?.handleError(message: "There is no object on handleOpenUrl")
             return
         }
 
         guard let url = object["url"] as? URL else {
-            print("There is no url on handleOpenUrl")
+            self.plugin?.handleError(message: "There is no url on handleOpenUrl")
             return
         }
 
@@ -45,12 +45,12 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
-            print(error.localizedDescription)
+            self.plugin?.handleError(message: error.localizedDescription)
             return
         }
 
         guard let authentication = user.authentication else {
-            print("There is no authentication on GIDGoogleUser")
+            self.plugin?.handleError(message: "There is no authentication on GIDGoogleUser")
             return
         }
 
