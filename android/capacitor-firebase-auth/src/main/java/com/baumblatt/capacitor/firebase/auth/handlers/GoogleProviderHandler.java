@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import com.auth0.android.jwt.JWT;
+
 import static com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth.CONFIG_KEY_PREFIX;
 
 public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.OnConnectionFailedListener {
@@ -52,11 +54,11 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
                 .requestEmail();
 
 
-        for (String permission: permissions) {
+        for (String permission : permissions) {
             try {
                 gsBuilder.requestScopes(new Scope(permission));
             } catch (Exception e) {
-                Log.w(GOOGLE_TAG, "Failure requesting the scope at index "+permission);
+                Log.w(GOOGLE_TAG, String.format("Failure requesting the scope at index s%", permission));
             }
         }
 
@@ -85,7 +87,7 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
             // Google Sign In was successful, authenticate with Firebase
             GoogleSignInAccount account = task.getResult(ApiException.class);
 
-            if(account != null) {
+            if (account != null) {
                 Log.d(GOOGLE_TAG, "Google Sign In succeed.");
                 AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
                 this.plugin.handleAuthCredentials(credential);
@@ -104,6 +106,30 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
     @Override
     public boolean isAuthenticated() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this.plugin.getContext());
+
+        if (account != null) {
+            String token = account.getIdToken();
+
+            if (token == null) {
+                Log.d(GOOGLE_TAG, "Google account found, but there is no token to check or refresh.");
+
+                return false;
+            } else {
+                if (new JWT(token).isExpired(10)) {
+                    try {
+                        Task<GoogleSignInAccount> task = this.mGoogleSignInClient.silentSignIn();
+                        account = task.getResult(ApiException.class);
+                        Log.d(GOOGLE_TAG, "Google silentSignIn succeed.");
+                    } catch (ApiException exception) {
+                        Log.w(GOOGLE_TAG, String.format("Google silentSignIn failure: s%", exception.getLocalizedMessage()));
+
+                        return false;
+                    }
+                }
+            }
+        }
+
+
         return account != null;
     }
 
