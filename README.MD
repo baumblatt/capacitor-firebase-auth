@@ -9,45 +9,19 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 
 ## What news
 
-- Issue #23 - Alternative Facade for receive more information from the authentication providers.
-- Issue #26 - No callback when error/cancel in Google SignUp.
+- Issue #29 - plugin doesn't handle expired tokens
+- Issue #23 - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
 
 ## Important notes for upgrading between minor or major versions.
 
 - from 0.1.x to 0.2.0: required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
 
-## History
-- Issue #16 - Support for Google Sign In Scopes.
-- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
-- Issue #13: Operator to map firebase.User to firebase.userInfo.
-- Issue #9: Support for language configurations (Phone Verification)
-- Capacitor v1.1.1
-- Better Facade code (Thanks for @trentcrockett contribution).
-- Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
-- Notifications for `On Code Sent` from Phone Verification process for iOS Platform (The Firebase does not read the SMS on iOS platform, so there is no way to notify `On Code Received`).
-- Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
-- Dependency updates for android platform (Firebase 17 and Facebook 5)
-- Configuration for when authenticate on native layer (default false to avoid double billing)
-- Fix the issue #1: Default FirebaseApp is not initialized on Android platform
-- WIP: Phone verification sign in on iOS platform.
-- Phone verification sign in on Android platform. 
-- How to install and config on Google, Twitter and Facebook.
-- Fix to work without Facebook configurations.
-- Better sign out implementation.
-- Better observable implementations on js facade.
-- Facebook Provider authentication in iOS platform
-- Facebook Provider authentication in Android platform
-- Twitter Provider authentication in iOS platform
-- Twitter Provider authentication in Android platform
-- The Typescript facade for the plugin
-- Google Provider authentication in iOS Platform
-- Google Provider authentication in Android platform
-- Scaffolding do plugin (npx @capacitor/cli plugin:generate)
-
 ## Next steps
 
 1. Support for PWA 
-2. Email/Password Provider (Should we do this? It's very simple to authenticate on WebView without any plugin. For awhile, waiting a good reason to do it.)
+2. Email/Password Provider 
+> Should we do this? It's very simple to authenticate on WebView without any plugin. 
+> For awhile, waiting a good reason to do it. (track interest on Issue #24)
 
 ### How to Install
 
@@ -473,3 +447,32 @@ The user will be **signed in** only in web layer. This limitation is due to the 
 If you feel that project is useful, please, considered to buy me a beer through [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=GWR8QXSQ7TT8U&item_name=Capacitor+Firebase+Auth&currency_code=BRL&source=url)
 
 Looking forward to enable FUNDING.yml soon.
+
+## History
+- Issue #26 - No callback when error/cancel in Google SignUp.
+- Issue #16 - Support for Google Sign In Scopes.
+- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
+- Issue #13: Operator to map firebase.User to firebase.userInfo.
+- Issue #9: Support for language configurations (Phone Verification)
+- Capacitor v1.1.1
+- Better Facade code (Thanks for @trentcrockett contribution).
+- Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
+- Notifications for `On Code Sent` from Phone Verification process for iOS Platform (The Firebase does not read the SMS on iOS platform, so there is no way to notify `On Code Received`).
+- Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
+- Dependency updates for android platform (Firebase 17 and Facebook 5)
+- Configuration for when authenticate on native layer (default false to avoid double billing)
+- Fix the issue #1: Default FirebaseApp is not initialized on Android platform
+- WIP: Phone verification sign in on iOS platform.
+- Phone verification sign in on Android platform. 
+- How to install and config on Google, Twitter and Facebook.
+- Fix to work without Facebook configurations.
+- Better sign out implementation.
+- Better observable implementations on js facade.
+- Facebook Provider authentication in iOS platform
+- Facebook Provider authentication in Android platform
+- Twitter Provider authentication in iOS platform
+- Twitter Provider authentication in Android platform
+- The Typescript facade for the plugin
+- Google Provider authentication in iOS Platform
+- Google Provider authentication in Android platform
+- Scaffolding do plugin (npx @capacitor/cli plugin:generate)
