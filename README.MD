@@ -331,7 +331,7 @@ cfaSignIn('google.com').subscribe(
  cfaSignIn('google.com').pipe(
  	mapUserToUserInfo(),
  ).subscribe(
-    (user: UserInfo) => console.log(user.displayName);
+    (user: UserInfo) => console.log(user.displayName)
  )
 ```
 
