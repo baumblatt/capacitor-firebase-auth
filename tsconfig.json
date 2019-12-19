@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
 		"declaration": true,
 		"experimentalDecorators": true,
 		"lib": [
@@ -14,7 +13,8 @@
 		"noUnusedParameters": true,
 		"outDir": "dist/esm",
 		"sourceMap": true,
-		"target": "es2015"
+		"target": "es2015",
+		"esModuleInterop": true
 	},
 	"files": [
 		"src/index.ts",

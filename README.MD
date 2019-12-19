@@ -9,17 +9,31 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 
 ## What news
 
-- Issue #29 - plugin doesn't handle expired tokens
-- Issue #23 - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
+Issue 38#: interoperability with [Stancil](https://getstencil.com/), thanks to [Justin Rich](https://github.com/socalrunner).
 
 ## Important notes for upgrading between minor or major versions.
 
-- from 0.1.x to 0.2.0: required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
+#### from 0.1.x to 0.2.0: GoogleSignIn 5.0.0
+> Required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
+
+#### from 0.2.x to 0.3.0: esModuleInterop
+> The firebase import was changed using `esModuleInterop`, that was a [Stancil](https://getstencil.com/) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
+
+```
+1 import firebase from 'firebase/app';
+         ~~~~~~~~
+    8601 export = firebase;
+         ~~~~~~~~~~~~~~~~~~
+    This module is declared with using 'export =', and can only be used with a default import when using the 'allowSyntheticDefaultImports' flag.
+```
+
+If you see the message above, please use `esModuleInterop=true` in your  `tsconfig.json` file.
 
 ## Next steps
 
-1. Support for PWA 
-2. Email/Password Provider 
+1. Support for Apple provider
+2. Support for PWA 
+3. Email/Password Provider 
 > Should we do this? It's very simple to authenticate on WebView without any plugin. 
 > For awhile, waiting a good reason to do it. (track interest on Issue #24)
 
@@ -81,6 +95,8 @@ npm install --save capacitor-firebase-auth
     }
     ```
     > Sorry, but even if you are not using Twitter authentication, this will be needed, see Twitter section for detail.
+
+4. For Typescript users, please, review your `tsconfig.json` and ensure that you are using `esModuleInterop=true`.
 
 ## Firebase
 
@@ -453,6 +469,8 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Issue #29 - plugin doesn't handle expired tokens
+- Issue #23 - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
 - Issue #26 - No callback when error/cancel in Google SignUp.
 - Issue #16 - Support for Google Sign In Scopes.
 - Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
