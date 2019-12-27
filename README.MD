@@ -9,7 +9,7 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 
 ## What news
 
-Issue 38#: interoperability with [Stencil](https://getstencil.com/), thanks to [Justin Rich](https://github.com/socalrunner).
+Issue 38#: interoperability with [Stencil](https://stenciljs.com/), thanks to [Justin Rich](https://github.com/socalrunner).
 
 ## Important notes for upgrading between minor or major versions.
 
