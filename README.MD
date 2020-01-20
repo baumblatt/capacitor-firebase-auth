@@ -9,7 +9,7 @@ Actually the plugins support Google, Twitter, Facebook and Phone providers in An
 
 ## What news
 
-Issue 38#: interoperability with [Stancil](https://getstencil.com/), thanks to [Justin Rich](https://github.com/socalrunner).
+Issue 38#: interoperability with [Stencil](https://stenciljs.com), thanks to [Justin Rich](https://github.com/socalrunner).
 
 ## Important notes for upgrading between minor or major versions.
 
@@ -17,7 +17,7 @@ Issue 38#: interoperability with [Stancil](https://getstencil.com/), thanks to [
 > Required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
 
 #### from 0.2.x to 0.3.0: esModuleInterop
-> The firebase import was changed using `esModuleInterop`, that was a [Stancil](https://getstencil.com/) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
+> The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
 
 ```
 1 import firebase from 'firebase/app';
