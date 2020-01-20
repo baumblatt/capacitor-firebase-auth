@@ -44,6 +44,8 @@ Install the plugin into your Capacitor project with npm.
 ```
 npm install --save capacitor-firebase-auth
 ```
+
+> Don't forget to run `npx cap sync` once after the installation to propagate the plugin to native projects. 
  
 ### How to Config
 
