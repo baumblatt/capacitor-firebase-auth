@@ -48,6 +48,17 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             }
         }
     }
+    
+    @objc func signInUserPass(_ call: CAPPluginCall, email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard let strongSelf = self else { return }
+            if error != nil {
+                call.reject(error);
+            } else {
+                call.resolve();
+            }
+        }
+    }
 
     @objc func signIn(_ call: CAPPluginCall) {
         guard let theProvider : ProviderHandler = self.getProvider(call: call) else {
