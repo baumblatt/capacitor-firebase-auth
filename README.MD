@@ -3,9 +3,9 @@
 
 # capacitor-firebase-auth
 
-Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sing in process complete the user will be signed in in both tiers.
+Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sign-in process completes, the user will be signed in within both tiers.
 
-Actually the plugins support Google, Twitter, Facebook and Phone providers in Android and iOS.
+The plugin supports Google, Twitter, Facebook and Phone providers in Android and iOS.
 
 ## What news
 
