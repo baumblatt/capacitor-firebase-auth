@@ -175,7 +175,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             call.success()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
-            call.reject("Error signing out: %@", signOutError)
+            call.reject("Error signing out: \(signOutError)")
         }
     }
 }
