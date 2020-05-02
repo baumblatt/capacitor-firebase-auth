@@ -12,9 +12,11 @@ public interface ProviderHandler {
     void init(CapacitorFirebaseAuth plugin);
 
     void signIn(PluginCall call);
+
     void signOut();
 
     int getRequestCode();
+
     void handleOnActivityResult(int requestCode, int resultCode, Intent data);
 
     boolean isAuthenticated();

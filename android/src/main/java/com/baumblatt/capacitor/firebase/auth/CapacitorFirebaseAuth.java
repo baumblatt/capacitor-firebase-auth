@@ -1,10 +1,12 @@
 package com.baumblatt.capacitor.firebase.auth;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
+
+import com.baumblatt.capacitor.firebase.auth.capacitorfirebaseauth.R;
 import com.baumblatt.capacitor.firebase.auth.handlers.FacebookProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;
@@ -24,16 +26,12 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @NativePlugin(requestCodes = {
         GoogleProviderHandler.RC_GOOGLE_SIGN_IN,
-        TwitterAuthConfig.DEFAULT_AUTH_REQUEST_CODE,
         FacebookProviderHandler.RC_FACEBOOK_LOGIN
 })
 public class CapacitorFirebaseAuth extends Plugin {
@@ -48,8 +46,6 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     public void load() {
         super.load();
-
-        getConfigValue("nada");
 
         String[] providers = Config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
         this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
