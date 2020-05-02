@@ -9,7 +9,7 @@ The plugin supports Google, Twitter, Facebook and Phone providers in Android and
 
 ## What news
 
-Issue 38#: interoperability with [Stencil](https://stenciljs.com), thanks to [Justin Rich](https://github.com/socalrunner).
+Issue #66: Cannot convert value of type 'NSError' to expected argument type 'String?', thanks to [Greg McKelvey](https://github.com/mckelveygreg).
 
 ## Important notes for upgrading between minor or major versions.
 
@@ -471,13 +471,14 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
-- Issue #29 - plugin doesn't handle expired tokens
-- Issue #23 - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
-- Issue #26 - No callback when error/cancel in Google SignUp.
-- Issue #16 - Support for Google Sign In Scopes.
-- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
-- Issue #13: Operator to map firebase.User to firebase.userInfo.
-- Issue #9: Support for language configurations (Phone Verification)
+- Issue 38#: interoperability with [Stencil](https://stenciljs.com), thanks to [Justin Rich](https://github.com/socalrunner).
+- Issue 29# - plugin doesn't handle expired tokens
+- Issue 23# - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
+- Issue 26# - No callback when error/cancel in Google SignUp.
+- Issue 16# - Support for Google Sign In Scopes.
+- Issue 14# and Issue #15 - Update ios version to GoogleSignIn 5.0.0
+- Issue 13#: Operator to map firebase.User to firebase.userInfo.
+- Issue 9#: Support for language configurations (Phone Verification)
 - Capacitor v1.1.1
 - Better Facade code (Thanks for @trentcrockett contribution).
 - Notifications for `On Code Sent` and `On Code Received` from Phone Verification process for Android Platform.
@@ -485,7 +486,7 @@ Looking forward to enable FUNDING.yml soon.
 - Providers list in plugin configurations (braking changes - see How to Config - Capacitor Plugin Item 1)
 - Dependency updates for android platform (Firebase 17 and Facebook 5)
 - Configuration for when authenticate on native layer (default false to avoid double billing)
-- Fix the issue #1: Default FirebaseApp is not initialized on Android platform
+- Fix the issue 1#: Default FirebaseApp is not initialized on Android platform
 - WIP: Phone verification sign in on iOS platform.
 - Phone verification sign in on Android platform. 
 - How to install and config on Google, Twitter and Facebook.

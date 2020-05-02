@@ -13,8 +13,7 @@
   "author": "Bernardo Baumblatt",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "latest",
-    "rxjs": "^6.5.3"
+    "@capacitor/core": "latest"
   },
   "devDependencies": {
     "rimraf": "^2.6.3",
