@@ -1,7 +1,7 @@
 # compiled output
 /dist
-android/capacitor-firebase-auth/build
-android/capacitor-firebase-auth/capacitor-firebase-auth.iml
+android/build
+android/capacitor-firebase-auth.iml
 ios/Plugin/Pods
 
 # dependencies
