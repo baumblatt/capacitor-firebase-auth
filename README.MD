@@ -7,9 +7,23 @@ Capacitor plugin for Firebase Authentication that handle the authentication on N
 
 The plugin supports Google, Twitter, Facebook and Phone providers in Android and iOS.
 
-## What news
+## What news - Work in Progress
 
-Issue #66: Cannot convert value of type 'NSError' to expected argument type 'String?', thanks to [Greg McKelvey](https://github.com/mckelveygreg).
+This is the work in progress of version 2.0.0 of this plugin. There aren't new features in this release, but update of all dependencies and the 
+Capacitor Framework in self. Duet of several issues upgrading my projects, I decide to re -build it from scratch, this not means that I'm rewriting
+the plugin or changing the facade, just running `npx @capacitor/cli plugin:generate` again and merging the old code into it.
+
+I'm doing this step by step, and you can follow the journey on the table below:
+
+| Platform   |   Google   |  Facebook | Twitter   | Phone     |
+|:-----------|:----------:|:---------:|:---------:|:---------:|
+| Android    |  ✅  |  🚧  |  🚧  |  🚧  | 
+| iOS        |  🚧  |  🚧  |  🚧  |  🚧  | 
+| Web        |  🧠  |  🧠  |  🧠  |  🧠  | 
+
+✅ - Ready
+🚧 - Work in progress
+🧠 - Thinking about, date to be defined
 
 ## Important notes for upgrading between minor or major versions.
 
@@ -18,6 +32,10 @@ Issue #66: Cannot convert value of type 'NSError' to expected argument type 'Str
 
 #### from 0.2.x to 0.3.0: esModuleInterop
 > The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
+
+#### from 0.3.x to 2.0.0
+> Sorry about that, but there is no path to do it, I my case, me and my team decided to re-build the projects from scratch, this does not mean code 
+> rewrite, just a project, configurations and build. The good news is, there is no change on Typescript/Javascript/Java/Swift facades.
 
 ```
 1 import firebase from 'firebase/app';
@@ -471,6 +489,7 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Issue #66: Cannot convert value of type 'NSError' to expected argument type 'String?', thanks to [Greg McKelvey](https://github.com/mckelveygreg).
 - Issue 38#: interoperability with [Stencil](https://stenciljs.com), thanks to [Justin Rich](https://github.com/socalrunner).
 - Issue 29# - plugin doesn't handle expired tokens
 - Issue 23# - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
