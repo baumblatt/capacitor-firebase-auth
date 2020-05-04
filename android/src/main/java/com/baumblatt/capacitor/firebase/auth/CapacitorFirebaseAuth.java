@@ -6,6 +6,7 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
+import com.baumblatt.capacitor.firebase.auth.R;
 import com.baumblatt.capacitor.firebase.auth.handlers.FacebookProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;

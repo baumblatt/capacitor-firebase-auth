@@ -166,27 +166,12 @@ npm install --save capacitor-firebase-auth
 2. Enable Twitter Login:
     * In the [Firebase console](https://console.firebase.google.com/), open the **Auth** section
     * On the **Sign in method** tab, enable the **Twitter** sign-in method and specify the **App ID** and **App Secret** you got from Facebook.
-    * Then, make sure your Firebase OAuth redirect URI (e.g. _my-app-12345.firebaseapp.com/__/auth/handler_) is set as your Callback URL in your app's settings page on your [Twitter app's config](https://apps.twitter.com/).
+    * Then, make sure your Firebase OAuth redirect URI (e.g. _my-app-12345.firebaseapp.com/\_\_/auth/handler_) is set as your Callback URL in your app's settings page on your [Twitter app's config](https://apps.twitter.com/).
 
 #### Twitter Android specific configurations
 
-1. In file `android/app/src/main/res/values/ids.xml` add the following lines :
-    ```xml
-    <string name="twitter_consumer_key">[APP_ID]</string>
-    <string name="twitter_consumer_secret">[APP_SECRET]</string>
-    ```
-    > Don't forget to replace `[APP_ID]` and `[APP_SECRET]` by your Twitter **App ID** and **App Secret** respectively.
-
-2. In file `android/app/build.gradle` add the following lines : 
-    ```
-    android {
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-    }
-    ```
-    > Please See: [Invoke-customs are only supported starting with android 0 --min-api 26](https://stackoverflow.com/questions/49891730/invoke-customs-are-only-supported-starting-with-android-0-min-api-26) on stackoverflow.com.
+1. There isn't any specific configuration on Android project duet the use of firebase OAuthProvider.
+> Since version 2.0.0 this plugin does not use Twitter Kit anymore, following implementation reference of Firebase Documentation. 
 
 #### Twitter iOS specific configurations
 
