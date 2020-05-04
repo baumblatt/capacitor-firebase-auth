@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
+import com.google.firebase.auth.AuthCredential;
 
 public class PhoneProviderHandler implements ProviderHandler {
     @Override
@@ -38,7 +39,7 @@ public class PhoneProviderHandler implements ProviderHandler {
     }
 
     @Override
-    public void fillResult(JSObject object) {
+    public void fillResult(AuthCredential credential, JSObject jsResult) {
 
     }
 }

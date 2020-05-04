@@ -21,5 +21,5 @@ public interface ProviderHandler {
 
     boolean isAuthenticated();
 
-    void fillResult(JSObject object);
+    void fillResult(AuthCredential credential, JSObject jsResult);
 }

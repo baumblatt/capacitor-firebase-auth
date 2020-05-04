@@ -5,9 +5,10 @@ import android.content.Intent;
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
+import com.google.firebase.auth.AuthCredential;
 
 public class FacebookProviderHandler implements ProviderHandler {
-    private static final String FACEBOOK_TAG = "TwitterProviderHandler";
+    private static final String FACEBOOK_TAG = "FacebookProviderHandler";
     public static final int RC_FACEBOOK_LOGIN = 0xface;
 
     private CapacitorFirebaseAuth plugin;
@@ -43,7 +44,7 @@ public class FacebookProviderHandler implements ProviderHandler {
     }
 
     @Override
-    public void fillResult(JSObject object) {
+    public void fillResult(AuthCredential credential, JSObject jsResult) {
 
     }
 }

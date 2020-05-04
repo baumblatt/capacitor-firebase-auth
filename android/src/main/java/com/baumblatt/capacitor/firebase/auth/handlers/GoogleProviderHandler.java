@@ -133,7 +133,7 @@ public class GoogleProviderHandler implements ProviderHandler {
     }
 
     @Override
-    public void fillResult(JSObject jsResult) {
+    public void fillResult(AuthCredential credential, JSObject jsResult) {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this.plugin.getContext());
         if (account != null)  {
             jsResult.put("idToken", account.getIdToken());

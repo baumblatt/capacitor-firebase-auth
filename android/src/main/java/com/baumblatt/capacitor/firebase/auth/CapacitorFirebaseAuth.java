@@ -6,7 +6,6 @@ import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 
-import com.baumblatt.capacitor.firebase.auth.R;
 import com.baumblatt.capacitor.firebase.auth.handlers.FacebookProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;
@@ -38,7 +37,7 @@ public class CapacitorFirebaseAuth extends Plugin {
     public static final String CONFIG_KEY_PREFIX = "plugins.CapacitorFirebaseAuth.";
     private static final String PLUGIN_TAG = "CapacitorFirebaseAuth";
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
     private Map<String, ProviderHandler> providerHandlers = new HashMap<>();
     private SparseArray<ProviderHandler> providerHandlerByRC = new SparseArray<>();
 
@@ -59,8 +58,8 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
 
         Log.d(PLUGIN_TAG, "Retrieving FirebaseAuth instance");
-        this.mAuth = FirebaseAuth.getInstance();
-        this.mAuth.setLanguageCode(languageCode);
+        this.firebaseAuth = FirebaseAuth.getInstance();
+        this.firebaseAuth.setLanguageCode(languageCode);
 
         for (String provider: providers) {
             if (provider.equalsIgnoreCase(getContext().getString(R.string.google_provider_id))) {
@@ -106,7 +105,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         } else {
 
             if (handler.isAuthenticated()) {
-                JSObject jsResult = this.build(call);
+                JSObject jsResult = this.build(null, call);
                 call.success(jsResult);
             } else {
                 this.saveCall(call);
@@ -124,9 +123,9 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
 
         // sign out from firebase
-        FirebaseUser currentUser = this.mAuth.getCurrentUser();
+        FirebaseUser currentUser = this.firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            this.mAuth.signOut();
+            this.firebaseAuth.signOut();
         }
 
         call.success();
@@ -182,26 +181,26 @@ public class CapacitorFirebaseAuth extends Plugin {
         if (this.nativeAuth) {
             nativeAuth(savedCall, credential);
         } else {
-            JSObject jsResult = this.build(savedCall);
+            JSObject jsResult = this.build(credential, savedCall);
             savedCall.success(jsResult);
         }
     }
 
     private void nativeAuth(final PluginCall savedCall, final AuthCredential credential) {
-        this.mAuth.signInWithCredential(credential)
+        this.firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(PLUGIN_TAG, "Firebase Sign In with Credential succeed.");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
 
                             if (user == null) {
                                 Log.w(PLUGIN_TAG, "Ops, no Firebase user after Sign In with Credential succeed.");
                                 savedCall.reject("Ops, no Firebase user after Sign In with Credential succeed");
                             } else {
-                                JSObject jsResult = build(savedCall);
+                                JSObject jsResult = build(credential, savedCall);
                                 savedCall.success(jsResult);
                             }
                         } else {
@@ -235,7 +234,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
     }
 
-    private JSObject build(PluginCall call) {
+    private JSObject build(AuthCredential credential, PluginCall call) {
         Log.d(PLUGIN_TAG, "Building authentication result");
 
         JSObject jsResult = new JSObject();
@@ -244,7 +243,7 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         ProviderHandler handler = this.getProviderHandler(call);
         if (handler != null) {
-            handler.fillResult(jsResult);
+            handler.fillResult(credential, jsResult);
         }
 
         return jsResult;
