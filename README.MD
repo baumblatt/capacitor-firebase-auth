@@ -18,7 +18,7 @@ I'm doing this step by step, and you can follow the journey on the table below:
 | Platform   |   Google   |  Facebook | Twitter   | Phone     |
 |:-----------|:----------:|:---------:|:---------:|:---------:|
 | Android    |  ✅  |  🚧  |  ✅  |  ✅  | 
-| iOS        |  🚧  |  🚧  |  🚧  |  🚧  | 
+| iOS        |  ✅  |  🚧  |  ✅  |  ✅  | 
 | Web        |  🧠  |  🧠  |  🧠  |  🧠  | 
 
 ✅ - Ready

@@ -65,7 +65,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         
         DispatchQueue.main.async {
             if (theProvider.isAuthenticated()) {
-                self.buildResult();
+                self.buildResult(credential: nil);
                 return
             }
             
@@ -92,7 +92,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         if (self.nativeAuth) {
             self.authenticate(credential: credential)
         } else {
-            self.buildResult()
+            self.buildResult(credential: credential)
         }
     }
 
@@ -119,11 +119,11 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 return
             }
             
-            self.buildResult();
+            self.buildResult(credential: credential);
         }
     }
     
-    func buildResult() {
+    func buildResult(credential: AuthCredential?) {
         guard let callbackId = self.callbackId else {
             print("Ops, there is no callbackId building result")
             return
@@ -143,7 +143,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        call.success(provider.fillResult(data: jsResult));
+        call.success(provider.fillResult(credential: credential, data: jsResult));
     }
 
     func handleError(message: String) {

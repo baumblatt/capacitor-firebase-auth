@@ -1,75 +1,68 @@
 import Foundation
 import Capacitor
 import FirebaseAuth
-import TwitterKit
 
 class TwitterProviderHandler: NSObject, ProviderHandler {
+    var provider: OAuthProvider? = nil
     var plugin: CapacitorFirebaseAuth? = nil
     
     func initialize(plugin: CapacitorFirebaseAuth) {
         print("Initializing Twitter Provider Handler")
         self.plugin = plugin
         
-        guard let path = Bundle.main.path(forResource: "Twitter-Info", ofType: "plist") else {
-            print("Missing Twitter-Info.plist configuration.")
-            return
-        }
+        self.provider = OAuthProvider(providerID: "twitter.com")
         
-        let config = NSDictionary(contentsOfFile: path)
-        
-        guard let apiKey = config?["API_KEY"] as? String else {
-            print("There is no API_KEY on Twitter-Info.plist configuration.")
-            return
-        }
-        
-        guard let apiSecret = config?["API_SECRET"] as? String else {
-            print("There is no API_SECRET on Twitter-Info.plist configuration.")
-            return
-        }
-
-        TWTRTwitter.sharedInstance().start(withConsumerKey: apiKey, consumerSecret: apiSecret)
+        self.provider?.customParameters = [
+            "lang": self.plugin?.languageCode ?? "en"
+        ]
     }
 
     func signIn(call: CAPPluginCall) {
         DispatchQueue.main.async {
-            TWTRTwitter.sharedInstance().logIn(with: self.plugin?.bridge.viewController) { (session, error) in
-                
-                guard let session = session else {
-                    self.plugin?.handleError(message: "There is no session in Twitter sign in.")
-                    return
+            self.provider?.getCredentialWith(nil) { credential, error in
+              if error != nil {
+                print(error?.localizedDescription ?? "A failure occurs in Twitter sign in.")
+                self.plugin!.handleError(message: "A failure occurs in Twitter sign in.")
+                return
+              }
+              if credential != nil {
+                Auth.auth().signIn(with: credential!) { (authResult, error) in
+                    if error != nil {
+                      print(error?.localizedDescription ?? "A failure occurs in Twitter sign in.")
+                      self.plugin!.handleError(message: "A failure occurs in Twitter sign in.")
+                      return
+                    }
+                    self.plugin?.handleAuthCredentials(credential: (authResult?.credential!)!);
                 }
                 
-                let credential = TwitterAuthProvider.credential(withToken: session.authToken, secret: session.authTokenSecret);
-                self.plugin?.handleAuthCredentials(credential: credential)
+              }
             }
         }
     }
     
     func isAuthenticated() -> Bool {
-        return TWTRTwitter.sharedInstance().sessionStore.session() != nil
+        return false
     }
     
-    func fillResult(data: PluginResultData) -> PluginResultData {
-        guard let session = TWTRTwitter.sharedInstance().sessionStore.session() else {
-            return data;
-        }
-        
+    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
         var jsResult: PluginResultData = [:]
         data.map { (key, value) in
             jsResult[key] = value
         }
         
-        jsResult["idToken"] = session.authToken
-        jsResult["secret"] = session.authTokenSecret
+        let twitterCredential = credential as! OAuthCredential
+        print(twitterCredential.accessToken)
+        print(twitterCredential.idToken)
+        print(twitterCredential.secret)
+        
+        jsResult["idToken"] = twitterCredential.accessToken
+        jsResult["secret"] = twitterCredential.secret
         
         return jsResult
     }
     
     func signOut() {
-        guard let session = TWTRTwitter.sharedInstance().sessionStore.session() else {
-            return;
-        }
-        
-        TWTRTwitter.sharedInstance().sessionStore.logOutUserID(session.userID)
+        // there is nothing to do here
+        print("TwitterProviderHandler.signOut called.");
     }
 }

@@ -70,7 +70,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
         return GIDSignIn.sharedInstance()?.currentUser != nil
     }
 
-    func fillResult(data: PluginResultData) -> PluginResultData {
+    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
         guard let currentUser = GIDSignIn.sharedInstance()?.currentUser else {
             return data
         }

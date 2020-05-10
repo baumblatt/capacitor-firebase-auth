@@ -76,7 +76,7 @@ class PhoneNumberProviderHandler: NSObject, ProviderHandler {
         return false
     }
 
-    func fillResult(data: PluginResultData) -> PluginResultData {
+    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
 
         var jsResult: PluginResultData = [:]
         data.map { (key, value) in

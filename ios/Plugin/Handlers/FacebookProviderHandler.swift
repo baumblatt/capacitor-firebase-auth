@@ -40,7 +40,7 @@ class FacebookProviderHandler: NSObject, ProviderHandler {
         return AccessToken.current != nil
     }
     
-    func fillResult(data: PluginResultData) -> PluginResultData {
+    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
         guard let accessToken = AccessToken.current else {
             return data
         }

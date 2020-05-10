@@ -1,7 +1,7 @@
 
   Pod::Spec.new do |s|
     s.name = 'CapacitorFirebaseAuth'
-    s.version = '2.0.0-beta.03'
+    s.version = '2.0.0-beta.4'
     s.summary = 'Capacitor plugin for Firebase Authentication'
     s.license = 'MIT'
     s.homepage = 'https://github.com/baumblatt/capacitor-firebase-auth.git'
