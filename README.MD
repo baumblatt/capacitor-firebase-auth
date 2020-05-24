@@ -18,7 +18,7 @@ I'm doing this step by step, and you can follow the journey on the table below:
 | Platform   |   Google   |  Facebook | Twitter   | Phone     |
 |:-----------|:----------:|:---------:|:---------:|:---------:|
 | Android    |  ✅  |  ✅  |  ✅  |  ✅  | 
-| iOS        |  ✅  |  🚧  |  ✅  |  ✅  | 
+| iOS        |  ✅  |  ✅  |  ✅  |  ✅  | 
 | Web        |  🧠  |  🧠  |  🧠  |  🧠  | 
 
 ✅ - Ready
@@ -168,48 +168,10 @@ npm install --save capacitor-firebase-auth
     * On the **Sign in method** tab, enable the **Twitter** sign-in method and specify the **App ID** and **App Secret** you got from Facebook.
     * Then, make sure your Firebase OAuth redirect URI (e.g. _my-app-12345.firebaseapp.com/\_\_/auth/handler_) is set as your Callback URL in your app's settings page on your [Twitter app's config](https://apps.twitter.com/).
 
-#### Twitter Android specific configurations
+#### Twitter Android and iOS specific configurations
 
-1. There isn't any specific configuration on Android project duet the use of firebase OAuthProvider.
-> Since version 2.0.0 this plugin does not use Twitter Kit anymore, following implementation reference of Firebase Documentation. 
-
-#### Twitter iOS specific configurations
-
-1. Create the file `ios/App/App/Twitter-Info.plist` and configure your `[APP_ID]` and `[APP_SECRET]`.
-    ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
-        <key>API_KEY</key>
-        <string>[APP_ID]</string>
-        <key>API_SECRET</key>
-        <string>[APP_SECRET]</string>
-    </dict>
-    </plist>
-    ```
-2. Add custom URL schemes to your Xcode project:
-    * Open your project configuration: double-click the project name in the left tree view. Select your app from the **TARGETS** section, then select the **Info** tab, and expand the **URL Types** section.
-    * Click the **+** button, and add a `URL` scheme for the Callback URL of Twitter Kit for iOS. In **URL Schemes** box on the configuration page use `twitterkit-[APP_ID]`. Leave the other fields blank.
-
-3. Dispatch the designated callback URL to Twitter Kit in your `ios/App/App/AppDelegate.swift` file. 
-    ```
-      func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Called when the app was launched with a url. Feel free to add additional processing here,
-        // but if you want the App API to support tracking app url opens, make sure to keep this call
-        
-        if let scheme = url.scheme {
-            if scheme.starts(with: "twitterkit") {
-                return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
-            }
-        }
-        
-        return CAPBridge.handleOpenUrl(url, options)
-      }
-    ```
-    
-> Don't forget to replace `[APP_ID]` and `[APP_SECRET]` by your Twitter **App ID** and **App Secret** respectively.
-      
+1. There isn't any specific configuration on Android and iOs native projects duet the use of firebase OAuthProvider.
+> Since version 2.0.0 this plugin does not use Twitter Kit anymore, following implementation reference of Firebase Documentation.      
 
 ## Facebook
 
