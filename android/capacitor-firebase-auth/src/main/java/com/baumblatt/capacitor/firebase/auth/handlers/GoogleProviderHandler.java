@@ -1,7 +1,7 @@
 package com.baumblatt.capacitor.firebase.auth.handlers;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
