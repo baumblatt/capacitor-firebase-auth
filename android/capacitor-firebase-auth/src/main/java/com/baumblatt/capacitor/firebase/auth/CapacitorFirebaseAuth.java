@@ -51,9 +51,9 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         getConfigValue("nada");
 
-        String[] providers = Config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
-        this.nativeAuth = Config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
-        String languageCode = Config.getString(CONFIG_KEY_PREFIX+"languageCode", "en");
+        String[] providers = getBridge().getConfig().getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
+        this.nativeAuth = getBridge().getConfig().getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
+        String languageCode = getBridge().getConfig().getString(CONFIG_KEY_PREFIX+"languageCode", "en");
 
         // FirebaseApp is not initialized in this process - Error #1
         Log.d(PLUGIN_TAG, "Verifying if the default FirebaseApp was initialized.");
