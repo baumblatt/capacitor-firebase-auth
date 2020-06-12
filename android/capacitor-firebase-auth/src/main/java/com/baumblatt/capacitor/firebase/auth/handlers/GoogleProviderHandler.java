@@ -39,7 +39,7 @@ public class GoogleProviderHandler implements ProviderHandler, GoogleApiClient.O
     public void init(CapacitorFirebaseAuth plugin) {
         this.plugin = plugin;
 
-        String[] permissions = Config.getArray(CONFIG_KEY_PREFIX + "permissions.google", new String[0]);
+        String[] permissions = plugin.getBridge().getConfig().getArray(CONFIG_KEY_PREFIX + "permissions.google", new String[0]);
 
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this.plugin.getContext());
