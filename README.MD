@@ -357,7 +357,7 @@ cfaSignIn('google.com').subscribe(
  )
 ```
 
-#### Sing out
+#### Sign out
 
 ```typescript
 import {cfaSignOut} from 'capacitor-firebase-auth';
