@@ -63,7 +63,7 @@ npm install --save capacitor-firebase-auth
       "plugins": {
         "CapacitorFirebaseAuth": {
           "providers": ["google.com", "twitter.com", "facebook.com", "phone"],
-          "languageCode": "en"
+          "languageCode": "en",
           "nativeAuth": false,
           "permissions": {
                "google": ["profile", "https://www.googleapis.com/auth/drive", ...]
