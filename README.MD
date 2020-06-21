@@ -37,6 +37,9 @@ I'm doing this step by step, and you can follow the journey on the table below:
 > Sorry about that, but there is no path to do it, I my case, me and my team decided to re-build the projects from scratch, this does not mean code 
 > rewrite, just a project, configurations and build. The good news is, there is no change on Typescript/Javascript/Java/Swift facades.
 
+#### from 2.0.x to 2.2.x
+> You need to use version 2.2.0 of the Capacitor Framework duet braking changes.
+
 ```
 1 import firebase from 'firebase/app';
          ~~~~~~~~
