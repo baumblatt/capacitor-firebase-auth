@@ -7,35 +7,32 @@ Capacitor plugin for Firebase Authentication that handle the authentication on N
 
 The plugin supports Google, Twitter, Facebook and Phone providers in Android and iOS.
 
-## What news - Work in Progress
+## Tracking the Work in Progress
 
-This is the work in progress of version 2.0.0 of this plugin. There aren't new features in this release, but update of all dependencies and the 
-Capacitor Framework in self. Duet of several issues upgrading my projects, I decide to re -build it from scratch, this not means that I'm rewriting
-the plugin or changing the facade, just running `npx @capacitor/cli plugin:generate` again and merging the old code into it.
+| Platform   |   Google   |  Facebook | Twitter   | Phone     | Apple     |
+|:-----------|:----------:|:---------:|:---------:|:---------:|:---------:|
+| Android    |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
+| iOS        |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
+| Web        |  🧠  |  🧠  |  🧠  |  🧠  |  🧠  | 
 
-I'm doing this step by step, and you can follow the journey on the table below:
-
-| Platform   |   Google   |  Facebook | Twitter   | Phone     |
-|:-----------|:----------:|:---------:|:---------:|:---------:|
-| Android    |  ✅  |  ✅  |  ✅  |  ✅  | 
-| iOS        |  ✅  |  ✅  |  ✅  |  ✅  | 
-| Web        |  🧠  |  🧠  |  🧠  |  🧠  | 
-
-✅ - Ready
-🚧 - Work in progress
-🧠 - Thinking about, date to be defined
+✅ - Ready  
+🚧 - Work in progress  
+🧠 - Thinking about, date to be defined  
 
 ## Important notes for upgrading between minor or major versions.
 
-#### from 0.1.x to 0.2.0: GoogleSignIn 5.0.0
-> Required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
+#### from 2.0.x to 2.2.x 
+> You need to use version 2.2.0 of the Capacitor Framework due braking changes on Android platform (com.getcapacitor.Config)
 
-#### from 0.2.x to 0.3.0: esModuleInterop
-> The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
+Important: the version 2.2.0 is tagged as `future`, you can track this on issue [#84](https://github.com/baumblatt/capacitor-firebase-auth/issues/84).
 
 #### from 0.3.x to 2.0.0
 > Sorry about that, but there is no path to do it, I my case, me and my team decided to re-build the projects from scratch, this does not mean code 
 > rewrite, just a project, configurations and build. The good news is, there is no change on Typescript/Javascript/Java/Swift facades.
+
+#### from 0.2.x to 0.3.0: esModuleInterop
+
+> The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
 
 ```
 1 import firebase from 'firebase/app';
@@ -44,13 +41,16 @@ I'm doing this step by step, and you can follow the journey on the table below:
          ~~~~~~~~~~~~~~~~~~
     This module is declared with using 'export =', and can only be used with a default import when using the 'allowSyntheticDefaultImports' flag.
 ```
-
 If you see the message above, please use `esModuleInterop=true` in your  `tsconfig.json` file.
+
+#### from 0.1.x to 0.2.0: GoogleSignIn 5.0.0
+> Required GoogleSignIn 5.0.0 on iOS platform, run `pod update` if using lower version.
+
 
 ## Next steps
 
-1. Support for Apple provider
-2. Support for PWA 
+1. Support for PWA 
+2. Support for Apple provider
 3. Email/Password Provider 
 > Should we do this? It's very simple to authenticate on WebView without any plugin. 
 > For awhile, waiting a good reason to do it. (track interest on Issue #24)
@@ -170,7 +170,7 @@ npm install --save capacitor-firebase-auth
 
 #### Twitter Android and iOS specific configurations
 
-1. There isn't any specific configuration on Android and iOs native projects duet the use of firebase OAuthProvider.
+1. There isn't any specific configuration on Android and iOs native projects because the use of firebase OAuthProvider.
 > Since version 2.0.0 this plugin does not use Twitter Kit anymore, following implementation reference of Firebase Documentation.      
 
 ## Facebook
@@ -187,7 +187,7 @@ npm install --save capacitor-firebase-auth
 
 1. Add the dependency for **Facebook SDK** to your app-level build.gradle file:
     ```
-    implementation 'com.facebook.android:facebook-android-sdk:4.41.0'
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     ```
 2. In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
    
@@ -436,14 +436,16 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
-- Issue #66: Cannot convert value of type 'NSError' to expected argument type 'String?', thanks to [Greg McKelvey](https://github.com/mckelveygreg).
-- Issue 38#: interoperability with [Stencil](https://stenciljs.com), thanks to [Justin Rich](https://github.com/socalrunner).
-- Issue 29# - plugin doesn't handle expired tokens
-- Issue 23# - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
-- Issue 26# - No callback when error/cancel in Google SignUp.
-- Issue 16# - Support for Google Sign In Scopes.
-- Issue 14# and Issue #15 - Update ios version to GoogleSignIn 5.0.0
-- Issue 13#: Operator to map firebase.User to firebase.userInfo.
+- Issue #84 - Upgrade to Capacitor 2.2.0 - braking changes on com.getcapacitor.Config
+- Upgrade to Capacitor 2.0.0
+- Issue #66 - Cannot convert value of type 'NSError' to expected argument type 'String?', thanks to [Greg McKelvey](https://github.com/mckelveygreg).
+- Issue #38 -  interoperability with [Stencil](https://stenciljs.com), thanks to [Justin Rich](https://github.com/socalrunner).
+- Issue #29 - plugin doesn't handle expired tokens
+- Issue #23 - Alternative Facade for receive more information from the authentication providers. (fixed a little typo)
+- Issue #26 - No callback when error/cancel in Google SignUp.
+- Issue #16 - Support for Google Sign In Scopes.
+- Issue #14 and Issue #15 - Update ios version to GoogleSignIn 5.0.0
+- Issue #13 - Operator to map firebase.User to firebase.userInfo.
 - Issue 9#: Support for language configurations (Phone Verification)
 - Capacitor v1.1.1
 - Better Facade code (Thanks for @trentcrockett contribution).
