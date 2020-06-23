@@ -9,16 +9,15 @@ The plugin supports Google, Twitter, Facebook and Phone providers in Android and
 
 ## Tracking the Work in Progress
 
-
 | Platform   |   Google   |  Facebook | Twitter   | Phone     | Apple     |
 |:-----------|:----------:|:---------:|:---------:|:---------:|:---------:|
 | Android    |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
 | iOS        |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
 | Web        |  🧠  |  🧠  |  🧠  |  🧠  |  🧠  | 
 
-✅ - Ready
-🚧 - Work in progress
-🧠 - Thinking about, date to be defined
+✅ - Ready  
+🚧 - Work in progress  
+🧠 - Thinking about, date to be defined  
 
 ## Important notes for upgrading between minor or major versions.
 
