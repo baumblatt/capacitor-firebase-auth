@@ -67,7 +67,7 @@ npm install --save capacitor-firebase-auth
  
 ### How to Config
 
-### Minimal version of some peer dependencies that breaks with previous versions
+### The minimal version of some peer dependencies that breaks with previous versions
 
 - FBSDKCoreKit 5.0.0 (see issue #12)
 - FBSDKLoginKit 5.0.0 (see issue #12)
@@ -257,7 +257,7 @@ npm install --save capacitor-firebase-auth
 
 4. Dispatch the designated callback URL to Facebook Kit in your `ios/App/App/AppDelegate.swift` file.
 
-    Facebook SDK >= 5.0.0
+    Facebook SDK
     ```
       import FBSDKCoreKit
     
@@ -270,22 +270,6 @@ npm install --save capacitor-firebase-auth
         if let scheme = url.scheme, let host = url.host {
             if scheme == "fb\(String(describing: Settings.appID))" && host == "authorize" {
                 return ApplicationDelegate.shared.application(app, open: url, options: options)
-            }
-        }
-        
-        return CAPBridge.handleOpenUrl(url, options)
-      }
-    ```
-
-    FaceBook SDK <= 4.41.0
-    ```
-      func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Called when the app was launched with a url. Feel free to add additional processing here,
-        // but if you want the App API to support tracking app url opens, make sure to keep this call
-        
-        if let scheme = url.scheme, let host = url.host {
-            if scheme == "fb\(String(describing: FBSDKSettings.appID()))" && host == "authorize" {
-                return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
             }
         }
         
