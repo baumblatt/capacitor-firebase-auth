@@ -13,7 +13,7 @@ The plugin supports Google, Twitter, Facebook and Phone providers in Android and
 |:-----------|:----------:|:---------:|:---------:|:---------:|:---------:|
 | Android    |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
 | iOS        |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
-| Web        |  🧠  |  🧠  |  🧠  |  🧠  |  🧠  | 
+| Web        |  ✅  |  ✅  |  ✅  |  🧠  |  🧠  | 
 
 ✅ - Ready  
 🚧 - Work in progress  
