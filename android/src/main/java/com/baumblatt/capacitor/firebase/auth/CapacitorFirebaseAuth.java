@@ -12,7 +12,7 @@ import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.ProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.TwitterProviderHandler;
-import com.getcapacitor.Config;
+import com.getcapacitor.CapConfig;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
@@ -44,16 +44,16 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     private boolean nativeAuth = false;
 
-    private Config config;
+    private CapConfig config;
 
-    public Config getConfig() {
+    public CapConfig getConfig() {
         return this.config;
     }
 
     public void load() {
         super.load();
 
-        this.config = new Config(this.bridge.getActivity().getAssets(), null);
+        this.config = new CapConfig(this.bridge.getActivity().getAssets(), null);
 
         String[] providers = this.config.getArray(CONFIG_KEY_PREFIX+"providers", new String[0]);
         this.nativeAuth = this.config.getBoolean(CONFIG_KEY_PREFIX+"nativeAuth", false);
