@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    Your Web Client ID, this will be overridden by google_services.json. See README.
+    -->
+    <string name="default_web_client_id">DO_YOU_FORGOT_YOUR_GOOGLE_SERVICE_JSON</string>
+
+    <!--
+        Your Facebook App ID. See README.
+    -->
+    <!--  TODO(developer): REPLACE -->
+    <string name="facebook_app_id">REPLACE_ME</string>
+    <string name="fb_login_protocol_scheme">REPLACE_ME</string>
+</resources>
