@@ -21,10 +21,14 @@ The plugin supports Google, Twitter, Facebook and Phone providers in Android and
 
 ## Important notes for upgrading between minor or major versions.
 
+#### from 2.2.x to 2.3.x
+> Requires Capacitor Framework v2.2.1 or newer. This is another episode of the Capacitor Framework braking changes 
+> on Android platform (com.getcapacitor.Config, now com.getcapacitor.CapConfig).
+
+> Really sorry about braking changes in minor release, but I want to follow major version of the Capacitor Framework. 
+
 #### from 2.0.x to 2.2.x 
 > You need to use version 2.2.0 of the Capacitor Framework due braking changes on Android platform (com.getcapacitor.Config)
-
-Important: the version 2.2.0 is tagged as `future`, you can track this on issue [#84](https://github.com/baumblatt/capacitor-firebase-auth/issues/84).
 
 #### from 0.3.x to 2.0.0
 > Sorry about that, but there is no path to do it, I my case, me and my team decided to re-build the projects from scratch, this does not mean code 
@@ -420,6 +424,7 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- PR #95 - Fix version 2.2.1 not compiling: Update to the new Capacitor Config Class, thanks to [Sergio Milici](https://github.com/sergiomilici)
 - Issue #84 - Upgrade to Capacitor 2.2.0 - braking changes on com.getcapacitor.Config
 - Upgrade to Capacitor 2.0.0
 - Issue #66 - Cannot convert value of type 'NSError' to expected argument type 'String?', thanks to [Greg McKelvey](https://github.com/mckelveygreg).
