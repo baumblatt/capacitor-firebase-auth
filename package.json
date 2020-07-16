@@ -23,7 +23,7 @@
 	},
 	"peerDependencies": {
 		"firebase": "^7.14.2",
-		"rxjs": "~6.5.5"
+		"rxjs": "~6.6.0"
 	},
 	"files": [
 		"alternative/",
