@@ -110,18 +110,7 @@ npm install --save capacitor-firebase-auth
     [...]
     ```
     
-3. In file `android/app/build.gradle` add the following lines : 
-    ```
-    android {
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-    }
-    ```
-    > Sorry, but even if you are not using Twitter authentication, this will be needed, see Twitter section for detail.
-
-4. For Typescript users, please, review your `tsconfig.json` and ensure that you are using `esModuleInterop=true`.
+3. For Typescript users, please, review your `tsconfig.json` and ensure that you are using `esModuleInterop=true`.
 
 ## Firebase
 
@@ -425,6 +414,7 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Remove the steps about `JavaVersion.VERSION_1_8` because the plugin does not use Twitter Toolkit anymore.
 - Issue #90 - Information about `nativeAuth` feature on readme file.
 - PR #82 - Fix  Google silentSignIn crash on Android, this should fix the issue [#69](https://github.com/baumblatt/capacitor-firebase-auth/issues/69)
 - PR #95 - Fix version 2.2.1 not compiling: Update to the new Capacitor Config Class, thanks to [Sergio Milici](https://github.com/sergiomilici)
