@@ -94,7 +94,8 @@ npm install --save capacitor-firebase-auth
       }
     [...]
     ```
-
+    > Note: `nativeAuth` is a feature supported for Google, Twitter and Facebook (not Phone) to sign the user on native layer too.
+    >> This is useful if you need to handle any feature provided by another plugin that needs authentication.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
 2. In file `android/app/src/main/java/.../MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
     ```
@@ -424,6 +425,8 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Issue #90 - Information about `nativeAuth` feature on readme file.
+- PR #82 - Fix  Google silentSignIn crash on Android, this should fix the issue [#69](https://github.com/baumblatt/capacitor-firebase-auth/issues/69)
 - PR #95 - Fix version 2.2.1 not compiling: Update to the new Capacitor Config Class, thanks to [Sergio Milici](https://github.com/sergiomilici)
 - Issue #84 - Upgrade to Capacitor 2.2.0 - braking changes on com.getcapacitor.Config
 - Upgrade to Capacitor 2.0.0
