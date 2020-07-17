@@ -117,8 +117,16 @@ public class GoogleProviderHandler implements ProviderHandler {
                 if (new JWT(token).isExpired(10)) {
                     try {
                         Task<GoogleSignInAccount> task = this.mGoogleSignInClient.silentSignIn();
-                        account = task.getResult(ApiException.class);
-                        Log.d(GOOGLE_TAG, "Google silentSignIn succeed.");
+                        if (task.isSuccessful()) {
+                            Log.d(GOOGLE_TAG, "Google silentSignIn isSuccessful.");
+                            // There's immediate result available.
+                            account = task.getResult(ApiException.class);
+                            Log.d(GOOGLE_TAG, "Google silentSignIn succeed.");
+                            return true;
+                        } else {
+                            // There's no immediate result ready
+                            return false;
+                        }
                     } catch (ApiException exception) {
                         Log.w(GOOGLE_TAG, String.format("Google silentSignIn failure: %s", exception.getLocalizedMessage()));
 
