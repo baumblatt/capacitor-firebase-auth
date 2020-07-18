@@ -343,7 +343,8 @@ cfaSignInPhoneOnCodeReceived().subscribe(
 Suggestion for web authentication code to iOS, the ```verificationCode`` must be provided by the user, please see [Firebase documentation](https://firebase.google.com/docs/auth/web/phone-auth#sign-in-the-user-with-the-verification-code) for better options.
 ```typescript
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
 
@@ -389,7 +390,7 @@ cfaSignInTwitter().subscribe(
 #### Sign In;  Use credentials for something; and map to UserInfo
 
 ```typescript
-import {UserInfo} from 'firebase'; 
+import {UserInfo} from 'firebase/app'; 
 import {cfaSignInTwitter, TwitterSignInResult, mapUserCredentialToUserInfo} from 'capacitor-firebase-auth/alternative'; 
 import {tap} from 'rxjs/operators';
 
