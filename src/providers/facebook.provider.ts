@@ -11,5 +11,5 @@ export const facebookSignInWeb: (options: {providerId: string, data?: SignInOpti
     const userCredential = await firebase.auth().signInWithPopup(provider);
 
     const {credential}: { credential: OAuthCredential; } = userCredential;
-    return new FacebookSignInResult(credential.idToken);
+    return new FacebookSignInResult(credential.accessToken);
 }
