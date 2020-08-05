@@ -22,7 +22,7 @@
 		"@capacitor/android": "latest"
 	},
 	"peerDependencies": {
-		"firebase": "^7.14.2",
+		"firebase": "^7.17.1",
 		"rxjs": "~6.6.0"
 	},
 	"files": [

@@ -34,6 +34,9 @@ The plugin supports Google, Twitter, Facebook and Phone providers in Android and
 > Sorry about that, but there is no path to do it, I my case, me and my team decided to re-build the projects from scratch, this does not mean code 
 > rewrite, just a project, configurations and build. The good news is, there is no change on Typescript/Javascript/Java/Swift facades.
 
+> Anyway, you can make a try with Capacitor Framework update instructions:
+>[From <= 1.5.1 to 2.0.0](https://capacitorjs.com/docs/android/updating#from-1-5-1-to-2-0-0)
+
 #### from 0.2.x to 0.3.0: esModuleInterop
 
 > The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
@@ -53,9 +56,8 @@ If you see the message above, please use `esModuleInterop=true` in your  `tsconf
 
 ## Next steps
 
-1. Support for PWA 
-2. Support for Apple provider
-3. Email/Password Provider 
+1. Support for Apple provider
+2. Email/Password Provider 
 > Should we do this? It's very simple to authenticate on WebView without any plugin. 
 > For awhile, waiting a good reason to do it. (track interest on Issue #24)
 
@@ -415,6 +417,9 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Fix the same issue as in PR #104 but now on 'twitter.provider.ts', maybe there was a change in firebase.js (be sure you are using at least 7.17.1).  
+- PR #104 - Update 'facebook.provider.ts' (fix the grap of the access token), thanks to [hiepxanh](https://github.com/hiepxanh)
+- PR #99 - Unify firebase imports to recommended syntax, thanks to [Luca Ban](https://github.com/mesqueeb).
 - Remove the steps about `JavaVersion.VERSION_1_8` because the plugin does not use Twitter Toolkit anymore.
 - Issue #90 - Information about `nativeAuth` feature on readme file.
 - PR #82 - Fix  Google silentSignIn crash on Android, this should fix the issue [#69](https://github.com/baumblatt/capacitor-firebase-auth/issues/69)

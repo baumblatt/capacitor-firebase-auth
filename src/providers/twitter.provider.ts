@@ -13,7 +13,7 @@ export const twitterSignInWeb: (options: {providerId: string, data?: SignInOptio
         const userCredential = await firebase.auth().signInWithPopup(provider);
 
         const {credential}: { credential: OAuthCredential; } = userCredential;
-        return new TwitterSignInResult(credential.idToken, credential.secret);
+        return new TwitterSignInResult(credential.accessToken, credential.secret);
     } catch (e) {
         return Promise.reject(e);
     }
