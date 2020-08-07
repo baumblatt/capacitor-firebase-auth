@@ -152,6 +152,11 @@ npm install --save capacitor-firebase-auth
     * Open your project configuration: double-click the project name in the left tree view. Select your app from the **TARGETS** section, then select the **Info** tab, and expand the **URL Types** section.
     * Click the **+** button, and add a `URL scheme` for your reversed client ID. To find this value, open the `GoogleService-Info.plist` configuration file, and look for the `REVERSED_CLIENT_ID` key. Copy the value of that key, and paste it into the **URL Schemes** box on the configuration page. Leave the other fields blank.
 
+## Phone
+
+#### Google iOS specific configurations
+Since that Apple using Push Notification service (APNs). You need to have `.p8` key and upload to project FCM config to use phone login or you will get this [Error](https://stackoverflow.com/questions/45091583/invalid-token-when-trying-to-authenticate-phone-number-using-firebase). Do so from the [Settings page](https://console.firebase.google.com/project/_/settings/cloudmessaging/) of the Firebase console. See [Configuring APNs with FCM](https://firebase.google.com/docs/cloud-messaging/ios/certs) for details on how to get your app's P8 key.
+
 ## Twitter
 
 #### Twitter global configurations
