@@ -42,7 +42,13 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             } else if ("facebook.com" == provider) {
                 self.providers["facebook.com"] = FacebookProviderHandler()
                 self.providers["facebook.com"]?.initialize(plugin: self)
-            } else if ("phone" == provider) {
+            } else if ("apple.com" == provider) {
+                if #available(iOS 13.0, *) {
+                    self.providers["apple.com"] = AppleProviderHandler()
+                    self.providers["apple.com"]?.initialize(plugin: self)
+                }
+            }
+            else if ("phone" == provider) {
                 self.providers["phone"] = PhoneNumberProviderHandler()
                 self.providers["phone"]?.initialize(plugin: self)
             }
@@ -79,7 +85,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             call.error("The provider Id is required")
             return nil
         }
-
+        
         guard let theProvider = self.providers[providerId] else {
             call.error("The provider is disable or unsupported")
             return nil
