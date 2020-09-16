@@ -12,7 +12,7 @@ class AppleProviderHandler: NSObject, ProviderHandler {
     var call: CAPPluginCall?
     var plugin: CapacitorFirebaseAuth? = nil
     var rawNonce: String?
-    var appleIDCredential: ASAuthorizationAppleIDCredential? = nil
+    var profileInfo: [String:Any] = [:]
 
     func initialize(plugin: CapacitorFirebaseAuth) {
         print("Initializing Apple Provider Handler")
@@ -33,27 +33,19 @@ class AppleProviderHandler: NSObject, ProviderHandler {
         authorizationController.performRequests()
     }
 
-    public func isAuthenticated() -> Bool {
-        return Auth.auth().currentUser != nil
-    }
+    public func isAuthenticated() -> Bool { Auth.auth().currentUser != nil }
 
     public func fillResult(data: PluginResultData) -> PluginResultData {
-
         var jsResult: PluginResultData = [:]
-        data.map { (key, value) in jsResult[key] = value }
 
-        jsResult["user"] = self.appleIDCredential?.user
-        jsResult["email"] = self.appleIDCredential?.email
-        jsResult["givenName"] = self.appleIDCredential?.fullName?.givenName
-        jsResult["familyName"] = self.appleIDCredential?.fullName?.familyName
-        jsResult["identityToken"] = String(data: self.appleIDCredential?.identityToken! ?? Data(), encoding: .utf8)
-        jsResult["authorizationCode"] = String(data: self.appleIDCredential?.authorizationCode! ?? Data(), encoding: .utf8)
+        jsResult.merge(data){ (current, _) in current }
+        jsResult.merge(self.profileInfo){ (current, _) in current }
 
         return jsResult
     }
 
     public func signOut() throws {
-        self.appleIDCredential = nil
+        // Clear saved user ID
         UserDefaults.standard.set(nil, forKey: authorizedUserIdKey)
     }
 }
@@ -67,7 +59,7 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate {
             return
         }
 
-        // Store user id key
+        // Save authorised user ID for future reference
         UserDefaults.standard.set(appleIDCredential.user, forKey: authorizedUserIdKey)
 
         // Retrieve the secure nonce generated during Apple sign in
@@ -94,7 +86,14 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate {
                 rawNonce: currentNonce
         )
 
-        self.appleIDCredential = appleIDCredential;
+        self.profileInfo = [
+            "user": appleIDCredential.user,
+            "givenName": appleIDCredential.fullName?.givenName ?? "Gebruiker",
+            "familyName": appleIDCredential.fullName?.familyName ?? "",
+            "identityToken": String(data: appleIDCredential.identityToken!, encoding: .utf8)!,
+            "authorizationCode": String(data: appleIDCredential.authorizationCode!, encoding: .utf8)!
+        ]
+
         self.plugin?.handleAuthCredentials(credential: firebaseCredential)
     }
 

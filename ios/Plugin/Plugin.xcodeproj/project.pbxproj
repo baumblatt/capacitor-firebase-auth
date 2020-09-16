@@ -15,7 +15,10 @@
 		50ADFFA42020D75100D50D53 /* Capacitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ADFFA52020D75100D50D53 /* Capacitor.framework */; };
 		50ADFFA82020EE4F00D50D53 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ADFFA72020EE4F00D50D53 /* Plugin.m */; };
 		50E1A94820377CB70090CE1A /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A94720377CB70090CE1A /* Plugin.swift */; };
+		6DF5F494380045EA3E760B4F /* CustomTokenRO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5F387B5B11DCC7F5E883F /* CustomTokenRO.swift */; };
 		6DF5F558DC5A46D1B8560128 /* NonceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5F9D58DA366870F8A3242 /* NonceGenerator.swift */; };
+		6DF5F5D04FE3C91AFD51819A /* FrontendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5FEE88F5E7A74087E64D3 /* FrontendAPI.swift */; };
+		6DF5FA378A1F00BDFD7B3C68 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5FC5725864AB6F008E811 /* APIError.swift */; };
 		C19A2D6F2509053200D25CB6 /* AppleProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A2D6E2509053200D25CB6 /* AppleProviderHandler.swift */; };
 		DA34D39B22328D9400326C50 /* ProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34D39A22328D9400326C50 /* ProviderHandler.swift */; };
 		DA34D39D22328E4900326C50 /* GoogleProviderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA34D39C22328E4900326C50 /* GoogleProviderHandler.swift */; };
@@ -46,7 +49,10 @@
 		50ADFFA72020EE4F00D50D53 /* Plugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
 		50E1A94720377CB70090CE1A /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		5E23F77F099397094342571A /* Pods-Plugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Plugin/Pods-Plugin.debug.xcconfig"; sourceTree = "<group>"; };
+		6DF5F387B5B11DCC7F5E883F /* CustomTokenRO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTokenRO.swift; sourceTree = "<group>"; };
 		6DF5F9D58DA366870F8A3242 /* NonceGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonceGenerator.swift; sourceTree = "<group>"; };
+		6DF5FC5725864AB6F008E811 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		6DF5FEE88F5E7A74087E64D3 /* FrontendAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrontendAPI.swift; sourceTree = "<group>"; };
 		91781294A431A2A7CC6EB714 /* Pods-Plugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.release.xcconfig"; path = "Pods/Target Support Files/Pods-Plugin/Pods-Plugin.release.xcconfig"; sourceTree = "<group>"; };
 		96ED1B6440D6672E406C8D19 /* Pods-PluginTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PluginTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PluginTests/Pods-PluginTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C19A2D6E2509053200D25CB6 /* AppleProviderHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleProviderHandler.swift; sourceTree = "<group>"; };
@@ -113,6 +119,7 @@
 				50ADFF8C201F53D600D50D53 /* Info.plist */,
 				DA5BC0DB22338541006F86D1 /* Plugin-Bridging-Header.h */,
 				6DF5F0F220E385854ED4D602 /* Utils */,
+				6DF5F170052A2F61AD5B2374 /* API */,
 			);
 			path = Plugin;
 			sourceTree = "<group>";
@@ -132,6 +139,32 @@
 				6DF5F9D58DA366870F8A3242 /* NonceGenerator.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		6DF5F170052A2F61AD5B2374 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				6DF5F25E727F7549DE60C2FE /* Frontend */,
+				6DF5FC5725864AB6F008E811 /* APIError.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		6DF5F25E727F7549DE60C2FE /* Frontend */ = {
+			isa = PBXGroup;
+			children = (
+				6DF5F53900B3612A2F3DC496 /* ResponseObjects */,
+				6DF5FEE88F5E7A74087E64D3 /* FrontendAPI.swift */,
+			);
+			path = Frontend;
+			sourceTree = "<group>";
+		};
+		6DF5F53900B3612A2F3DC496 /* ResponseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				6DF5F387B5B11DCC7F5E883F /* CustomTokenRO.swift */,
+			);
+			path = ResponseObjects;
 			sourceTree = "<group>";
 		};
 		8C8E7744173064A9F6D438E3 /* Pods */ = {
@@ -413,6 +446,9 @@
 				50E1A94820377CB70090CE1A /* Plugin.swift in Sources */,
 				50ADFFA82020EE4F00D50D53 /* Plugin.m in Sources */,
 				6DF5F558DC5A46D1B8560128 /* NonceGenerator.swift in Sources */,
+				6DF5F5D04FE3C91AFD51819A /* FrontendAPI.swift in Sources */,
+				6DF5F494380045EA3E760B4F /* CustomTokenRO.swift in Sources */,
+				6DF5FA378A1F00BDFD7B3C68 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
