@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":capacitor-firebase-auth" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/../../cap-fire-playground/android" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":capacitor-firebase-auth" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/../../cap-fire-playground/android" external.system.id="GRADLE" external.system.module.group="android" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -17,177 +17,183 @@
           <task>generateDebugSources</task>
         </afterSyncTasks>
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
-        <option name="MANIFEST_FILE_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/AndroidManifest.xml" />
-        <option name="RES_FOLDER_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
-        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
-        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/assets" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/res;file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/res;file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/res/rs/debug" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/res;file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/res;file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/res;file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/res;file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/res/rs/androidTest/debug" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/assets" />
         <option name="PROJECT_TYPE" value="1" />
       </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
-    <output url="file://$MODULE_DIR$/build/intermediates/javac/debug/classes" />
-    <output-test url="file://$MODULE_DIR$/build/intermediates/javac/debugUnitTest/classes" />
+    <output url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/intermediates/javac/debug/classes" />
+    <output-test url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/debug/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/debug/out" isTestSource="false" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/aidl_source_output_dir/debug/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/aidl_source_output_dir/debug/out" isTestSource="false" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/debugAndroidTest/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/aidl_source_output_dir/debugAndroidTest/out" isTestSource="true" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/aidl_source_output_dir/debugAndroidTest/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/aidl_source_output_dir/debugAndroidTest/out" isTestSource="true" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debug/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/ap_generated_sources/debug/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debugAndroidTest/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/ap_generated_sources/debugAndroidTest/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debugUnitTest/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/ap_generated_sources/debugUnitTest/out" isTestSource="true" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/ap_generated_sources/debugUnitTest/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/ap_generated_sources/debugUnitTest/out" isTestSource="true" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/debug/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/debug/out" isTestSource="false" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/renderscript_source_output_dir/debug/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/renderscript_source_output_dir/debug/out" isTestSource="false" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/debugAndroidTest/out">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/renderscript_source_output_dir/debugAndroidTest/out" isTestSource="true" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/renderscript_source_output_dir/debugAndroidTest/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/renderscript_source_output_dir/debugAndroidTest/out" isTestSource="true" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/debug">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/debug" type="java-test-resource" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/res/rs/androidTest/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/res/rs/androidTest/debug" type="java-test-resource" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/res/rs/debug">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/debug" type="java-resource" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/res/rs/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/res/rs/debug" type="java-resource" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/debug">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/debug" isTestSource="true" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/source/buildConfig/androidTest/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/source/buildConfig/androidTest/debug" isTestSource="true" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/build/generated/source/buildConfig/debug">
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/source/buildConfig/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/aidl">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/aidl">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/aidl" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/assets">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/assets" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/java">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/java" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/res">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/res">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/res" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/resources">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/resources" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/rs">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/rs">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/rs" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTest/shaders">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/shaders">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTest/shaders" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/aidl">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/aidl" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/aidl">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/aidl" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/assets">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/assets" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/assets" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/java">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/java" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/java" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/res">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/res" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/res">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/res" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/resources">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/resources" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/resources" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/rs">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/rs" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/rs">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/rs" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/androidTestDebug/shaders">
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestDebug/shaders" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/shaders">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/androidTestDebug/shaders" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/aidl">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/aidl" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/aidl">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/aidl" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/assets">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/assets" type="java-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/java">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/java" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/java" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/res">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/res" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/res">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/res" type="java-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/resources">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/resources" type="java-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/rs">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/rs" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/rs">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/rs" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/debug/shaders">
-      <sourceFolder url="file://$MODULE_DIR$/src/debug/shaders" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/shaders">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/debug/shaders" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/aidl">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/aidl" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/aidl">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/aidl" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/assets">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/assets" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/assets" type="java-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/java">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/java" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/res">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/res">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/res" type="java-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/resources">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/resources" type="java-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/rs">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/rs">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/rs" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/main/shaders">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/shaders" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/shaders">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/main/shaders" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/aidl">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/aidl" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/aidl">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/aidl" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/assets">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/assets" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/java">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/java" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/res">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/res">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/res" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/resources">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/resources" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/rs">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/rs">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/rs" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/test/shaders">
-      <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/shaders">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/test/shaders" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/aidl">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/aidl" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/aidl">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/aidl" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/assets">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/assets" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/assets">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/assets" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/java">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/java" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/java" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/res">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/res" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/res">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/res" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/resources">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/resources" type="java-test-resource" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/resources">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/resources" type="java-test-resource" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/rs">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/rs" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/rs">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/rs" isTestSource="true" />
     </content>
-    <content url="file://$MODULE_DIR$/src/testDebug/shaders">
-      <sourceFolder url="file://$MODULE_DIR$/src/testDebug/shaders" isTestSource="true" />
+    <content url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/shaders">
+      <sourceFolder url="file://$MODULE_DIR$/../../cap-fire-playground/node_modules/capacitor-firebase-auth/android/src/testDebug/shaders" isTestSource="true" />
     </content>
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
@@ -210,10 +216,21 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.5@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-android:1.4.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-applinks:1.4.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.parse.bolts:bolts-tasks:1.4.0@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.zxing:core:3.3.3@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.material:material:1.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-android-sdk:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-login:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-share:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-common:5.15.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.cardview:cardview:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-v4:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-ui:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.coordinatorlayout:coordinatorlayout:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-auth:19.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-auth:18.0.0@aar" level="project" />
@@ -231,11 +248,21 @@
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat-resources:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.vectordrawable:vectordrawable-animated:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.vectordrawable:vectordrawable:1.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-places:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-applinks:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-messenger:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.facebook.android:facebook-core:5.15.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-utils:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.drawerlayout:drawerlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.customview:customview:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.activity:activity:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.browser:browser:1.2.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.media:media:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.asynclayoutinflater:asynclayoutinflater:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.core:core:1.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-runtime:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.versionedparcelable:versionedparcelable:1.1.0@aar" level="project" />
@@ -247,7 +274,11 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.documentfile:documentfile:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.print:print:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="capacitor-android" />
+    <orderEntry type="library" name="Gradle: com.android.installreferrer:installreferrer:1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.auth0.android:jwtdecode:1.3.0@aar" level="project" />
+    <orderEntry type="module" module-name="android-capacitor-android" />
   </component>
 </module>

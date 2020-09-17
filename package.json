@@ -22,8 +22,8 @@
 		"@capacitor/android": "latest"
 	},
 	"peerDependencies": {
-		"firebase": "^7.17.1",
-		"rxjs": "~6.6.0"
+		"firebase": "^7.20.0",
+		"rxjs": "~6.6.3"
 	},
 	"files": [
 		"alternative/",

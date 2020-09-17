@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import androidx.annotation.NonNull;
 
 import com.baumblatt.capacitor.firebase.auth.R;
+import com.baumblatt.capacitor.firebase.auth.handlers.AppleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.FacebookProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.GoogleProviderHandler;
 import com.baumblatt.capacitor.firebase.auth.handlers.PhoneProviderHandler;
@@ -86,6 +87,11 @@ public class CapacitorFirebaseAuth extends Plugin {
                 this.providerHandlers.put(provider, new FacebookProviderHandler());
                 this.providerHandlers.get(provider).init(this);
                 Log.d(PLUGIN_TAG, "Facebook Provider Initialized");
+            } else if (provider.equalsIgnoreCase(getContext().getString(R.string.apple_provider_id))) {
+                Log.d(PLUGIN_TAG, "Initializing Apple Provider");
+                this.providerHandlers.put(provider, new AppleProviderHandler());
+                this.providerHandlers.get(provider).init(this);
+                Log.d(PLUGIN_TAG, "Facebook Apple Initialized");
             } else if (provider.equalsIgnoreCase(getContext().getString(R.string.phone_provider_id))) {
                 Log.d(PLUGIN_TAG, "Initializing Phone Provider");
                 this.providerHandlers.put(provider, new PhoneProviderHandler());

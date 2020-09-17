@@ -5,15 +5,15 @@
 
 Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sign-in process completes, the user will be signed in within both tiers.
 
-The plugin supports Google, Twitter, Facebook and Phone providers in Android and iOS.
+The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Android, iOS and Web.
 
 ## Tracking the Work in Progress
 
-| Platform   |   Google   |  Facebook | Twitter   | Phone     | Apple     |
-|:-----------|:----------:|:---------:|:---------:|:---------:|:---------:|
-| Android    |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
-| iOS        |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
-| Web        |  ✅  |  ✅  |  ✅  |  🧠  |  🧠  | 
+| Platform   |   Google   |  Facebook | Twitter   | Phone     | Apple     | Email/Pass |
+|:-----------|:----------:|:---------:|:---------:|:---------:|:---------:|:----------:|
+| Android    |  ✅  |  ✅  |  ✅  |  ✅  |  🚧  |  🧠  | 
+| iOS        |  ✅  |  ✅  |  ✅  |  ✅  |  ✅  |  🧠  | 
+| Web        |  ✅  |  ✅  |  ✅  |  🧠  |  🧠  |  🧠  | 
 
 ✅ - Ready  
 🚧 - Work in progress  
@@ -56,7 +56,8 @@ If you see the message above, please use `esModuleInterop=true` in your  `tsconf
 
 ## Next steps
 
-1. Support for Apple provider
+1. Test for Apple provider for Android
+2. Apple provider for Web
 2. Email/Password Provider 
 > Should we do this? It's very simple to authenticate on WebView without any plugin. 
 > For awhile, waiting a good reason to do it. (track interest on Issue #24)
@@ -281,6 +282,26 @@ Since that Apple using Push Notification service (APNs). You need to have `.p8` 
 
 > Don't forget to replace `[APP_ID]` and `[APP_NAME]` by your Facebook **App ID** and **App Name** respectively.
 
+## Apple
+
+#### Apple global configurations 
+1. Follow carefully sections: 
+[Before you begin](https://firebase.google.com/docs/auth/ios/apple#before-you-begin), 
+[Join the Apple Developer Program](https://firebase.google.com/docs/auth/ios/apple#join-the-apple-developer-program) and
+[Configure Sign In with Apple](https://firebase.google.com/docs/auth/ios/apple#configure_sign_in_with_apple)
+of Firebase docs.
+
+2. Enable Apple as a sign-in provider, in the [Firebase console](https://console.firebase.google.com/), open the Auth section. On the Sign in method tab, enable the Apple provider. If you are only using Sign In with Apple in an iOS app, you can leave the Service ID, Apple Team ID, private key and key ID fields empty.
+
+#### Apple Android configurations
+
+1. Follow carefully sections:
+[Configure Sign In with Apple](https://firebase.google.com/docs/auth/android/apple?authuser=0#configure-sign-in-with-apple)
+ 
+#### Apple iOs configurations 
+No additional configurations are required by this plugin.
+
+> Don't forget to enable ```Apple Sign In``` capability for your App on Xcode.
 
 ## Usage
 
@@ -422,6 +443,7 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Issue #63 - Support for Apple Sign In on iOS platform. Android platform maybe work, not tested yet.
 - Fix the same issue as in PR #104 but now on 'twitter.provider.ts', maybe there was a change in firebase.js (be sure you are using at least 7.17.1).  
 - PR #104 - Update 'facebook.provider.ts' (fix the grap of the access token), thanks to [hiepxanh](https://github.com/hiepxanh)
 - PR #99 - Unify firebase imports to recommended syntax, thanks to [Luca Ban](https://github.com/mesqueeb).

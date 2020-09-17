@@ -79,7 +79,7 @@ class PhoneNumberProviderHandler: NSObject, ProviderHandler {
     func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
 
         var jsResult: PluginResultData = [:]
-        data.map { (key, value) in
+        data.forEach { (key, value) in
             jsResult[key] = value
         }
 

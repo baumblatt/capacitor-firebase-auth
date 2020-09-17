@@ -76,7 +76,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
         }
 
         var jsResult: PluginResultData = [:]
-        data.map { (key, value) in
+        data.forEach { (key, value) in
             jsResult[key] = value
         }
 

@@ -5,4 +5,5 @@
     <string name="twitter_provider_id">twitter.com</string>
     <string name="facebook_provider_id">facebook.com</string>
     <string name="phone_provider_id">phone</string>
+    <string name="apple_provider_id">apple.com</string>
 </resources>

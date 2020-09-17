@@ -14,7 +14,7 @@ typealias ProvidersMap = [String:ProviderHandler]
  */
 @objc(CapacitorFirebaseAuth)
 public class CapacitorFirebaseAuth: CAPPlugin {
-    
+
     var providersNames: [String] = [];
     var languageCode: String = "en"
     var nativeAuth: Bool = false
@@ -26,12 +26,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         self.providersNames = self.getConfigValue("providers") as? [String] ?? []
         self.nativeAuth = self.getConfigValue("nativeAuth") as? Bool ?? false
         self.languageCode = self.getConfigValue("languageCode") as? String ?? "en"
-        
+
         if (FirebaseApp.app() == nil) {
             FirebaseApp.configure()
             Auth.auth().languageCode = self.languageCode;
         }
-        
+
         for provider in self.providersNames {
             if ("google.com" == provider) {
                 self.providers["google.com"] = GoogleProviderHandler()
@@ -42,6 +42,9 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             } else if ("facebook.com" == provider) {
                 self.providers["facebook.com"] = FacebookProviderHandler()
                 self.providers["facebook.com"]?.initialize(plugin: self)
+            } else if ("apple.com" == provider) {
+                self.providers["apple.com"] = AppleProviderHandler()
+                self.providers["apple.com"]?.initialize(plugin: self)
             } else if ("phone" == provider) {
                 self.providers["phone"] = PhoneNumberProviderHandler()
                 self.providers["phone"]?.initialize(plugin: self)
@@ -54,7 +57,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             // call.reject inside getProvider
             return
         }
-        
+
         guard let callbackId = call.callbackId else {
             call.error("The call has no callbackId")
             return
@@ -62,13 +65,13 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
         self.callbackId = callbackId
         call.save()
-        
+
         DispatchQueue.main.async {
             if (theProvider.isAuthenticated()) {
                 self.buildResult(credential: nil);
                 return
             }
-            
+
             theProvider.signIn(call: call)
         }
 
@@ -87,7 +90,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
         return theProvider
     }
-    
+
     func handleAuthCredentials(credential: AuthCredential) {
         if (self.nativeAuth) {
             self.authenticate(credential: credential)
@@ -113,16 +116,16 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 print("Ops, there is no callbackId building result")
                 return
             }
-            
+
             guard self.bridge.getSavedCall(callbackId) != nil else {
                 print("Ops, there is no saved call building result")
                 return
             }
-            
+
             self.buildResult(credential: credential);
         }
     }
-    
+
     func buildResult(credential: AuthCredential?) {
         guard let callbackId = self.callbackId else {
             print("Ops, there is no callbackId building result")
@@ -133,12 +136,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             print("Ops, there is no saved call building result")
             return
         }
-        
+
         let jsResult: PluginResultData = [
             "callbackId": callbackId,
             "providerId": call.getString("providerId") ?? "",
         ]
-        
+
         guard let provider: ProviderHandler = self.getProvider(call: call) else {
             return
         }
@@ -148,12 +151,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
     func handleError(message: String) {
         print(message)
-        
+
         guard let callbackId = self.callbackId else {
             print("Ops, there is no callbackId handling error")
             return
         }
-        
+
         guard let call = self.bridge.getSavedCall(callbackId) else {
             print("Ops, there is no saved call handling error")
             return
@@ -167,11 +170,11 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             for provider in self.providers.values {
                 try provider.signOut()
             }
-            
+
             if (Auth.auth().currentUser != nil) {
                 try Auth.auth().signOut()
             }
-            
+
             call.success()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
