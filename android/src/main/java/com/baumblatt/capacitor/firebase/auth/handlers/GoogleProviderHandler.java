@@ -40,6 +40,8 @@ public class GoogleProviderHandler implements ProviderHandler {
         this.plugin = plugin;
 
         String[] permissions = this.plugin.getConfig().getArray(CONFIG_KEY_PREFIX + "permissions.google", new String[0]);
+        String hd = this.plugin.getConfig().getString(CONFIG_KEY_PREFIX + "customParameters.google.hd");
+        Log.d(GOOGLE_TAG, String.format("customParameters.google.hd = %s", hd);
 
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this.plugin.getContext());
@@ -59,6 +61,10 @@ public class GoogleProviderHandler implements ProviderHandler {
             } catch (Exception e) {
                 Log.w(GOOGLE_TAG, String.format("Failure requesting the scope at index %s", permission));
             }
+        }
+
+        if (hd) {
+            gsBuilder.setHostedDomain(hd);
         }
 
         GoogleSignInOptions gso = gsBuilder.build();

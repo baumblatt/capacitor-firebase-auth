@@ -91,7 +91,12 @@ npm install --save capacitor-firebase-auth
           "nativeAuth": false,
           "permissions": {
                "google": ["profile", "https://www.googleapis.com/auth/drive", ...]
-           }
+           },
+          "customParameters": {
+               "google": {
+                     "hd": "mycollege.edu"
+               }
+          }
         }
       }
     [...]
