@@ -47,9 +47,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/baumblatt/capacitor-firebase-auth.git"
+		"url": "https://github.com/xinfengmich/capacitor-firebase-auth.git"
 	},
 	"bugs": {
-		"url": "https://github.com/baumblatt/capacitor-firebase-auth.git/issues"
+		"url": "https://github.com/xinfengmich/capacitor-firebase-auth.git/issues"
 	}
 }
