@@ -41,7 +41,7 @@ public class GoogleProviderHandler implements ProviderHandler {
 
         String[] permissions = this.plugin.getConfig().getArray(CONFIG_KEY_PREFIX + "permissions.google", new String[0]);
         String hd = this.plugin.getConfig().getString(CONFIG_KEY_PREFIX + "customParameters.google.hd");
-        Log.d(GOOGLE_TAG, String.format("customParameters.google.hd = %s", hd);
+        Log.d(GOOGLE_TAG, String.format("customParameters.google.hd = %s", hd));
 
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this.plugin.getContext());
@@ -63,7 +63,7 @@ public class GoogleProviderHandler implements ProviderHandler {
             }
         }
 
-        if (hd) {
+        if (hd!=null && !hd.isEmpty()) {
             gsBuilder.setHostedDomain(hd);
         }
 

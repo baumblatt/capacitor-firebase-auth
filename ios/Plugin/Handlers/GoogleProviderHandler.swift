@@ -26,7 +26,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
         
         let customParameters = self.plugin?.getConfigValue("customParameters") as? [String:Any] ?? [:]
         if let cps = customParameters["google"] as? JSObject {
-            if let hd = cps["hd"] as String {
+            if let hd = cps["hd"] as? String {
                 GIDSignIn.sharedInstance().hostedDomain = hd
             }
         }
