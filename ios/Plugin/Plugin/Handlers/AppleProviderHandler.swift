@@ -88,6 +88,7 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate {
 
         self.profileInfo = [
             "user": appleIDCredential.user,
+            "email": appleIDCredential.email ?? "",
             "givenName": appleIDCredential.fullName?.givenName ?? "Gebruiker",
             "familyName": appleIDCredential.fullName?.familyName ?? "",
             "identityToken": String(data: appleIDCredential.identityToken!, encoding: .utf8)!,

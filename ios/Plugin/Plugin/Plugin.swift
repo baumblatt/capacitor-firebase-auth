@@ -143,18 +143,42 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        guard let frontendApiUrl = self.frontendApi else {
-            return call.reject("Ops, 'frontendApi' is not set in config file")
+        guard let provider: ProviderHandler = self.getProvider(call: call) else {
+            return
         }
 
+        guard let providerId = call.getString("providerId") else {
+            call.error("The provider Id is required")
+            return
+        }
+
+        // For all providers except apple we don't need any extra steps.
+        // We can return the result
+        if (providerId != "apple.com"){
+            // Initial data
+            let jsPluginResult: PluginResultData = [
+                "callbackId": callbackId,
+                "providerId": call.getString("providerId") ?? "",
+            ]
+
+            // Merged with provider related data
+            let jsResult: PluginResultData = provider.fillResult(data: jsPluginResult)
+            return call.success(jsResult)
+        }
+
+        // For apple provider we need to add customToken
         // Request ID Token from Google
         Auth.auth().currentUser?.getIDToken(completion: { (idToken, error) in
             if error != nil {
                 return self.handleError(message: error?.localizedDescription ?? "Can not get idToken")
             }
 
+            guard let projectID = FirebaseApp.app()?.options.projectID else {
+                return call.reject("Ops, 'Firebase projectID' is empty")
+            }
+
             let frontendAPI = FrontendAPI(
-                    baseUrl: frontendApiUrl,
+                    baseUrl: "https://frontend-api-dot-\(projectID).uc.r.appspot.com",
                     idToken: idToken!
             )
 
@@ -166,10 +190,6 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
                 if customToken == nil {
                     return self.handleError(message: "Custom token is empty")
-                }
-
-                guard let provider: ProviderHandler = self.getProvider(call: call) else {
-                    return
                 }
 
                 // Initial data
