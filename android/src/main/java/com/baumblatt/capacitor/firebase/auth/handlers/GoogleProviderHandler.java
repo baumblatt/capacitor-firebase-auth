@@ -61,6 +61,12 @@ public class GoogleProviderHandler implements ProviderHandler {
             }
         }
 
+        String hostedDomain = this.plugin.getConfig().getString(CONFIG_KEY_PREFIX + "properties.google.hostedDomain");
+
+        if (hostedDomain != null) {
+          gsBuilder.setHostedDomain(hostedDomain);
+        }
+
         GoogleSignInOptions gso = gsBuilder.build();
         this.mGoogleSignInClient = GoogleSignIn.getClient(this.plugin.getActivity(), gso);
     }

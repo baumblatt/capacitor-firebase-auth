@@ -108,7 +108,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
             guard (authResult?.user) != nil else {
                 print("There is no user on firebase AuthResult")
-                self.handleError(message: "There is no token in Facebook sign in.")
+                self.handleError(message: "There is no user on firebase AuthResult")
                 return
             }
 
