@@ -42,7 +42,7 @@ The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Andr
 > The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
 
 ```
-1 import firebase from 'firebase/app';
+1 import * as firebase from 'firebase/app';
          ~~~~~~~~
     8601 export = firebase;
          ~~~~~~~~~~~~~~~~~~
@@ -371,8 +371,7 @@ cfaSignInPhoneOnCodeReceived().subscribe(
 Suggestion for web authentication code to iOS, the ```verificationCode`` must be provided by the user, please see [Firebase documentation](https://firebase.google.com/docs/auth/web/phone-auth#sign-in-the-user-with-the-verification-code) for better options.
 ```typescript
 
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/app';
 
 const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
 
@@ -390,7 +389,7 @@ the token and secret are returned for use with Twitter User API.
 #### Sign in
 
 ```typescript
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import {cfaSignIn, SignInResult} from 'capacitor-firebase-auth/alternative'; import {SignInResult} from './definitions';
 
 cfaSignIn('twitter.com').subscribe(
@@ -404,7 +403,7 @@ cfaSignIn('twitter.com').subscribe(
 #### Sign In using direct twitter method
 
 ```typescript
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import {cfaSignInTwitter, TwitterSignInResult} from 'capacitor-firebase-auth/alternative'; import {SignInResult} from './definitions';
 
 cfaSignInTwitter().subscribe(

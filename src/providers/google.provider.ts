@@ -1,5 +1,4 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/app';
 import {GoogleSignInResult, SignInOptions} from '../definitions';
 import OAuthCredential = firebase.auth.OAuthCredential;
 

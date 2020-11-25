@@ -1,6 +1,5 @@
 import {Capacitor, Plugins, registerWebPlugin} from '@capacitor/core';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/app';
 import {Observable, throwError} from 'rxjs';
 import {
     AppleSignInResult,
