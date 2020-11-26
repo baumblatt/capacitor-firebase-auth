@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import 'firebase/auth';
 
 declare module "@capacitor/core" {
   interface PluginRegistry {

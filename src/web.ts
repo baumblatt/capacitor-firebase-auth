@@ -1,5 +1,6 @@
 import {registerWebPlugin, WebPlugin} from '@capacitor/core';
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import {CapacitorFirebaseAuthPlugin, SignInResult} from './definitions';
 import {facebookSignInWeb} from './providers/facebook.provider';
 import {googleSignInWeb} from './providers/google.provider';
