@@ -9,7 +9,8 @@ xcuserdata
 # macOS files
 .DS_Store
 
-
+# Pack
+capacitor-firebase-auth-nightly.tgz
 
 # Based on Android gitignore template: https://github.com/github/gitignore/blob/master/Android.gitignore
 

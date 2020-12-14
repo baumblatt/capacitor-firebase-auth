@@ -58,7 +58,9 @@ If you see the message above, please use `esModuleInterop=true` in your  `tsconf
 
 1. Test for Apple provider for Android
 2. Apple provider for Web
-2. Email/Password Provider 
+3. Link social accounts
+4. Email/Password Provider
+
 > Should we do this? It's very simple to authenticate on WebView without any plugin. 
 > For awhile, waiting a good reason to do it. (track interest on Issue #24)
 
@@ -90,6 +92,11 @@ npm install --save capacitor-firebase-auth
           "providers": ["google.com", "twitter.com", "facebook.com", "phone"],
           "languageCode": "en",
           "nativeAuth": false,
+          "properties": {
+            "google": {
+                "hostedDomain": "my-custom-domain.com"
+            }
+          },   
           "permissions": {
                "google": ["profile", "https://www.googleapis.com/auth/drive", ...]
            }
@@ -97,8 +104,12 @@ npm install --save capacitor-firebase-auth
       }
     [...]
     ```
-    > Note: `nativeAuth` is a feature supported for Google, Twitter and Facebook (not Phone) to sign the user on native layer too.
-    >> This is useful if you need to handle any feature provided by another plugin that needs authentication.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+   > Note: `nativeAuth` is a feature supported for Google, Twitter and Facebook (not Phone or Apple) to sign the user on the native layer too.
+   >> This is useful if you need to handle any feature provided by another plugin that needs authentication.
+    
+   > Note 2: Don't forget to remove `hosted domain` properties from Google SignIn in case you don't need it. 
+   > See more [here](https://developers.google.com/android/reference/com/google/android/gms/auth/api/signin/GoogleSignInOptions.Builder#parameters_6)
+   > about this feature.
 
 2. In file `android/app/src/main/java/.../MainActivity.java` add the reference to the Capacitor Firebase Auth plugin inside the Bridge initialization.
     ```
@@ -442,6 +453,7 @@ If you feel that project is useful, please, considered to buy me a beer through 
 Looking forward to enable FUNDING.yml soon.
 
 ## History
+- Issue #112 - Request hostedDomain support for Google Sign-in
 - Issue #63 - Support for Apple Sign In on iOS platform. Android platform maybe work, not tested yet.
 - Fix the same issue as in PR #104 but now on 'twitter.provider.ts', maybe there was a change in firebase.js (be sure you are using at least 7.17.1).  
 - PR #104 - Update 'facebook.provider.ts' (fix the grap of the access token), thanks to [hiepxanh](https://github.com/hiepxanh)
