@@ -2,7 +2,7 @@ import {Plugins} from '@capacitor/core';
 import {Observable, throwError} from 'rxjs';
 
 import 'firebase/auth';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import {
     AppleSignInResult,
     CapacitorFirebaseAuthPlugin,
