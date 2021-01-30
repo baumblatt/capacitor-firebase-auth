@@ -5,6 +5,8 @@
 
 Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sign-in process completes, the user will be signed in within both tiers.
 
+Authenticating on the native layer is useful if you have another plugin that also needs authentication. But even if you don't need it, it does not negatively affect performance.
+
 The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Android, iOS and Web.
 
 ## Tracking the Work in Progress
