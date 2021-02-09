@@ -132,8 +132,9 @@ npm install --save capacitor-firebase-auth
     * [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
     * [Add Firebase to your iOS project ](https://firebase.google.com/docs/ios/setup)
 2. If you haven't yet connected your app to your Firebase project, do so from the [Firebase console](https://console.firebase.google.com/).
-
-> Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
+    * Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
+3. Add a URL scheme to your project (iOS only)
+    * See the official [documentation here](https://developers.google.com/identity/sign-in/ios/start-integrating#add_a_url_scheme_to_your_project).
 
 #### Firebase iOS specific configurations
 
