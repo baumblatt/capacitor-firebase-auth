@@ -354,9 +354,9 @@ cfaSignOut().subscribe()
 ```typescript
 import {cfaSignInPhone} from 'capacitor-firebase-auth';
 
-cfaSignInPhone('+16505551234').subscribe(
-	user => console.log(user.phoneNumber)
-)
+cfaSignInPhone('+16505551234').subscribe((user) => {
+  console.log(user.phoneNumber)
+})
 ```
 
 > On iOS platform the observable will complete without emit (like EMPTY), follow the notifications below to sign on Firebase on Web Layer.
