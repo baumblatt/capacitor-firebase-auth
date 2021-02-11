@@ -16,7 +16,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
 
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().presentingViewController = self.plugin?.bridge.viewController
+        GIDSignIn.sharedInstance().presentingViewController = self.plugin?.bridge?.viewController
 
         let permissions = self.plugin?.getConfigValue("permissions") as? [String:Any] ?? [:]
 
@@ -32,7 +32,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
         }
 
         NotificationCenter.default
-            .addObserver(self, selector: #selector(handleOpenUrl(_ :)), name: Notification.Name(CAPNotifications.URLOpen.name()), object: nil)
+            .addObserver(self, selector: #selector(handleOpenUrl(_ :)), name: Notification.Name(Notification.Name.capacitorOpenURL.rawValue), object: nil)
     }
 
     @objc

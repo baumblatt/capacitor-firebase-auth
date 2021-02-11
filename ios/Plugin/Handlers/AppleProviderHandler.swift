@@ -104,7 +104,7 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate, ASAuthorizati
     }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return (self.plugin?.bridge.getWebView()?.window)!
+        return (self.plugin!.bridge?.webView?.window)!
     }
     
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce

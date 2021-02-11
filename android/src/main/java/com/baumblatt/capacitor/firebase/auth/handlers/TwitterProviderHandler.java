@@ -6,7 +6,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth;
-import com.getcapacitor.Config;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
 import com.google.android.gms.tasks.OnFailureListener;

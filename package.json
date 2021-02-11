@@ -14,13 +14,13 @@
 	"author": "Bernardo Baumblatt",
 	"license": "MIT",
 	"dependencies": {
-		"@capacitor/core": "latest"
+		"@capacitor/core": "3.0.0-beta.2"
 	},
 	"devDependencies": {
 		"rimraf": "^3.0.0",
 		"typescript": "^3.9.5",
-		"@capacitor/ios": "latest",
-		"@capacitor/android": "latest"
+		"@capacitor/ios": "3.0.0-beta.2",
+		"@capacitor/android": "3.0.0-beta.2"
 	},
 	"peerDependencies": {
 		"firebase": "^8.2.6",

@@ -18,6 +18,7 @@ import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
+import com.getcapacitor.PluginConfig;
 import com.getcapacitor.PluginMethod;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,8 +48,8 @@ public class CapacitorFirebaseAuth extends Plugin {
 
     private CapConfig config;
 
-    public CapConfig getConfig() {
-        return this.config;
+    public PluginConfig getConfig() {
+        return this.config.getPluginConfiguration("plugins.CapacitorFirebaseAuth");
     }
 
     public void load() {
