@@ -1,17 +1,15 @@
-import {Capacitor, Plugins, registerWebPlugin} from '@capacitor/core';
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import {Observable, throwError} from 'rxjs';
+
+import firebase from 'firebase/app';
+import { Observable, throwError } from 'rxjs';
+
+import { Capacitor, Plugins, registerWebPlugin } from '@capacitor/core';
+
 import {
-    AppleSignInResult,
-    CapacitorFirebaseAuthPlugin,
-    FacebookSignInResult,
-    GoogleSignInResult,
-    PhoneSignInResult,
-    SignInOptions,
-    TwitterSignInResult
+  AppleSignInResult, CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult,
+  PhoneSignInResult, SignInOptions, TwitterSignInResult
 } from './definitions';
-import {CapacitorFirebaseAuth} from './web';
+import { CapacitorFirebaseAuth } from './web';
 
 const plugin: CapacitorFirebaseAuthPlugin = Plugins.CapacitorFirebaseAuth;
 

@@ -1,6 +1,9 @@
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import {GoogleSignInResult, SignInOptions} from '../definitions';
+
+import firebase from 'firebase/app';
+
+import { GoogleSignInResult, SignInOptions } from '../definitions';
+
 import OAuthCredential = firebase.auth.OAuthCredential;
 
 export const googleSignInWeb: (options: {providerId: string, data?: SignInOptions}) => Promise<GoogleSignInResult>

@@ -1,16 +1,13 @@
-import {Plugins} from '@capacitor/core';
-import {Observable, throwError} from 'rxjs';
-
 import 'firebase/auth';
-import * as firebase from 'firebase/app';
+
+import firebase from 'firebase/app';
+import { Observable, throwError } from 'rxjs';
+
+import { Plugins } from '@capacitor/core';
+
 import {
-    AppleSignInResult,
-    CapacitorFirebaseAuthPlugin,
-    FacebookSignInResult,
-    GoogleSignInResult,
-    PhoneSignInResult,
-    SignInOptions, SignInResult,
-    TwitterSignInResult
+  AppleSignInResult, CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult,
+  PhoneSignInResult, SignInOptions, SignInResult, TwitterSignInResult
 } from '../definitions';
 
 // @ts-ignore
@@ -33,6 +30,8 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 			return cfaSignInTwitter();
 		case facebookProvider:
 			return cfaSignInFacebook();
+		case cfaSignInAppleProvider:
+			return cfaSignInApple();
 		case phoneProvider:
 			return cfaSignInPhone(data.phone, data.verificationCode);
 		default:
@@ -42,7 +41,7 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 
 /**
  * Call the Google sign in method on native layer and sign in on web layer, exposing the entire native result
- * for use Facebook API with "user auth" authentication and the entire user credential from Firebase.
+ * for use Google API with "user auth" authentication and the entire user credential from Firebase.
  * @return Observable<{user: firebase.User, result: GoogleSignInResult}}>
  * @See Issue #23.
  */

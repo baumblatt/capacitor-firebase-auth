@@ -1,11 +1,14 @@
-import {registerWebPlugin, WebPlugin} from '@capacitor/core';
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import {CapacitorFirebaseAuthPlugin, SignInResult} from './definitions';
-import {facebookSignInWeb} from './providers/facebook.provider';
-import {googleSignInWeb} from './providers/google.provider';
-import {phoneSignInWeb} from './providers/phone.provider';
-import {twitterSignInWeb} from './providers/twitter.provider';
+
+import firebase from 'firebase/app';
+
+import { registerWebPlugin, WebPlugin } from '@capacitor/core';
+
+import { CapacitorFirebaseAuthPlugin, SignInResult } from './definitions';
+import { facebookSignInWeb } from './providers/facebook.provider';
+import { googleSignInWeb } from './providers/google.provider';
+import { phoneSignInWeb } from './providers/phone.provider';
+import { twitterSignInWeb } from './providers/twitter.provider';
 
 export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFirebaseAuthPlugin {
   constructor() {

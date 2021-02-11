@@ -1,6 +1,9 @@
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import {FacebookSignInResult, SignInOptions} from '../definitions';
+
+import firebase from 'firebase/app';
+
+import { FacebookSignInResult, SignInOptions } from '../definitions';
+
 import OAuthCredential = firebase.auth.OAuthCredential;
 
 export const facebookSignInWeb: (options: {providerId: string, data?: SignInOptions}) => Promise<FacebookSignInResult>

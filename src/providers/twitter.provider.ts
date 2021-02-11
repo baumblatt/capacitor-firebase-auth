@@ -1,6 +1,9 @@
-import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import {SignInOptions, TwitterSignInResult} from '../definitions';
+
+import firebase from 'firebase/app';
+
+import { SignInOptions, TwitterSignInResult } from '../definitions';
+
 import OAuthCredential = firebase.auth.OAuthCredential;
 
 export const twitterSignInWeb: (options: {providerId: string, data?: SignInOptions}) => Promise<TwitterSignInResult>
