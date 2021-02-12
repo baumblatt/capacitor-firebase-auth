@@ -1,4 +1,4 @@
+import type { CapacitorFirebaseAuthPlugin } from './definitions';
+declare const CapacitorFirebaseAuth: CapacitorFirebaseAuthPlugin;
 export * from './definitions';
-export * from './facades';
-export * from './operators';
-export * from './web';
+export { CapacitorFirebaseAuth };

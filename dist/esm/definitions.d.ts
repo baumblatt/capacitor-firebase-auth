@@ -1,46 +1,43 @@
 import 'firebase/auth';
-declare module "@capacitor/core" {
-    interface PluginRegistry {
-        CapacitorFirebaseAuth?: CapacitorFirebaseAuthPlugin;
-    }
+export interface SignInResult {
 }
 export interface CapacitorFirebaseAuthPlugin {
-    signIn(options: {
+    signIn<T extends SignInResult>(options: {
         providerId: string;
         data?: SignInOptions;
-    }): Promise<SignInResult>;
+    }): Promise<T>;
     signOut(options: {}): Promise<void>;
 }
-export declare class GoogleSignInResult {
+export declare class GoogleSignInResult implements SignInResult {
     idToken: string;
     providerId: string;
     constructor(idToken: string);
 }
-export declare class TwitterSignInResult {
+export declare class TwitterSignInResult implements SignInResult {
     idToken: string;
     secret: string;
     providerId: string;
     constructor(idToken: string, secret: string);
 }
-export declare class FacebookSignInResult {
+export declare class FacebookSignInResult implements SignInResult {
     idToken: string;
     providerId: string;
     constructor(idToken: string);
 }
-export declare class AppleSignInResult {
+export declare class AppleSignInResult implements SignInResult {
     idToken: string;
     rawNonce: string;
     providerId: string;
     constructor(idToken: string, rawNonce: string);
 }
-export declare class PhoneSignInResult {
+export declare class PhoneSignInResult implements SignInResult {
     verificationId: string;
     verificationCode: string;
     providerId: string;
     constructor(verificationId: string, verificationCode: string);
 }
-export declare type SignInResult = GoogleSignInResult | TwitterSignInResult | FacebookSignInResult | PhoneSignInResult;
 export interface PhoneSignInOptions {
+    container?: HTMLElement;
     phone: string;
     verificationCode?: string;
 }

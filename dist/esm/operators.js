@@ -1,5 +1,5 @@
-import { of, pipe } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 /**
  * Operator to map firebase.User to firebase.UserInfo.
  *
@@ -16,12 +16,12 @@ import { switchMap } from 'rxjs/operators';
  * )
  * ```
  */
-export const mapUserToUserInfo = () => pipe(switchMap((user) => {
+export const mapUserToUserInfo = () => pipe(map((user) => {
     if (user) {
         const { uid, providerId, displayName, photoURL, phoneNumber, email } = user;
-        return of({ uid, providerId, displayName, photoURL, phoneNumber, email });
+        return { uid, providerId, displayName, photoURL, phoneNumber, email };
     }
-    return of(user);
+    return user;
 }));
 /**
  * Operator to map firebase.auth.UserCredential to firebase.UserInfo.
@@ -41,11 +41,11 @@ export const mapUserToUserInfo = () => pipe(switchMap((user) => {
  * )
  * ```
  */
-export const mapUserCredentialToUserInfo = () => pipe(switchMap(({ userCredential }) => {
-    if (!!userCredential) {
+export const mapUserCredentialToUserInfo = () => pipe(map(({ userCredential }) => {
+    if (userCredential === null || userCredential === void 0 ? void 0 : userCredential.user) {
         const { uid, providerId, displayName, photoURL, phoneNumber, email } = userCredential.user;
-        return of({ uid, providerId, displayName, photoURL, phoneNumber, email });
+        return { uid, providerId, displayName, photoURL, phoneNumber, email };
     }
-    return of(null);
+    return null;
 }));
 //# sourceMappingURL=operators.js.map

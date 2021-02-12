@@ -1,9 +1,8 @@
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Observable, throwError } from 'rxjs';
-import { Plugins } from '@capacitor/core';
-// @ts-ignore
-const plugin = Plugins.CapacitorFirebaseAuth;
+import { CapacitorFirebaseAuth } from '../';
+const plugin = CapacitorFirebaseAuth;
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
  * @param providerId The provider identification.
@@ -24,7 +23,7 @@ export const cfaSignIn = (providerId, data) => {
         case cfaSignInAppleProvider:
             return cfaSignInApple();
         case phoneProvider:
-            return cfaSignInPhone(data.phone, data.verificationCode);
+            return cfaSignInPhone(data === null || data === void 0 ? void 0 : data.phone, data === null || data === void 0 ? void 0 : data.verificationCode);
         default:
             return throwError(new Error(`The '${providerId}' provider was not supported`));
     }

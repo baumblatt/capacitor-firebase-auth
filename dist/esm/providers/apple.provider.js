@@ -1,11 +1,11 @@
 import 'firebase/auth';
 import firebase from 'firebase/app';
-import { TwitterSignInResult } from '../definitions';
-export const twitterSignInWeb = async () => {
-    const provider = new firebase.auth.TwitterAuthProvider();
+import { AppleSignInResult } from '../definitions';
+export const appleSignInWeb = async () => {
+    const provider = new firebase.auth.OAuthProvider('apple.com');
     firebase.auth().useDeviceLanguage();
     const userCredential = await firebase.auth().signInWithPopup(provider);
     const credential = userCredential === null || userCredential === void 0 ? void 0 : userCredential.credential;
-    return new TwitterSignInResult(credential.accessToken, credential.secret);
+    return new AppleSignInResult(credential.idToken, credential.accessToken);
 };
-//# sourceMappingURL=twitter.provider.js.map
+//# sourceMappingURL=apple.provider.js.map

@@ -1,12 +1,8 @@
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Observable, throwError } from 'rxjs';
-import { Capacitor, Plugins, registerWebPlugin } from '@capacitor/core';
-import { CapacitorFirebaseAuth } from './web';
-const plugin = Plugins.CapacitorFirebaseAuth;
-if (Capacitor.platform === 'web') {
-    registerWebPlugin(CapacitorFirebaseAuth);
-}
+import { CapacitorFirebaseAuth } from './';
+const plugin = CapacitorFirebaseAuth;
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
  * @param providerId The provider identification.
@@ -27,6 +23,9 @@ export const cfaSignIn = (providerId, data) => {
         case cfaSignInAppleProvider:
             return cfaSignInApple();
         case phoneProvider:
+            if (!data) {
+                throw new Error('Phone and Verification data must be provided.');
+            }
             return cfaSignInPhone(data.phone, data.verificationCode);
         default:
             return throwError(new Error(`The '${providerId}' provider was not supported`));
@@ -46,13 +45,16 @@ export const cfaSignInGoogle = () => {
             // web sign in
             firebase.app().auth().signInWithCredential(credential)
                 .then((userCredential) => {
+                if (!userCredential.user) {
+                    throw new Error('Firebase User was not received.');
+                }
                 observer.next(userCredential.user);
                 observer.complete();
             })
                 .catch((reject) => {
                 observer.error(reject);
             });
-        }).catch(reject => {
+        }).catch((reject) => {
             observer.error(reject);
         });
     });
@@ -71,11 +73,14 @@ export const cfaSignInTwitter = () => {
             // web sign in
             firebase.app().auth().signInWithCredential(credential)
                 .then((userCredential) => {
+                if (!userCredential.user) {
+                    throw new Error('Firebase User was not received.');
+                }
                 observer.next(userCredential.user);
                 observer.complete();
             })
                 .catch((reject) => observer.error(reject));
-        }).catch(reject => observer.error(reject));
+        }).catch((reject) => observer.error(reject));
     });
 };
 /**
@@ -92,11 +97,14 @@ export const cfaSignInFacebook = () => {
             // web sign in
             firebase.app().auth().signInWithCredential(credential)
                 .then((userCredential) => {
+                if (!userCredential.user) {
+                    throw new Error('Firebase User was not received.');
+                }
                 observer.next(userCredential.user);
                 observer.complete();
             })
                 .catch((reject) => observer.error(reject));
-        }).catch(reject => observer.error(reject));
+        }).catch((reject) => observer.error(reject));
     });
 };
 export const cfaSignInAppleProvider = 'apple.com';
@@ -115,11 +123,14 @@ export const cfaSignInApple = () => {
             // web sign in
             firebase.app().auth().signInWithCredential(credential)
                 .then((userCredential) => {
+                if (!userCredential.user) {
+                    throw new Error('Firebase User was not received.');
+                }
                 observer.next(userCredential.user);
                 observer.complete();
             })
                 .catch((reject) => observer.error(reject));
-        }).catch(reject => observer.error(reject));
+        }).catch((reject) => observer.error(reject));
     });
 };
 /**
@@ -141,11 +152,14 @@ export const cfaSignInPhone = (phone, verificationCode) => {
             // web sign in
             firebase.app().auth().signInWithCredential(credential)
                 .then((userCredential) => {
+                if (!userCredential.user) {
+                    throw new Error('Firebase User was not received.');
+                }
                 observer.next(userCredential.user);
                 observer.complete();
             })
                 .catch((reject) => observer.error(reject));
-        }).catch(reject => observer.error(reject));
+        }).catch((reject) => observer.error(reject));
     });
 };
 /**

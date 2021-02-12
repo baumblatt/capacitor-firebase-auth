@@ -1,25 +1,11 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { GoogleSignInResult } from '../definitions';
-export const googleSignInWeb = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().useDeviceLanguage();
-        const userCredential = yield firebase.auth().signInWithPopup(provider);
-        const { credential } = userCredential;
-        return new GoogleSignInResult(credential.idToken);
-    }
-    catch (e) {
-        return Promise.reject(e);
-    }
-});
+export const googleSignInWeb = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().useDeviceLanguage();
+    const userCredential = await firebase.auth().signInWithPopup(provider);
+    const credential = userCredential === null || userCredential === void 0 ? void 0 : userCredential.credential;
+    return new GoogleSignInResult(credential.idToken);
+};
 //# sourceMappingURL=google.provider.js.map

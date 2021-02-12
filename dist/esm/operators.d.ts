@@ -37,4 +37,4 @@ export declare const mapUserToUserInfo: () => UnaryFunction<Observable<firebase.
  */
 export declare const mapUserCredentialToUserInfo: () => UnaryFunction<Observable<{
     userCredential: firebase.auth.UserCredential;
-}>, Observable<firebase.UserInfo>>;
+}>, Observable<firebase.UserInfo | null>>;

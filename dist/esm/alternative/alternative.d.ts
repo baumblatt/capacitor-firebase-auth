@@ -1,13 +1,13 @@
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { AppleSignInResult, FacebookSignInResult, GoogleSignInResult, PhoneSignInResult, SignInOptions, SignInResult, TwitterSignInResult } from '../definitions';
+import { AppleSignInResult, FacebookSignInResult, GoogleSignInResult, PhoneSignInResult, SignInResult, TwitterSignInResult } from '../definitions';
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
  * @param providerId The provider identification.
  * @param data The provider additional information (optional).
  */
-export declare const cfaSignIn: (providerId: string, data?: SignInOptions) => Observable<{
+export declare const cfaSignIn: (providerId: string, data?: import("..").PhoneSignInOptions | undefined) => Observable<{
     userCredential: firebase.auth.UserCredential;
     result: SignInResult;
 }>;
@@ -55,7 +55,7 @@ export declare const cfaSignInApple: () => Observable<{
  * @param phone The user phone number.
  * @param verificationCode The verification code sent by SMS (optional).
  */
-export declare const cfaSignInPhone: (phone: string, verificationCode?: string) => Observable<{
+export declare const cfaSignInPhone: (phone: string, verificationCode?: string | undefined) => Observable<{
     userCredential: firebase.auth.UserCredential;
     result: PhoneSignInResult;
 }>;

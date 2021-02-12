@@ -1,13 +1,12 @@
 import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { SignInOptions } from './definitions';
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
  * @param providerId The provider identification.
  * @param data The provider additional information (optional).
  */
-export declare const cfaSignIn: (providerId: string, data?: SignInOptions) => Observable<firebase.User>;
+export declare const cfaSignIn: (providerId: string, data?: import("./definitions").PhoneSignInOptions | undefined) => Observable<firebase.User>;
 /**
  * Call the Google sign in method on native layer and sign in on web layer with retrieved credentials.
  */
@@ -30,7 +29,7 @@ export declare const cfaSignInApple: () => Observable<firebase.User>;
  * @param phone The user phone number.
  * @param verificationCode The verification code sent by SMS (optional).
  */
-export declare const cfaSignInPhone: (phone: string, verificationCode?: string) => Observable<firebase.User>;
+export declare const cfaSignInPhone: (phone: string, verificationCode?: string | undefined) => Observable<firebase.User>;
 /**
  * Observable of one notification of <code>On Code Sent</code>event from Phone Verification process.
  */
