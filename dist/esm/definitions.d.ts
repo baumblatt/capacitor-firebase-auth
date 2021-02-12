@@ -27,8 +27,10 @@ export declare class FacebookSignInResult implements SignInResult {
 export declare class AppleSignInResult implements SignInResult {
     idToken: string;
     rawNonce: string;
+    accessToken: string;
+    secret: string;
     providerId: string;
-    constructor(idToken: string, rawNonce: string);
+    constructor(idToken: string, rawNonce: string, accessToken: string, secret: string);
 }
 export declare class PhoneSignInResult implements SignInResult {
     verificationId: string;

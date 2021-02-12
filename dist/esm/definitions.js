@@ -20,9 +20,11 @@ export class FacebookSignInResult {
     }
 }
 export class AppleSignInResult {
-    constructor(idToken, rawNonce) {
+    constructor(idToken, rawNonce, accessToken, secret) {
         this.idToken = idToken;
         this.rawNonce = rawNonce;
+        this.accessToken = accessToken;
+        this.secret = secret;
         this.providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
     }
 }
