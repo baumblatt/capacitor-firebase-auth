@@ -74,27 +74,27 @@ public class CapacitorFirebaseAuth extends Plugin {
 
         for (String provider: providers) {
             if (provider.equalsIgnoreCase(getContext().getString(R.string.google_provider_id))) {
-                Log.d(PLUGIN_TAG, "Initializing Google Provider");
+                Log.d(PLUGIN_TAG, "Google Provider Loading");
                 this.providerHandlers.put(provider, new GoogleProviderHandler());
                 this.providerHandlers.get(provider).init(this);
                 Log.d(PLUGIN_TAG, "Google Provider Initialized");
             } else if (provider.equalsIgnoreCase(getContext().getString(R.string.twitter_provider_id))) {
-                Log.d(PLUGIN_TAG, "Initializing Twitter Provider");
+                Log.d(PLUGIN_TAG, "Twitter Provider Loading");
                 this.providerHandlers.put(provider, new TwitterProviderHandler());
                 this.providerHandlers.get(provider).init(this);
                 Log.d(PLUGIN_TAG, "Twitter Provider Initialized");
             } else if (provider.equalsIgnoreCase(getContext().getString(R.string.facebook_provider_id))) {
-                Log.d(PLUGIN_TAG, "Initializing Facebook Provider");
+                Log.d(PLUGIN_TAG, "Facebook Provider Loading");
                 this.providerHandlers.put(provider, new FacebookProviderHandler());
                 this.providerHandlers.get(provider).init(this);
                 Log.d(PLUGIN_TAG, "Facebook Provider Initialized");
             } else if (provider.equalsIgnoreCase(getContext().getString(R.string.apple_provider_id))) {
-                Log.d(PLUGIN_TAG, "Initializing Apple Provider");
+                Log.d(PLUGIN_TAG, "Apple Provider Loading");
                 this.providerHandlers.put(provider, new AppleProviderHandler());
                 this.providerHandlers.get(provider).init(this);
-                Log.d(PLUGIN_TAG, "Facebook Apple Initialized");
+                Log.d(PLUGIN_TAG, "Apple Provider Initialized");
             } else if (provider.equalsIgnoreCase(getContext().getString(R.string.phone_provider_id))) {
-                Log.d(PLUGIN_TAG, "Initializing Phone Provider");
+                Log.d(PLUGIN_TAG, "Phone Provider Loading");
                 this.providerHandlers.put(provider, new PhoneProviderHandler());
                 this.providerHandlers.get(provider).init(this);
                 Log.d(PLUGIN_TAG, "Phone Provider Initialized");
