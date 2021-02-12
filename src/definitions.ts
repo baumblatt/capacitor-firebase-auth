@@ -30,7 +30,7 @@ export class FacebookSignInResult implements SignInResult {
 
 export class AppleSignInResult implements SignInResult {
   providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
-  constructor(public idToken: string, public rawNonce: string) {
+  constructor(public idToken: string, public rawNonce: string, public accessToken: string, public secret: string) {
   }
 }
 

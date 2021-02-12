@@ -12,5 +12,5 @@ export const appleSignInWeb: (options: { providerId: string, data?: SignInOption
         firebase.auth().useDeviceLanguage();
         const userCredential = await firebase.auth().signInWithPopup(provider);
         const credential = userCredential?.credential as OAuthCredential;
-        return new AppleSignInResult(credential.idToken as string, credential.accessToken as string);
+        return new AppleSignInResult(credential.idToken as string, '', credential.accessToken as string, credential.secret ?? "");
     }

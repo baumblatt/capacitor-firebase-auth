@@ -133,13 +133,13 @@ export const cfaSignInApple = (): Observable<{ userCredential: firebase.auth.Use
 	return new Observable(observer => {
 		// native sign in
 		plugin.signIn<AppleSignInResult>({ providerId: cfaSignInAppleProvider }).then((result: AppleSignInResult) => {
-			const { idToken, rawNonce } = result;
+			const { accessToken } = result;
 
 			const provider = new firebase.auth.OAuthProvider('apple.com');
 			provider.addScope('email');
 			provider.addScope('name');
 
-			const credential = provider.credential({ idToken, rawNonce })
+			const credential = provider.credential({ idToken: accessToken })
 
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)

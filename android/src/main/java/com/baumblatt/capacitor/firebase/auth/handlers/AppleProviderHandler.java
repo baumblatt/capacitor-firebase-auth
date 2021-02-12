@@ -92,8 +92,10 @@ public class AppleProviderHandler implements ProviderHandler, OnSuccessListener<
     @Override
     public void fillResult(AuthCredential credential, JSObject jsResult) {
         if (credential != null) {
+            jsResult.put("accessToken", this.getCredentialParts(credential, "getIdToken"));
             jsResult.put("idToken", this.getCredentialParts(credential, "getAccessToken"));
             jsResult.put("rawNonce", this.getCredentialParts(credential, "getRawNonce"));
+            jsResult.put("secret", this.getCredentialParts(credential, "getSecret"));
         }
     }
 
