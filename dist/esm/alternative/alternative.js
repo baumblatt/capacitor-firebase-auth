@@ -2,7 +2,6 @@ import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Observable, throwError } from 'rxjs';
 import { CapacitorFirebaseAuth } from '../';
-const plugin = CapacitorFirebaseAuth;
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
  * @param providerId The provider identification.
@@ -39,7 +38,7 @@ export const cfaSignInGoogle = () => {
         // get the provider id
         const providerId = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
         // native sign in
-        plugin.signIn({ providerId }).then((result) => {
+        CapacitorFirebaseAuth.signIn({ providerId }).then((result) => {
             // create the credentials
             const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken);
             // web sign in
@@ -67,7 +66,7 @@ export const cfaSignInFacebook = () => {
         // get the provider id
         const providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
         // native sign in
-        plugin.signIn({ providerId }).then((result) => {
+        CapacitorFirebaseAuth.signIn({ providerId }).then((result) => {
             // create the credentials
             const credential = firebase.auth.FacebookAuthProvider.credential(result.idToken);
             // web sign in
@@ -91,7 +90,7 @@ export const cfaSignInTwitter = () => {
         // get the provider id
         const providerId = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
         // native sign in
-        plugin.signIn({ providerId }).then((result) => {
+        CapacitorFirebaseAuth.signIn({ providerId }).then((result) => {
             // create the credentials
             const credential = firebase.auth.TwitterAuthProvider.credential(result.idToken, result.secret);
             // web sign in
@@ -111,7 +110,7 @@ export const cfaSignInAppleProvider = 'apple.com';
 export const cfaSignInApple = () => {
     return new Observable(observer => {
         // native sign in
-        plugin.signIn({ providerId: cfaSignInAppleProvider }).then((result) => {
+        CapacitorFirebaseAuth.signIn({ providerId: cfaSignInAppleProvider }).then((result) => {
             const { accessToken } = result;
             const provider = new firebase.auth.OAuthProvider('apple.com');
             provider.addScope('email');
@@ -137,7 +136,7 @@ export const cfaSignInPhone = (phone, verificationCode) => {
     return new Observable(observer => {
         // get the provider id
         const providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
-        plugin.signIn({ providerId, data: { phone, verificationCode } }).then((result) => {
+        CapacitorFirebaseAuth.signIn({ providerId, data: { phone, verificationCode } }).then((result) => {
             // if there is no verification code
             if (!result.verificationCode) {
                 return observer.complete();
