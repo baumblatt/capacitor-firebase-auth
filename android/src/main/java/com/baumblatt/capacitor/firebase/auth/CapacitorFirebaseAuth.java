@@ -244,7 +244,7 @@ public class CapacitorFirebaseAuth extends Plugin {
         }
 
         if (e != null) {
-            savedCall.reject(message, e);
+            savedCall.reject(message + " " + e.getMessage(), e);
         } else {
             savedCall.reject(message);
         }
