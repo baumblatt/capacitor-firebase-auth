@@ -5,11 +5,9 @@ import { Observable, throwError } from 'rxjs';
 
 import { CapacitorFirebaseAuth } from '../';
 import {
-  AppleSignInResult, CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult,
-  PhoneSignInResult, SignInOptions, SignInResult, TwitterSignInResult
+  AppleSignInResult, FacebookSignInResult, GoogleSignInResult, PhoneSignInResult, SignInOptions,
+  SignInResult, TwitterSignInResult
 } from '../definitions';
-
-const plugin: CapacitorFirebaseAuthPlugin = CapacitorFirebaseAuth;
 
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
@@ -49,7 +47,7 @@ export const cfaSignInGoogle = (): Observable<{ userCredential: firebase.auth.Us
 		const providerId = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
 
 		// native sign in
-		plugin.signIn<GoogleSignInResult>({ providerId }).then((result: GoogleSignInResult) => {
+		CapacitorFirebaseAuth.signIn<GoogleSignInResult>({ providerId }).then((result: GoogleSignInResult) => {
 			// create the credentials
 			const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken);
 
@@ -80,7 +78,7 @@ export const cfaSignInFacebook = (): Observable<{ userCredential: firebase.auth.
 		const providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
 
 		// native sign in
-		plugin.signIn<FacebookSignInResult>({ providerId }).then((result: FacebookSignInResult) => {
+		CapacitorFirebaseAuth.signIn<FacebookSignInResult>({ providerId }).then((result: FacebookSignInResult) => {
 			// create the credentials
 			const credential = firebase.auth.FacebookAuthProvider.credential(result.idToken);
 
@@ -108,7 +106,7 @@ export const cfaSignInTwitter = (): Observable<{ userCredential: firebase.auth.U
 		const providerId = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
 
 		// native sign in
-		plugin.signIn<TwitterSignInResult>({ providerId }).then((result: TwitterSignInResult) => {
+		CapacitorFirebaseAuth.signIn<TwitterSignInResult>({ providerId }).then((result: TwitterSignInResult) => {
 			// create the credentials
 			const credential = firebase.auth.TwitterAuthProvider.credential(result.idToken, result.secret);
 
@@ -132,7 +130,7 @@ export const cfaSignInAppleProvider = 'apple.com';
 export const cfaSignInApple = (): Observable<{ userCredential: firebase.auth.UserCredential, result: AppleSignInResult }> => {
 	return new Observable(observer => {
 		// native sign in
-		plugin.signIn<AppleSignInResult>({ providerId: cfaSignInAppleProvider }).then((result: AppleSignInResult) => {
+		CapacitorFirebaseAuth.signIn<AppleSignInResult>({ providerId: cfaSignInAppleProvider }).then((result: AppleSignInResult) => {
 			const { accessToken } = result;
 
 			const provider = new firebase.auth.OAuthProvider('apple.com');
@@ -163,7 +161,7 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string): Observ
 		// get the provider id
 		const providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
 
-		plugin.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode } }).then((result: PhoneSignInResult) => {
+		CapacitorFirebaseAuth.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode } }).then((result: PhoneSignInResult) => {
 			// if there is no verification code
 			if (!result.verificationCode) {
 				return observer.complete();
