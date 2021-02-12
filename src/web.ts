@@ -2,9 +2,10 @@ import 'firebase/auth';
 
 import firebase from 'firebase/app';
 
-import { registerWebPlugin, WebPlugin } from '@capacitor/core';
+import { WebPlugin } from '@capacitor/core';
 
-import { CapacitorFirebaseAuthPlugin, SignInResult } from './definitions';
+import { CapacitorFirebaseAuthPlugin, SignInOptions, SignInResult } from './definitions';
+import { appleSignInWeb } from './providers/apple.provider';
 import { facebookSignInWeb } from './providers/facebook.provider';
 import { googleSignInWeb } from './providers/google.provider';
 import { phoneSignInWeb } from './providers/phone.provider';
@@ -12,26 +13,27 @@ import { twitterSignInWeb } from './providers/twitter.provider';
 
 export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFirebaseAuthPlugin {
   constructor() {
-    super({
-      name: 'CapacitorFirebaseAuth',
-      platforms: ['web']
-    });
+    super();
   }
 
-  async signIn(options: {providerId: string;}): Promise<SignInResult> {
+  async signIn<T extends SignInResult>(options: { providerId: string, data?: SignInOptions }): Promise<T> {
+      const appleProvider = 'apple.com';
       const googleProvider = new firebase.auth.GoogleAuthProvider().providerId;
       const facebookProvider = new firebase.auth.FacebookAuthProvider().providerId;
       const twitterProvider = new firebase.auth.TwitterAuthProvider().providerId;
       const phoneProvider = new firebase.auth.PhoneAuthProvider().providerId;
+      
       switch (options.providerId) {
+          case appleProvider:
+              return appleSignInWeb(options) as any;
           case googleProvider:
-              return googleSignInWeb(options);
+              return googleSignInWeb(options) as any;
           case twitterProvider:
-              return twitterSignInWeb(options);
+              return twitterSignInWeb(options) as any;
           case facebookProvider:
-              return facebookSignInWeb(options);
+              return facebookSignInWeb(options) as any;
           case phoneProvider:
-              return phoneSignInWeb(options);
+              return phoneSignInWeb(options) as any;
       }
 
 	  return Promise.reject(`The '${options.providerId}' provider was not supported`);
@@ -42,9 +44,3 @@ export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFire
       return firebase.auth().signOut()
   }
 }
-
-const CapacitorFirebaseAuth = new CapacitorFirebaseAuthWeb();
-export { CapacitorFirebaseAuth };
-
-// Register as a web plugin
-registerWebPlugin(CapacitorFirebaseAuth);

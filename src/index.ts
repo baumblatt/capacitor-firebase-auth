@@ -1,4 +1,10 @@
+import { registerPlugin } from '@capacitor/core';
+
+import type { CapacitorFirebaseAuthPlugin } from './definitions';
+
+const CapacitorFirebaseAuth = registerPlugin<CapacitorFirebaseAuthPlugin>('CapacitorFirebaseAuth', {
+  web: () => import('./web').then(m => new m.CapacitorFirebaseAuthWeb()),
+});
+
 export * from './definitions';
-export * from './facades';
-export * from './operators';
-export * from './web';
+export { CapacitorFirebaseAuth };

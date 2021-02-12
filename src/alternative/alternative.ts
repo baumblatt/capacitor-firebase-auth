@@ -3,22 +3,20 @@ import 'firebase/auth';
 import firebase from 'firebase/app';
 import { Observable, throwError } from 'rxjs';
 
-import { Plugins } from '@capacitor/core';
-
+import { CapacitorFirebaseAuth } from '../';
 import {
   AppleSignInResult, CapacitorFirebaseAuthPlugin, FacebookSignInResult, GoogleSignInResult,
   PhoneSignInResult, SignInOptions, SignInResult, TwitterSignInResult
 } from '../definitions';
 
-// @ts-ignore
-const plugin: CapacitorFirebaseAuthPlugin = Plugins.CapacitorFirebaseAuth;
+const plugin: CapacitorFirebaseAuthPlugin = CapacitorFirebaseAuth;
 
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
  * @param providerId The provider identification.
  * @param data The provider additional information (optional).
  */
-export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<{userCredential: firebase.auth.UserCredential, result: SignInResult}> => {
+export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<{ userCredential: firebase.auth.UserCredential, result: SignInResult }> => {
 	const googleProvider = new firebase.auth.GoogleAuthProvider().providerId;
 	const facebookProvider = new firebase.auth.FacebookAuthProvider().providerId;
 	const twitterProvider = new firebase.auth.TwitterAuthProvider().providerId;
@@ -33,7 +31,7 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 		case cfaSignInAppleProvider:
 			return cfaSignInApple();
 		case phoneProvider:
-			return cfaSignInPhone(data.phone, data.verificationCode);
+			return cfaSignInPhone(data?.phone as string, data?.verificationCode as string);
 		default:
 			return throwError(new Error(`The '${providerId}' provider was not supported`));
 	}
@@ -45,20 +43,20 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
  * @return Observable<{user: firebase.User, result: GoogleSignInResult}}>
  * @See Issue #23.
  */
-export const cfaSignInGoogle = (): Observable<{userCredential: firebase.auth.UserCredential, result: GoogleSignInResult}> => {
+export const cfaSignInGoogle = (): Observable<{ userCredential: firebase.auth.UserCredential, result: GoogleSignInResult }> => {
 	return new Observable(observer => {
 		// get the provider id
 		const providerId = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
 
 		// native sign in
-		plugin.signIn({providerId}).then((result: GoogleSignInResult) => {
+		plugin.signIn<GoogleSignInResult>({ providerId }).then((result: GoogleSignInResult) => {
 			// create the credentials
 			const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken);
 
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					observer.next({userCredential, result});
+					observer.next({ userCredential, result });
 					observer.complete();
 				})
 				.catch((reject: any) => {
@@ -76,20 +74,20 @@ export const cfaSignInGoogle = (): Observable<{userCredential: firebase.auth.Use
  * @return Observable<{user: firebase.User, result: FacebookSignInResult}}>
  * @See Issue #23.
  */
-export const cfaSignInFacebook = (): Observable<{userCredential: firebase.auth.UserCredential, result: FacebookSignInResult}> => {
+export const cfaSignInFacebook = (): Observable<{ userCredential: firebase.auth.UserCredential, result: FacebookSignInResult }> => {
 	return new Observable(observer => {
 		// get the provider id
 		const providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
 
 		// native sign in
-		plugin.signIn({providerId}).then((result: FacebookSignInResult) => {
+		plugin.signIn<FacebookSignInResult>({ providerId }).then((result: FacebookSignInResult) => {
 			// create the credentials
 			const credential = firebase.auth.FacebookAuthProvider.credential(result.idToken);
 
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					observer.next({userCredential, result});
+					observer.next({ userCredential, result });
 					observer.complete();
 				})
 				.catch((reject: any) => observer.error(reject));
@@ -104,20 +102,20 @@ export const cfaSignInFacebook = (): Observable<{userCredential: firebase.auth.U
  * @return Observable<{user: firebase.User, result: TwitterSignInResult}}>
  * @See Issue #23.
  */
-export const cfaSignInTwitter = (): Observable<{userCredential: firebase.auth.UserCredential, result: TwitterSignInResult}> => {
+export const cfaSignInTwitter = (): Observable<{ userCredential: firebase.auth.UserCredential, result: TwitterSignInResult }> => {
 	return new Observable(observer => {
 		// get the provider id
 		const providerId = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
 
 		// native sign in
-		plugin.signIn({providerId}).then((result :TwitterSignInResult) => {
+		plugin.signIn<TwitterSignInResult>({ providerId }).then((result: TwitterSignInResult) => {
 			// create the credentials
 			const credential = firebase.auth.TwitterAuthProvider.credential(result.idToken, result.secret);
 
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					observer.next({userCredential, result});
+					observer.next({ userCredential, result });
 					observer.complete();
 				})
 				.catch((reject: any) => observer.error(reject));
@@ -131,27 +129,27 @@ export const cfaSignInAppleProvider = 'apple.com';
 /**
  * Call the Apple sign in method on native and sign in on web layer with retrieved credentials.
  */
-export const cfaSignInApple = (): Observable<{userCredential: firebase.auth.UserCredential, result: AppleSignInResult}> => {
-    return new Observable(observer => {
-        // native sign in
-        plugin.signIn({providerId: cfaSignInAppleProvider}).then((result: AppleSignInResult) => {
-            const {idToken, rawNonce} = result;
+export const cfaSignInApple = (): Observable<{ userCredential: firebase.auth.UserCredential, result: AppleSignInResult }> => {
+	return new Observable(observer => {
+		// native sign in
+		plugin.signIn<AppleSignInResult>({ providerId: cfaSignInAppleProvider }).then((result: AppleSignInResult) => {
+			const { idToken, rawNonce } = result;
 
-            const provider = new firebase.auth.OAuthProvider('apple.com');
-            provider.addScope('email');
-            provider.addScope('name');
+			const provider = new firebase.auth.OAuthProvider('apple.com');
+			provider.addScope('email');
+			provider.addScope('name');
 
-            const credential = provider.credential({idToken, rawNonce})
+			const credential = provider.credential({ idToken, rawNonce })
 
-            // web sign in
-            firebase.app().auth().signInWithCredential(credential)
-                .then((userCredential: firebase.auth.UserCredential) => {
-                    observer.next({userCredential, result});
-                    observer.complete();
-                })
-                .catch((reject: any) => observer.error(reject));
-        }).catch(reject => observer.error(reject));
-    });
+			// web sign in
+			firebase.app().auth().signInWithCredential(credential)
+				.then((userCredential: firebase.auth.UserCredential) => {
+					observer.next({ userCredential, result });
+					observer.complete();
+				})
+				.catch((reject: any) => observer.error(reject));
+		}).catch(reject => observer.error(reject));
+	});
 }
 
 /**
@@ -160,12 +158,12 @@ export const cfaSignInApple = (): Observable<{userCredential: firebase.auth.User
  * @param phone The user phone number.
  * @param verificationCode The verification code sent by SMS (optional).
  */
-export const cfaSignInPhone = (phone: string, verificationCode?: string) : Observable<{userCredential: firebase.auth.UserCredential, result: PhoneSignInResult}>  => {
+export const cfaSignInPhone = (phone: string, verificationCode?: string): Observable<{ userCredential: firebase.auth.UserCredential, result: PhoneSignInResult }> => {
 	return new Observable(observer => {
 		// get the provider id
 		const providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
 
-		plugin.signIn({providerId, data:{phone, verificationCode}}).then((result: PhoneSignInResult) => {
+		plugin.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode } }).then((result: PhoneSignInResult) => {
 			// if there is no verification code
 			if (!result.verificationCode) {
 				return observer.complete();
@@ -177,7 +175,7 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string) : Obser
 			// web sign in
 			firebase.app().auth().signInWithCredential(credential)
 				.then((userCredential: firebase.auth.UserCredential) => {
-					observer.next({userCredential, result});
+					observer.next({ userCredential, result });
 					observer.complete();
 				})
 				.catch((reject: any) => observer.error(reject));
@@ -188,4 +186,4 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string) : Obser
 };
 
 // re-exporting the unchanged functions from facades for simple imports.
-export {cfaSignInPhoneOnCodeReceived, cfaSignInPhoneOnCodeSent, cfaSignOut} from '../facades'
+export { cfaSignInPhoneOnCodeReceived, cfaSignInPhoneOnCodeSent, cfaSignOut } from '../facades'
