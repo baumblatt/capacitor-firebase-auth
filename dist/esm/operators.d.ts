@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { Observable, UnaryFunction } from 'rxjs';
 /**
  * Operator to map firebase.User to firebase.UserInfo.

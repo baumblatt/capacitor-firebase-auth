@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { PhoneSignInResult } from '../definitions';
 export const phoneSignInWeb = async (options) => {
     var _a, _b, _c, _d;
