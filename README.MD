@@ -138,21 +138,30 @@ npm install --save capacitor-firebase-auth
     * [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
     * [Add Firebase to your iOS project ](https://firebase.google.com/docs/ios/setup)
 2. If you haven't yet connected your app to your Firebase project, do so from the [Firebase console](https://console.firebase.google.com/).
+    * Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
 
-> Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
+#### Extra steps for iOS
 
-#### Firebase iOS specific configurations
+1. Add a URL scheme to your project (iOS only)
+    * See the official [documentation here](https://developers.google.com/identity/sign-in/ios/start-integrating#add_a_url_scheme_to_your_project).
 
-3. Add the pods that you want to install. You can include a Pod in your Podfile like this:
+2. Add the `Firebase/Auth` pod to the `Podfile` in `ios/App` like this:
 
-    ```
-    target 'App' do
-      capacitor_pods
-      # Add your Pods here
-        pod 'Firebase/Core'
-        pod 'Firebase/Auth'
-    end
-    ```
+```
+target 'App' do
+  capacitor_pods
+  # Add your Pods here
+  pod 'Firebase/Auth'
+end
+```
+
+#### Extra steps for Android
+
+1. Add Android SHA app hashes to Firebase console (android only)
+    * For how to add the hash, check the [documentation here](https://support.google.com/firebase/answer/9137403?hl=en).
+    * For _which_ hashes to add:
+        * One set is from the local debug keystore which is added by Android Studio
+        * Other two sets are from the "Google Play Console" if you go to "Signing" you can find your "upload" keys and your "release" keys
 
 ## Google
 
