@@ -367,12 +367,13 @@ cfaSignOut().subscribe()
 #### Phone Verification
 
 ```typescript
-import {cfaSignIn} from 'capacitor-firebase-auth';
+import {cfaSignInPhone} from 'capacitor-firebase-auth';
 
-cfaSignIn('phone', {phone: +16505551234}).subscribe(
-	user => console.log(user.phoneNumber)
-)
+cfaSignInPhone('+16505551234').subscribe((user) => {
+  console.log(user.phoneNumber)
+})
 ```
+
 > On iOS platform the observable will complete without emit (like EMPTY), follow the notifications below to sign on Firebase on Web Layer.
 
 #### Notification for Phone Verification step
@@ -380,21 +381,23 @@ cfaSignIn('phone', {phone: +16505551234}).subscribe(
 ```typescript
 import {cfaSignInPhoneOnCodeSent, cfaSignInPhoneOnCodeReceived} from 'capacitor-firebase-auth';
 
-//[...]
+// [...]
 
 // Android and iOS
-cfaSignInPhoneOnCodeSent().subscribe(
-	verificationId => console.log(verificationId)
-)
+cfaSignInPhoneOnCodeSent()
+  .subscribe((verificationId) => {
+    console.log(verificationId)
+  })
 
 // Android Only
-cfaSignInPhoneOnCodeReceived().subscribe(
-	(event: {verificationId: string, verificationCode: string}) => console.log(`${event.verificationId}:${event.verificationCode}`)
-)
+cfaSignInPhoneOnCodeReceived()
+  .subscribe((event: {verificationId: string, verificationCode: string}) => {
+    console.log(`${event.verificationId}:${event.verificationCode}`)
+  })
 
 ```
 
-Suggestion for web authentication code to iOS, the ```verificationCode`` must be provided by the user, please see [Firebase documentation](https://firebase.google.com/docs/auth/web/phone-auth#sign-in-the-user-with-the-verification-code) for better options.
+Suggestion for web authentication code to iOS, the `verificationCode` must be provided by the user, please see [Firebase documentation](https://firebase.google.com/docs/auth/web/phone-auth#sign-in-the-user-with-the-verification-code) for more information.
 ```typescript
 
 import firebase from 'firebase/app';
