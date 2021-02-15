@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/auth';
 import {SignInOptions, TwitterSignInResult} from '../definitions';
 import OAuthCredential = firebase.auth.OAuthCredential;

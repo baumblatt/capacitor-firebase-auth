@@ -1,4 +1,3 @@
-import 'firebase/auth';
 import {PhoneSignInResult, SignInOptions} from '../definitions';
 
 export const phoneSignInWeb: (options: {providerId: string, data?: SignInOptions}) => Promise<PhoneSignInResult>

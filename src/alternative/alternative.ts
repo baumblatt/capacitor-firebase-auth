@@ -2,7 +2,7 @@ import {Plugins} from '@capacitor/core';
 import {Observable, throwError} from 'rxjs';
 
 import 'firebase/auth';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import {
     AppleSignInResult,
     CapacitorFirebaseAuthPlugin,
@@ -33,6 +33,8 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 			return cfaSignInTwitter();
 		case facebookProvider:
 			return cfaSignInFacebook();
+	        case cfaSignInAppleProvider:
+        		return cfaSignInApple();
 		case phoneProvider:
 			return cfaSignInPhone(data.phone, data.verificationCode);
 		default:

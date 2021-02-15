@@ -5,6 +5,8 @@
 
 Capacitor plugin for Firebase Authentication that handle the authentication on Native layer and propagate the token to the web view layer. After the sign-in process completes, the user will be signed in within both tiers.
 
+Authenticating on the native layer is useful if you have another plugin that also needs authentication. But even if you don't need it, it does not negatively affect performance.
+
 The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Android, iOS and Web.
 
 ## Tracking the Work in Progress
@@ -20,6 +22,10 @@ The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Andr
 🧠 - Thinking about, date to be defined  
 
 ## Important notes for upgrading between minor or major versions.
+
+#### from 2.x.y to 2.4.x
+> Use of Firebase ^8.0.0
+> Please, for a while read the instructions on issues #128.
 
 #### from 2.2.x to 2.3.x
 > Requires Capacitor Framework v2.2.1 or newer. This is another episode of the Capacitor Framework braking changes 
@@ -42,7 +48,7 @@ The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Andr
 > The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
 
 ```
-1 import firebase from 'firebase/app';
+1 import * as firebase from 'firebase/app';
          ~~~~~~~~
     8601 export = firebase;
          ~~~~~~~~~~~~~~~~~~
@@ -132,21 +138,30 @@ npm install --save capacitor-firebase-auth
     * [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
     * [Add Firebase to your iOS project ](https://firebase.google.com/docs/ios/setup)
 2. If you haven't yet connected your app to your Firebase project, do so from the [Firebase console](https://console.firebase.google.com/).
+    * Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
 
-> Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
+#### Extra steps for iOS
 
-#### Firebase iOS specific configurations
+1. Add a URL scheme to your project (iOS only)
+    * See the official [documentation here](https://developers.google.com/identity/sign-in/ios/start-integrating#add_a_url_scheme_to_your_project).
 
-3. Add the pods that you want to install. You can include a Pod in your Podfile like this:
+2. Add the `Firebase/Auth` pod to the `Podfile` in `ios/App` like this:
 
-    ```
-    target 'App' do
-      capacitor_pods
-      # Add your Pods here
-        pod 'Firebase/Core'
-        pod 'Firebase/Auth'
-    end
-    ```
+```
+target 'App' do
+  capacitor_pods
+  # Add your Pods here
+  pod 'Firebase/Auth'
+end
+```
+
+#### Extra steps for Android
+
+1. Add Android SHA app hashes to Firebase console (android only)
+    * For how to add the hash, check the [documentation here](https://support.google.com/firebase/answer/9137403?hl=en).
+    * For _which_ hashes to add:
+        * One set is from the local debug keystore which is added by Android Studio
+        * Other two sets are from the "Google Play Console" if you go to "Signing" you can find your "upload" keys and your "release" keys
 
 ## Google
 
@@ -386,7 +401,6 @@ Suggestion for web authentication code to iOS, the `verificationCode` must be pr
 ```typescript
 
 import firebase from 'firebase/app';
-import 'firebase/auth';
 
 const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
 
@@ -404,7 +418,7 @@ the token and secret are returned for use with Twitter User API.
 #### Sign in
 
 ```typescript
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import {cfaSignIn, SignInResult} from 'capacitor-firebase-auth/alternative'; import {SignInResult} from './definitions';
 
 cfaSignIn('twitter.com').subscribe(
@@ -418,7 +432,7 @@ cfaSignIn('twitter.com').subscribe(
 #### Sign In using direct twitter method
 
 ```typescript
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import {cfaSignInTwitter, TwitterSignInResult} from 'capacitor-firebase-auth/alternative'; import {SignInResult} from './definitions';
 
 cfaSignInTwitter().subscribe(
