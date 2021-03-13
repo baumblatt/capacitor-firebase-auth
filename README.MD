@@ -26,6 +26,7 @@ The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Andr
 #### from 2.x.y to 2.4.x
 > Use of Firebase ^8.0.0
 > Please, for a while read the instructions on issues #128.
+> This is the last release before Capacitor 3.
 
 #### from 2.2.x to 2.3.x
 > Requires Capacitor Framework v2.2.1 or newer. This is another episode of the Capacitor Framework braking changes 
