@@ -14,17 +14,17 @@
 	"author": "Bernardo Baumblatt",
 	"license": "MIT",
 	"dependencies": {
-		"@capacitor/core": "latest"
+		"@capacitor/core": "next"
 	},
 	"devDependencies": {
+		"@capacitor/android": "next",
+		"@capacitor/ios": "next",
 		"rimraf": "^3.0.0",
-		"typescript": "^3.9.5 || ^4.0.0",
-		"@capacitor/ios": "latest",
-		"@capacitor/android": "latest"
+		"typescript": "^3.9.5 || ^4.0.0"
 	},
 	"peerDependencies": {
-		"firebase": "^8.0.0",
-		"rxjs": "~6.6.3"
+		"firebase": "^8.3.0",
+		"rxjs": "~6.6.6"
 	},
 	"files": [
 		"alternative/",

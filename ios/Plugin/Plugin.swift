@@ -59,7 +59,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         }
 
         guard let callbackId = call.callbackId else {
-            call.error("The call has no callbackId")
+            call.reject("The call has no callbackId")
             return
         }
 
@@ -79,12 +79,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
     func getProvider(call: CAPPluginCall) -> ProviderHandler? {
         guard let providerId = call.getString("providerId") else {
-            call.error("The provider Id is required")
+            call.reject("The provider Id is required")
             return nil
         }
 
         guard let theProvider = self.providers[providerId] else {
-            call.error("The provider is disable or unsupported")
+            call.reject("The provider is disable or unsupported")
             return nil
         }
 
@@ -117,7 +117,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 return
             }
 
-            guard self.bridge.getSavedCall(callbackId) != nil else {
+            guard self.bridge?.getSavedCall(callbackId) != nil else {
                 print("Ops, there is no saved call building result")
                 return
             }
@@ -132,7 +132,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        guard let call = self.bridge.getSavedCall(callbackId) else {
+        guard let call = self.bridge?.getSavedCall(callbackId) else {
             print("Ops, there is no saved call building result")
             return
         }
@@ -146,7 +146,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        call.success(provider.fillResult(credential: credential, data: jsResult));
+        call.resolve(provider.fillResult(credential: credential, data: jsResult));
     }
 
     func handleError(message: String) {
@@ -157,7 +157,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        guard let call = self.bridge.getSavedCall(callbackId) else {
+        guard let call = self.bridge?.getSavedCall(callbackId) else {
             print("Ops, there is no saved call handling error")
             return
         }
@@ -175,7 +175,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 try Auth.auth().signOut()
             }
 
-            call.success()
+            call.resolve()
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
             call.reject("Error signing out: \(signOutError)")

@@ -23,6 +23,10 @@ The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Andr
 
 ## Important notes for upgrading between minor or major versions.
 
+### from 2.x.y to 3.0.0
+> Use of Capacitor 3.0.0
+> Please follow every step of official [Capacitor migration guide](https://capacitorjs.com/docs/v3/updating/3-0).
+
 #### from 2.x.y to 2.4.x
 > Use of Firebase ^8.0.0
 > Please, for a while read the instructions on issues #128.
@@ -49,7 +53,7 @@ The plugin supports Google, Twitter, Facebook, Apple and Phone providers in Andr
 > The firebase import was changed using `esModuleInterop`, that was a [Stencil](https://stenciljs.com) requirements, please see issue [#38](https://github.com/baumblatt/capacitor-firebase-auth/issues/38).
 
 ```
-1 import * as firebase from 'firebase/app';
+1 import firebase from 'firebase/app';
          ~~~~~~~~
     8601 export = firebase;
          ~~~~~~~~~~~~~~~~~~
@@ -139,22 +143,24 @@ npm install --save capacitor-firebase-auth
     * [Add Firebase to your Android project](https://firebase.google.com/docs/android/setup)
     * [Add Firebase to your iOS project ](https://firebase.google.com/docs/ios/setup)
 2. If you haven't yet connected your app to your Firebase project, do so from the [Firebase console](https://console.firebase.google.com/).
-    * Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
 
-#### Extra steps for iOS
+> Please, don't forgot your Google Service _.json_ or _.plist_ file or your app will crash on the startup.
+
+#### Firebase iOS specific configurations
 
 1. Add a URL scheme to your project (iOS only)
     * See the official [documentation here](https://developers.google.com/identity/sign-in/ios/start-integrating#add_a_url_scheme_to_your_project).
 
-2. Add the `Firebase/Auth` pod to the `Podfile` in `ios/App` like this:
+2. Add the `Firebase/Core` and `Firebase/Auth` pods to the `Podfile` in `ios/App` like this:
 
-```
-target 'App' do
-  capacitor_pods
-  # Add your Pods here
-  pod 'Firebase/Auth'
-end
-```
+    ```
+    target 'App' do
+      capacitor_pods
+      # Add your Pods here
+        pod 'Firebase/Core'
+        pod 'Firebase/Auth'
+    end
+    ```
 
 #### Extra steps for Android
 
@@ -370,9 +376,9 @@ cfaSignOut().subscribe()
 ```typescript
 import {cfaSignInPhone} from 'capacitor-firebase-auth';
 
-cfaSignInPhone('+16505551234').subscribe((user) => {
-  console.log(user.phoneNumber)
-})
+cfaSignInPhone('+16505551234').subscribe(
+    user => console.log(user.phoneNumber)
+)
 ```
 
 > On iOS platform the observable will complete without emit (like EMPTY), follow the notifications below to sign on Firebase on Web Layer.
@@ -385,23 +391,22 @@ import {cfaSignInPhoneOnCodeSent, cfaSignInPhoneOnCodeReceived} from 'capacitor-
 // [...]
 
 // Android and iOS
-cfaSignInPhoneOnCodeSent()
-  .subscribe((verificationId) => {
-    console.log(verificationId)
-  })
+cfaSignInPhoneOnCodeSent().subscribe(
+	verificationId => console.log(verificationId)
+)
 
 // Android Only
-cfaSignInPhoneOnCodeReceived()
-  .subscribe((event: {verificationId: string, verificationCode: string}) => {
-    console.log(`${event.verificationId}:${event.verificationCode}`)
-  })
+cfaSignInPhoneOnCodeReceived().subscribe(
+	(event: {verificationId: string, verificationCode: string}) => console.log(`${event.verificationId}:${event.verificationCode}`)
+)
 
 ```
 
-Suggestion for web authentication code to iOS, the `verificationCode` must be provided by the user, please see [Firebase documentation](https://firebase.google.com/docs/auth/web/phone-auth#sign-in-the-user-with-the-verification-code) for more information.
+Suggestion for web authentication code to iOS, the ```verificationCode`` must be provided by the user, please see [Firebase documentation](https://firebase.google.com/docs/auth/web/phone-auth#sign-in-the-user-with-the-verification-code) for better options.
 ```typescript
 
 import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, verificationCode);
 

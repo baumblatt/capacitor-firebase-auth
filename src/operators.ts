@@ -1,6 +1,6 @@
-import {Observable, of, pipe, UnaryFunction} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
 import firebase from 'firebase/app';
+import { Observable, pipe, UnaryFunction } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Operator to map firebase.User to firebase.UserInfo.
@@ -19,16 +19,13 @@ import firebase from 'firebase/app';
  * ```
  */
 export const mapUserToUserInfo = (): UnaryFunction<Observable<firebase.User>, Observable<firebase.UserInfo>> =>
-	pipe(
-		switchMap((user: firebase.User) => {
-			if (user) {
-				const {uid, providerId, displayName, photoURL, phoneNumber, email} = user;
-				return of({uid, providerId, displayName, photoURL, phoneNumber, email});
-			}
-
-			return of(user);
-		}),
-	);
+	pipe(map((user: firebase.User) => {
+		if (user) {
+			const { uid, providerId, displayName, photoURL, phoneNumber, email } = user;
+			return { uid, providerId, displayName, photoURL, phoneNumber, email };
+		}
+		return user;
+	}));
 
 /**
  * Operator to map firebase.auth.UserCredential to firebase.UserInfo.
@@ -48,14 +45,11 @@ export const mapUserToUserInfo = (): UnaryFunction<Observable<firebase.User>, Ob
  * )
  * ```
  */
-export const mapUserCredentialToUserInfo = (): UnaryFunction<Observable<{userCredential: firebase.auth.UserCredential}>, Observable<firebase.UserInfo>> =>
-	pipe(
-		switchMap(({userCredential}: {userCredential: firebase.auth.UserCredential}) => {
-			if (!!userCredential) {
-				const {uid, providerId, displayName, photoURL, phoneNumber, email} = userCredential.user;
-				return of({uid, providerId, displayName, photoURL, phoneNumber, email});
-			}
-
-			return of(null);
-		}),
-	);
+export const mapUserCredentialToUserInfo = (): UnaryFunction<Observable<{ userCredential: firebase.auth.UserCredential }>, Observable<firebase.UserInfo | null>> =>
+	pipe(map(({ userCredential }: { userCredential: firebase.auth.UserCredential }) => {
+		if (userCredential?.user) {
+			const { uid, providerId, displayName, photoURL, phoneNumber, email } = userCredential.user;
+			return { uid, providerId, displayName, photoURL, phoneNumber, email };
+		}
+		return null;
+	}));
