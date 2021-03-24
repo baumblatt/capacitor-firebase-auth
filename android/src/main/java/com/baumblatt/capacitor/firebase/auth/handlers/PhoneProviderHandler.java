@@ -46,9 +46,7 @@ public class PhoneProviderHandler implements ProviderHandler {
 
                 JSObject jsUser = new JSObject();
                 jsUser.put("callbackId", call.getCallbackId());
-                jsUser.put("providerId", credential.getProvider());
                 jsUser.put("verificationId", mVerificationId);
-                jsUser.put("verificationCode", mVerificationCode);
 
                 call.success(jsUser);
             }
