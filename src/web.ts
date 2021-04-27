@@ -16,10 +16,10 @@ export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFire
   }
 
   async signIn(options: {providerId: string;}): Promise<SignInResult> {
-      const googleProvider = new firebase.auth.GoogleAuthProvider().providerId;
-      const facebookProvider = new firebase.auth.FacebookAuthProvider().providerId;
-      const twitterProvider = new firebase.auth.TwitterAuthProvider().providerId;
-      const phoneProvider = new firebase.auth.PhoneAuthProvider().providerId;
+      const googleProvider = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
+      const facebookProvider = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+      const twitterProvider = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
+      const phoneProvider = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
       switch (options.providerId) {
           case googleProvider:
               return googleSignInWeb(options);

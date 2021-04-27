@@ -22,10 +22,10 @@ const plugin: CapacitorFirebaseAuthPlugin = Plugins.CapacitorFirebaseAuth;
  * @param data The provider additional information (optional).
  */
 export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<{userCredential: firebase.auth.UserCredential, result: SignInResult}> => {
-	const googleProvider = new firebase.auth.GoogleAuthProvider().providerId;
-	const facebookProvider = new firebase.auth.FacebookAuthProvider().providerId;
-	const twitterProvider = new firebase.auth.TwitterAuthProvider().providerId;
-	const phoneProvider = new firebase.auth.PhoneAuthProvider().providerId;
+	const googleProvider = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
+	const facebookProvider = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+	const twitterProvider = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
+	const phoneProvider = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
 	switch (providerId) {
 		case googleProvider:
 			return cfaSignInGoogle();
@@ -33,8 +33,8 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 			return cfaSignInTwitter();
 		case facebookProvider:
 			return cfaSignInFacebook();
-	        case cfaSignInAppleProvider:
-        		return cfaSignInApple();
+		case cfaSignInAppleProvider:
+			return cfaSignInApple();
 		case phoneProvider:
 			return cfaSignInPhone(data.phone, data.verificationCode);
 		default:
