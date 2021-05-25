@@ -17,10 +17,11 @@
 		"@capacitor/core": "latest"
 	},
 	"devDependencies": {
-		"rimraf": "^3.0.0",
-		"typescript": "^3.9.5 || ^4.0.0",
+		"@capacitor/android": "latest",
 		"@capacitor/ios": "latest",
-		"@capacitor/android": "latest"
+		"prettier": "^2.1.1",
+		"rimraf": "^3.0.0",
+		"typescript": "^3.9.5 || ^4.0.0"
 	},
 	"peerDependencies": {
 		"firebase": "^8.0.0",

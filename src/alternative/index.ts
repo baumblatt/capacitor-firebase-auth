@@ -1,3 +1,3 @@
-export * from '../definitions'
-export * from './alternative'
-export {mapUserCredentialToUserInfo} from '../operators'
+export * from "../definitions";
+export * from "./alternative";
+export { mapUserCredentialToUserInfo } from "../operators";
