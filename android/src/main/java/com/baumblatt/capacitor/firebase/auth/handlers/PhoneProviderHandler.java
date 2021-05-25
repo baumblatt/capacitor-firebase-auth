@@ -9,7 +9,7 @@ import com.getcapacitor.PluginCall;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
@@ -58,10 +58,13 @@ public class PhoneProviderHandler implements ProviderHandler {
                 Log.w(PHONE_TAG, "PhoneAuth:onVerificationFailed:" + error);
 
                 PluginCall call = plugin.getSavedCall();
+
+                if (error instanceof FirebaseAuthException) {
+                    plugin.handleFailure(error.getMessage(), ((FirebaseAuthException)error).getErrorCode(), error);
                 } else if (error instanceof FirebaseTooManyRequestsException) {
-                    plugin.handleFailure("Quota exceeded.", error);
+                    plugin.handleFailure(error.getMessage(), "ERROR_TOO_MANY_REQUESTS", error);
                 } else {
-                    plugin.handleFailure("PhoneAuth Sign In failure.", error);
+                    plugin.handleFailure(error.getMessage(), error);
                 }
 
                 call.resolve();
@@ -84,6 +87,7 @@ public class PhoneProviderHandler implements ProviderHandler {
                 JSObject jsEvent = new JSObject();
                 jsEvent.put("verificationId", mVerificationId);
                 plugin.notifyListeners("cfaSignInPhoneOnCodeSent", jsEvent);
+
                 JSObject response = new JSObject();
                 response.put("callbackId", call.getCallbackId());
                 response.put("verificationId", mVerificationId);

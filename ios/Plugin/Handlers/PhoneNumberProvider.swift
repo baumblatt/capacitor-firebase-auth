@@ -34,13 +34,15 @@ class PhoneNumberProviderHandler: NSObject, ProviderHandler {
                 if let errCode = AuthErrorCode(rawValue: error._code) {
                     switch errCode {
                     case AuthErrorCode.quotaExceeded:
-                        call.reject("Quota exceeded.")
+                        call.reject("Quota exceeded.", "ERROR_QUOTA_EXCEEDED")
                     case AuthErrorCode.invalidPhoneNumber:
-                        call.reject("Invalid phone number.")
+                        call.reject("Invalid phone number.", "ERROR_INVALID_PHONE_NUMBER")
                     case AuthErrorCode.captchaCheckFailed:
-                        call.reject("Captcha Check Failed")
+                        call.reject("Captcha Check Failed", "ERROR_CAPTCHA_CHECK_FAILED")
                     case AuthErrorCode.missingPhoneNumber:
-                        call.reject("Missing phone number.")
+                        call.reject("Missing phone number.", "ERROR_MISSING_PHONE_NUMBER")
+                    case AuthErrorCode.tooManyRequests:
+                        call.reject("Too many requests", "ERROR_TOO_MANY_REQUESTS")
                     default:
                         call.reject("PhoneAuth Sign In failure: \(String(describing: error))")
                     }
