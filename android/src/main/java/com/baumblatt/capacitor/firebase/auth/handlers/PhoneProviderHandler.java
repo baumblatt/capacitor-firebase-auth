@@ -57,14 +57,14 @@ public class PhoneProviderHandler implements ProviderHandler {
             public void onVerificationFailed(FirebaseException error) {
                 Log.w(PHONE_TAG, "PhoneAuth:onVerificationFailed:" + error);
 
-                if (error instanceof FirebaseAuthInvalidCredentialsException) {
-                    plugin.handleFailure("Invalid phone number.", error);
+                PluginCall call = plugin.getSavedCall();
                 } else if (error instanceof FirebaseTooManyRequestsException) {
                     plugin.handleFailure("Quota exceeded.", error);
                 } else {
                     plugin.handleFailure("PhoneAuth Sign In failure.", error);
                 }
 
+                call.resolve();
             }
 
             public void onCodeSent(String verificationId,
@@ -74,6 +74,8 @@ public class PhoneProviderHandler implements ProviderHandler {
                 // by combining the code with a verification ID.
                 Log.d(PHONE_TAG, "onCodeSent:" + verificationId);
 
+                PluginCall call = plugin.getSavedCall();
+
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 mResendToken = token;
@@ -82,6 +84,10 @@ public class PhoneProviderHandler implements ProviderHandler {
                 JSObject jsEvent = new JSObject();
                 jsEvent.put("verificationId", mVerificationId);
                 plugin.notifyListeners("cfaSignInPhoneOnCodeSent", jsEvent);
+                JSObject response = new JSObject();
+                response.put("callbackId", call.getCallbackId());
+                response.put("verificationId", mVerificationId);
+                call.success(response);
             }
         };
     }
