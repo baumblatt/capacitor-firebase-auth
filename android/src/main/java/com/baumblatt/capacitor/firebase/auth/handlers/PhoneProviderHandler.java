@@ -57,8 +57,6 @@ public class PhoneProviderHandler implements ProviderHandler {
             public void onVerificationFailed(FirebaseException error) {
                 Log.w(PHONE_TAG, "PhoneAuth:onVerificationFailed:" + error);
 
-                PluginCall call = plugin.getSavedCall();
-
                 if (error instanceof FirebaseAuthException) {
                     plugin.handleFailure(error.getMessage(), ((FirebaseAuthException)error).getErrorCode(), error);
                 } else if (error instanceof FirebaseTooManyRequestsException) {
@@ -66,8 +64,6 @@ public class PhoneProviderHandler implements ProviderHandler {
                 } else {
                     plugin.handleFailure(error.getMessage(), error);
                 }
-
-                call.resolve();
             }
 
             public void onCodeSent(String verificationId,
@@ -87,11 +83,23 @@ public class PhoneProviderHandler implements ProviderHandler {
                 JSObject jsEvent = new JSObject();
                 jsEvent.put("verificationId", mVerificationId);
                 plugin.notifyListeners("cfaSignInPhoneOnCodeSent", jsEvent);
+            }
+
+            public void onCodeAutoRetrievalTimeOut(String verificationId) {
+                Log.d(PHONE_TAG, "onCodeAutoRetrievalTimeOut:" + verificationId);
+
+                PluginCall call = plugin.getSavedCall();
+
+                mVerificationId = verificationId;
+
+                JSObject jsEvent = new JSObject();
+                jsEvent.put("verificationId", mVerificationId);
+                plugin.notifyListeners("cfaSignInPhoneOnCodeAutoRetrievalTimeOut", jsEvent);
 
                 JSObject response = new JSObject();
                 response.put("callbackId", call.getCallbackId());
                 response.put("verificationId", mVerificationId);
-                call.success(response);
+                call.resolve(response);
             }
         };
     }

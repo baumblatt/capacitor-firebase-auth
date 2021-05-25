@@ -201,29 +201,7 @@ export const cfaSignInPhone = (
 
     plugin
       .signIn({ providerId, data: { phone, verificationCode } })
-      .then((result: PhoneSignInResult) => {
-        // if there is no verification code
-        if (!result.verificationCode) {
-          return observer.complete();
-        }
-
-        // create the credentials
-        const credential = firebase.auth.PhoneAuthProvider.credential(
-          result.verificationId,
-          result.verificationCode
-        );
-
-        // web sign in
-        firebase
-          .app()
-          .auth()
-          .signInWithCredential(credential)
-          .then((userCredential: firebase.auth.UserCredential) => {
-            observer.next(userCredential.user);
-            observer.complete();
-          })
-          .catch((reject: any) => observer.error(reject));
-      })
+      .then(() => { return observer.complete(); })
       .catch((reject) => observer.error(reject));
   });
 };
@@ -243,6 +221,24 @@ export const cfaSignInPhoneOnCodeSent = (): Observable<string> => {
     );
   });
 };
+
+
+/**
+ * Observable of one notification of <code>Code Auto Retrieval Time Out</code>event from Phone Verification process.
+ */
+export const cfaSignInPhoneOnCodeAutoRetrievalTimeOut = (): Observable<string> => {
+  return new Observable<string>((observer) => {
+    // @ts-ignore
+    return plugin.addListener(
+      "cfaSignInPhoneOnCodeAutoRetrievalTimeOut",
+      (event: { verificationId: string }) => {
+        observer.next(event.verificationId);
+        observer.complete();
+      }
+    );
+  });
+};
+
 
 /**
  * Observable of one notification of <code>On Code Received</code> event from Phone Verification process.

@@ -380,7 +380,11 @@ cfaSignInPhone('+16505551234').subscribe((user) => {
 #### Notification for Phone Verification step
 
 ```typescript
-import {cfaSignInPhoneOnCodeSent, cfaSignInPhoneOnCodeReceived} from 'capacitor-firebase-auth';
+import {
+  cfaSignInPhoneOnCodeSent,
+  cfaSignInPhoneOnCodeReceived,
+  cfaSignInPhoneOnCodeAutoRetrievalTimeOut
+} from 'capacitor-firebase-auth';
 
 // [...]
 
@@ -394,6 +398,12 @@ cfaSignInPhoneOnCodeSent()
 cfaSignInPhoneOnCodeReceived()
   .subscribe((event: {verificationId: string, verificationCode: string}) => {
     console.log(`${event.verificationId}:${event.verificationCode}`)
+  })
+
+cfaSignInPhoneOnCodeReceived()
+  .pipe(switchMap(() => { cfaSignInPhoneOnCodeAutoRetrievalTimeOut() }))
+  .subscribe((verificationId) => {
+    console.log(verificationId)
   })
 
 ```
