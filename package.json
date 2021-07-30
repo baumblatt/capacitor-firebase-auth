@@ -6,7 +6,7 @@
 	"types": "dist/esm/index.d.ts",
 	"scripts": {
 		"build": "npm run clean && tsc --project tsconfig.json",
-		"pack": "npm pack && mv capacitor-firebase-auth-2.*.tgz capacitor-firebase-auth-nightly.tgz",
+		"pack": "npm pack && mv capacitor-firebase-auth-3.*.tgz capacitor-firebase-auth-nightly.tgz",
 		"clean": "rimraf ./dist",
 		"watch": "tsc --watch",
 		"prepublishOnly": "npm run build"
