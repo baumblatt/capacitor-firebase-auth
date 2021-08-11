@@ -470,6 +470,10 @@ cfaSignInTwitter().pipe(
 
 The user will be **signed in** only in web layer. This limitation is due to the **verification code** only works once. So, there is no way to authenticate the user in both layers (native and web) with just one SMS Code.
 
+## Pull Request are welcome
+
+The pull request are always welcome, please, use the `next` branch, so we can take a look together with others ongoing works.
+
 ## Buy me a beer
 
 If you feel that project is useful, please, considered to buy me a beer through [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=GWR8QXSQ7TT8U&item_name=Capacitor+Firebase+Auth&currency_code=BRL&source=url)
