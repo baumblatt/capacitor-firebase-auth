@@ -34,11 +34,11 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
     
     func signOut() {
         // there is nothing to do here
-        print("AppleProviderHandler.signOut called.");
+        print("AppleProviderHandler.signOut called.")
     }
     
-    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
-        var jsResult: PluginResultData = [:]
+    func fillResult(credential: AuthCredential?, data: PluginCallResultData) -> PluginCallResultData {
+        var jsResult: PluginCallResultData = [:]
         
         data.forEach { (key, value) in
             jsResult[key] = value
@@ -93,7 +93,7 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate, ASAuthorizati
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
             // Sign in with Firebase.
-            self.plugin?.handleAuthCredentials(credential: credential);
+            self.plugin?.handleAuthCredentials(credential: credential)
         }
     }
     

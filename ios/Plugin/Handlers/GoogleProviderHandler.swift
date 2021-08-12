@@ -21,7 +21,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
         let permissions = self.plugin?.getConfigValue("permissions") as? [String:Any] ?? [:]
 
         if let scopes = permissions["google"] as? [String] {
-            GIDSignIn.sharedInstance().scopes = scopes;
+            GIDSignIn.sharedInstance().scopes = scopes
         }
 
         let propertiesMap = self.plugin?.getConfigValue("properties") as? [String:Any] ?? [:]
@@ -62,7 +62,7 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
         }
 
         let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-        self.plugin?.handleAuthCredentials(credential: credential);
+        self.plugin?.handleAuthCredentials(credential: credential)
     }
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
@@ -70,19 +70,19 @@ class GoogleProviderHandler: NSObject, ProviderHandler, GIDSignInDelegate {
     }
 
     func signIn(call: CAPPluginCall) {
-        GIDSignIn.sharedInstance()?.signIn();
+        GIDSignIn.sharedInstance()?.signIn()
     }
 
     func isAuthenticated() -> Bool {
         return GIDSignIn.sharedInstance()?.currentUser != nil
     }
 
-    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
+    func fillResult(credential: AuthCredential?, data: PluginCallResultData) -> PluginCallResultData {
         guard let currentUser = GIDSignIn.sharedInstance()?.currentUser else {
             return data
         }
 
-        var jsResult: PluginResultData = [:]
+        var jsResult: PluginCallResultData = [:]
         data.forEach { (key, value) in
             jsResult[key] = value
         }

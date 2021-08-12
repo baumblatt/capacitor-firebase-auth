@@ -40,12 +40,12 @@ class FacebookProviderHandler: NSObject, ProviderHandler {
         return AccessToken.current != nil
     }
     
-    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
+    func fillResult(credential: AuthCredential?, data: PluginCallResultData) -> PluginCallResultData {
         guard let accessToken = AccessToken.current else {
             return data
         }
         
-        var jsResult: PluginResultData = [:]
+        var jsResult: PluginCallResultData = [:]
         data.forEach { (key, value) in
             jsResult[key] = value
         }

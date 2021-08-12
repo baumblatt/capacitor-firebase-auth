@@ -7,5 +7,5 @@ protocol ProviderHandler {
     func signIn(call: CAPPluginCall) -> Void
     func signOut() throws -> Void
     func isAuthenticated() -> Bool
-    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData
+    func fillResult(credential: AuthCredential?, data: PluginCallResultData) -> PluginCallResultData
 }

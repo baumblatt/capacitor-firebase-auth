@@ -15,7 +15,7 @@ typealias ProvidersMap = [String:ProviderHandler]
 @objc(CapacitorFirebaseAuth)
 public class CapacitorFirebaseAuth: CAPPlugin {
 
-    var providersNames: [String] = [];
+    var providersNames: [String] = []
     var languageCode: String = "en"
     var nativeAuth: Bool = false
 
@@ -29,7 +29,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
 
         if (FirebaseApp.app() == nil) {
             FirebaseApp.configure()
-            Auth.auth().languageCode = self.languageCode;
+            Auth.auth().languageCode = self.languageCode
         }
 
         for provider in self.providersNames {
@@ -64,11 +64,11 @@ public class CapacitorFirebaseAuth: CAPPlugin {
         }
 
         self.callbackId = callbackId
-        call.save()
+        call.keepAlive = true
 
         DispatchQueue.main.async {
             if (theProvider.isAuthenticated()) {
-                self.buildResult(credential: nil);
+                self.buildResult(credential: nil)
                 return
             }
 
@@ -117,12 +117,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
                 return
             }
 
-            guard self.bridge?.getSavedCall(callbackId) != nil else {
+            guard self.bridge?.savedCall(withID: callbackId) != nil else {
                 print("Ops, there is no saved call building result")
                 return
             }
 
-            self.buildResult(credential: credential);
+            self.buildResult(credential: credential)
         }
     }
 
@@ -132,12 +132,12 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        guard let call = self.bridge?.getSavedCall(callbackId) else {
+        guard let call = self.bridge?.savedCall(withID: callbackId) else {
             print("Ops, there is no saved call building result")
             return
         }
 
-        let jsResult: PluginResultData = [
+        let jsResult: PluginCallResultData = [
             "callbackId": callbackId,
             "providerId": call.getString("providerId") ?? "",
         ]
@@ -146,7 +146,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        call.resolve(provider.fillResult(credential: credential, data: jsResult));
+        call.resolve(provider.fillResult(credential: credential, data: jsResult))
     }
 
     func handleError(message: String) {
@@ -157,7 +157,7 @@ public class CapacitorFirebaseAuth: CAPPlugin {
             return
         }
 
-        guard let call = self.bridge?.getSavedCall(callbackId) else {
+        guard let call = self.bridge?.savedCall(withID: callbackId) else {
             print("Ops, there is no saved call handling error")
             return
         }
