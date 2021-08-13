@@ -32,7 +32,7 @@ class TwitterProviderHandler: NSObject, ProviderHandler {
                       self.plugin!.handleError(message: "A failure occurs in Twitter sign in.")
                       return
                     }
-                    self.plugin?.handleAuthCredentials(credential: (authResult?.credential!)!);
+                    self.plugin?.handleAuthCredentials(credential: (authResult?.credential!)!)
                 }
                 
               }
@@ -44,8 +44,8 @@ class TwitterProviderHandler: NSObject, ProviderHandler {
         return false
     }
     
-    func fillResult(credential: AuthCredential?, data: PluginResultData) -> PluginResultData {
-        var jsResult: PluginResultData = [:]
+    func fillResult(credential: AuthCredential?, data: PluginCallResultData) -> PluginCallResultData {
+        var jsResult: PluginCallResultData = [:]
         
         data.forEach { (key, value) in
             jsResult[key] = value
@@ -61,6 +61,6 @@ class TwitterProviderHandler: NSObject, ProviderHandler {
     
     func signOut() {
         // there is nothing to do here
-        print("TwitterProviderHandler.signOut called.");
+        print("TwitterProviderHandler.signOut called.")
     }
 }
