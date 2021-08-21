@@ -44,6 +44,36 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 };
 
 /**
+ * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
+ * However, the callbacks return the full authenticated credentials not just the user.
+ * @param providerId The provider identification.
+ * @param data The provider additional information (optional).
+ */
+export const cfaSignInEx = (providerId: string, data?: SignInOptions): Observable<firebase.User> => {
+	const googleProvider = new firebase.auth.GoogleAuthProvider().providerId;
+	const facebookProvider = new firebase.auth.FacebookAuthProvider().providerId;
+	const twitterProvider = new firebase.auth.TwitterAuthProvider().providerId;
+	const phoneProvider = new firebase.auth.PhoneAuthProvider().providerId;
+	switch (providerId) {
+		case googleProvider:
+			return cfaSignInGoogleEx();
+		case twitterProvider:
+			return cfaSignInTwitterEx();
+		case facebookProvider:
+			return cfaSignInFacebookEx();
+		case cfaSignInAppleProvider:
+			return cfaSignInAppleEx();
+		case phoneProvider:
+			if (!data) {
+				throw new Error('Phone and Verification data must be provided.')
+			}
+			return cfaSignInPhoneEx(data.phone, data.verificationCode);
+		default:
+			return throwError(new Error(`The '${providerId}' provider was not supported`));
+	}
+};
+
+/**
  * Call the Google sign in method on native layer and sign in on web layer with retrieved credentials.
  */
 export const cfaSignInGoogle = (): Observable<firebase.User> => {
@@ -63,6 +93,34 @@ export const cfaSignInGoogle = (): Observable<firebase.User> => {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
+					observer.complete();
+				})
+				.catch((reject: any) => {
+					observer.error(reject);
+				});
+		}).catch((reject: any) => {
+			observer.error(reject);
+		});
+	});
+};
+
+export const cfaSignInGoogleEx = (): Observable<firebase.User> => {
+	return new Observable(observer => {
+		// get the provider id
+		const providerId = firebase.auth.GoogleAuthProvider.PROVIDER_ID;
+
+		// native sign in
+		plugin.signIn<GoogleSignInResult>({ providerId }).then((result: GoogleSignInResult) => {
+			// create the credentials
+			const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken);
+
+			// web sign in
+			firebase.app().auth().signInWithCredential(credential)
+				.then((userCredential: firebase.auth.UserCredential) => {
+					if(!userCredential.user) {
+						throw new Error('Firebase User was not received.')
+					}
+					observer.next({userCredential: userCredential});
 					observer.complete();
 				})
 				.catch((reject: any) => {
@@ -102,6 +160,31 @@ export const cfaSignInTwitter = (): Observable<firebase.User> => {
 	});
 };
 
+export const cfaSignInTwitterEx = (): Observable<firebase.User> => {
+	return new Observable(observer => {
+		// get the provider id
+		const providerId = firebase.auth.TwitterAuthProvider.PROVIDER_ID;
+
+		// native sign in
+		plugin.signIn<TwitterSignInResult>({ providerId }).then((result: TwitterSignInResult) => {
+			// create the credentials
+			const credential = firebase.auth.TwitterAuthProvider.credential(result.idToken, result.secret);
+
+			// web sign in
+			firebase.app().auth().signInWithCredential(credential)
+				.then((userCredential: firebase.auth.UserCredential) => {
+					if(!userCredential.user) {
+						throw new Error('Firebase User was not received.')
+					}
+					observer.next({userCredential: userCredential});
+					observer.complete();
+				})
+				.catch((reject: any) => observer.error(reject));
+
+		}).catch((reject: any) => observer.error(reject));
+	});
+};
+
 /**
  * Call the Facebook sign in method on native and sign in on web layer with retrieved credentials.
  */
@@ -130,6 +213,32 @@ export const cfaSignInFacebook = (): Observable<firebase.User> => {
 	});
 };
 
+export const cfaSignInFacebookEx = (): Observable<firebase.User> => {
+	return new Observable(observer => {
+		// get the provider id
+		const providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+
+		// native sign in
+		plugin.signIn<FacebookSignInResult>({ providerId }).then((result: FacebookSignInResult) => {
+			// create the credentials
+			const credential = firebase.auth.FacebookAuthProvider.credential(result.idToken);
+
+			// web sign in
+			firebase.app().auth().signInWithCredential(credential)
+				.then((userCredential: firebase.auth.UserCredential) => {
+					if(!userCredential) {
+						throw new Error('Firebase User was not received.')
+					}
+					observer.next({userCredential: userCredential});
+					observer.complete();
+				})
+				.catch((reject: any) => observer.error(reject));
+
+		}).catch((reject: any) => observer.error(reject));
+	});
+};
+
+
 export const cfaSignInAppleProvider = 'apple.com';
 
 /**
@@ -154,6 +263,32 @@ export const cfaSignInApple = (): Observable<firebase.User> => {
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
+					observer.complete();
+				})
+				.catch((reject: any) => observer.error(reject));
+		}).catch((reject: any) => observer.error(reject));
+	});
+}
+
+export const cfaSignInAppleEx = (): Observable<firebase.User> => {
+	return new Observable(observer => {
+		// native sign in
+		plugin.signIn<AppleSignInResult>({ providerId: cfaSignInAppleProvider }).then((result: AppleSignInResult) => {
+			const { idToken, rawNonce } = result;
+
+			const provider = new firebase.auth.OAuthProvider('apple.com');
+			provider.addScope('email');
+			provider.addScope('name');
+
+			const credential = provider.credential({ idToken, rawNonce })
+
+			// web sign in
+			firebase.app().auth().signInWithCredential(credential)
+				.then((userCredential: firebase.auth.UserCredential) => {
+					if(!userCredential.user) {
+						throw new Error('Firebase User was not received.')
+					}
+					observer.next({userCredential: userCredential});
 					observer.complete();
 				})
 				.catch((reject: any) => observer.error(reject));
@@ -187,6 +322,36 @@ export const cfaSignInPhone = (phone: string, verificationCode?: string): Observ
 						throw new Error('Firebase User was not received.')
 					}
 					observer.next(userCredential.user);
+					observer.complete();
+				})
+				.catch((reject: any) => observer.error(reject));
+
+		}).catch((reject: any) => observer.error(reject));
+
+	});
+};
+
+export const cfaSignInPhoneEx = (phone: string, verificationCode?: string): Observable<firebase.User> => {
+	return new Observable(observer => {
+		// get the provider id
+		const providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
+
+		plugin.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode } }).then((result: PhoneSignInResult) => {
+			// if there is no verification code
+			if (!result.verificationCode) {
+				return observer.complete();
+			}
+
+			// create the credentials
+			const credential = firebase.auth.PhoneAuthProvider.credential(result.verificationId, result.verificationCode);
+
+			// web sign in
+			firebase.app().auth().signInWithCredential(credential)
+				.then((userCredential: firebase.auth.UserCredential) => {
+					if(!userCredential.user) {
+						throw new Error('Firebase User was not received.')
+					}
+					observer.next({userCredential: userCredential});
 					observer.complete();
 				})
 				.catch((reject: any) => observer.error(reject));
