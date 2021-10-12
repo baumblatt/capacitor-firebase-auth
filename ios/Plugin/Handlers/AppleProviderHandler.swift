@@ -12,7 +12,7 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
     
     var plugin: CapacitorFirebaseAuth? = nil
     var currentNonce: String?
-    var fullName: PersonNameComponents?  { get }
+    var fullName: PersonNameComponents?
     
     func initialize(plugin: CapacitorFirebaseAuth) {
         print("Initializing Apple Provider Handler")
