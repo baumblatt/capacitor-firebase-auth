@@ -12,6 +12,7 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
     
     var plugin: CapacitorFirebaseAuth? = nil
     var currentNonce: String?
+    var fullName: PersonNameComponents?
     
     func initialize(plugin: CapacitorFirebaseAuth) {
         print("Initializing Google Provider Handler")
@@ -47,6 +48,8 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
         let appleCredential = credential as! OAuthCredential
         jsResult["idToken"] = appleCredential.idToken
         jsResult["rawNonce"] = currentNonce
+        jsResult["givenName"] = fullName?.givenName
+        jsResult["familyName"] = fullName?.familyName
         
         return jsResult
     }
@@ -91,6 +94,8 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate, ASAuthorizati
             
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            
+            fullName = appleIDCredential.fullName;
             
             // Sign in with Firebase.
             self.plugin?.handleAuthCredentials(credential: credential);
