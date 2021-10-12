@@ -12,10 +12,10 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
     
     var plugin: CapacitorFirebaseAuth? = nil
     var currentNonce: String?
-    var fullName: PersonNameComponents?
+    var fullName: PersonNameComponents?  { get }
     
     func initialize(plugin: CapacitorFirebaseAuth) {
-        print("Initializing Google Provider Handler")
+        print("Initializing Apple Provider Handler")
         
         self.plugin = plugin
     }
@@ -48,8 +48,14 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
         let appleCredential = credential as! OAuthCredential
         jsResult["idToken"] = appleCredential.idToken
         jsResult["rawNonce"] = currentNonce
-        jsResult["givenName"] = fullName?.givenName
-        jsResult["familyName"] = fullName?.familyName
+        jsResult["fullName"] = [
+            "namePrefix" : fullName?.namePrefix
+            "givenName" : fullName?.givenName
+            "middleName" : fullName?.middleName
+            "familyName" : fullName?.familyName
+            "nameSuffix" : fullName?.nameSuffix
+            "nickname" : fullName?.nickname
+        ]
         
         return jsResult
     }

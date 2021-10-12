@@ -28,8 +28,17 @@ export class FacebookSignInResult implements SignInResult {
   }
 }
 
+export type AppleName = {
+  namePrefix?: string;
+  givenName?: string;
+  middleName?: string;
+  familyName?: string;
+  nameSuffix?: string;
+};
+
 export class AppleSignInResult implements SignInResult {
   providerId = firebase.auth.FacebookAuthProvider.PROVIDER_ID;
+  fullName?: AppleName;
   constructor(public idToken: string, public rawNonce: string, public accessToken: string, public secret: string) {
   }
 }
