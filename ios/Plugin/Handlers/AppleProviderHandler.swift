@@ -12,9 +12,10 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
     
     var plugin: CapacitorFirebaseAuth? = nil
     var currentNonce: String?
+    var fullName: PersonNameComponents?
     
     func initialize(plugin: CapacitorFirebaseAuth) {
-        print("Initializing Google Provider Handler")
+        print("Initializing Apple Provider Handler")
         
         self.plugin = plugin
     }
@@ -47,6 +48,14 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
         let appleCredential = credential as! OAuthCredential
         jsResult["idToken"] = appleCredential.idToken
         jsResult["rawNonce"] = currentNonce
+        jsResult["fullName"] = [
+            "namePrefix" : fullName?.namePrefix,
+            "givenName" : fullName?.givenName,
+            "middleName" : fullName?.middleName,
+            "familyName" : fullName?.familyName,
+            "nameSuffix" : fullName?.nameSuffix,
+            "nickname" : fullName?.nickname
+        ]
         
         return jsResult
     }
@@ -91,6 +100,9 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate, ASAuthorizati
             
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            
+            // save the fullName from the appleIDCredential instance because it is not given in the actual credential See: https://github.com/firebase/firebase-ios-sdk/issues/4393
+            fullName = appleIDCredential.fullName;
             
             // Sign in with Firebase.
             self.plugin?.handleAuthCredentials(credential: credential)
