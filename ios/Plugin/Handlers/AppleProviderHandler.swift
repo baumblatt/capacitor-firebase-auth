@@ -49,11 +49,11 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
         jsResult["idToken"] = appleCredential.idToken
         jsResult["rawNonce"] = currentNonce
         jsResult["fullName"] = [
-            "namePrefix" : fullName?.namePrefix
-            "givenName" : fullName?.givenName
-            "middleName" : fullName?.middleName
-            "familyName" : fullName?.familyName
-            "nameSuffix" : fullName?.nameSuffix
+            "namePrefix" : fullName?.namePrefix,
+            "givenName" : fullName?.givenName,
+            "middleName" : fullName?.middleName,
+            "familyName" : fullName?.familyName,
+            "nameSuffix" : fullName?.nameSuffix,
             "nickname" : fullName?.nickname
         ]
         
