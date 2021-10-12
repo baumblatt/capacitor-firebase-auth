@@ -139,7 +139,7 @@ export const cfaSignInApple = (): Observable<firebase.User> => {
 	return new Observable(observer => {
 		// native sign in
 		plugin.signIn<AppleSignInResult>({ providerId: cfaSignInAppleProvider }).then((result: AppleSignInResult) => {
-			const { idToken, rawNonce } = result;
+			const { idToken, rawNonce, givenName, familyName } = result;
 
 			const provider = new firebase.auth.OAuthProvider('apple.com');
 			provider.addScope('email');
@@ -153,7 +153,7 @@ export const cfaSignInApple = (): Observable<firebase.User> => {
 					if(!userCredential.user) {
 						throw new Error('Firebase User was not received.')
 					}
-					observer.next(userCredential.user);
+					observer.next({ user: userCredential.user, givenName, familyName });
 					observer.complete();
 				})
 				.catch((reject: any) => observer.error(reject));
