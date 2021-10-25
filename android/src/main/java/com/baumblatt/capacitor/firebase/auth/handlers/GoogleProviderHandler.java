@@ -25,8 +25,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.auth0.android.jwt.JWT;
 
-import static com.baumblatt.capacitor.firebase.auth.CapacitorFirebaseAuth.CONFIG_KEY_PREFIX;
-
 public class GoogleProviderHandler implements ProviderHandler {
     public static final int RC_GOOGLE_SIGN_IN = 9001;
     private static final String GOOGLE_TAG = "GoogleProviderHandler";
@@ -38,7 +36,7 @@ public class GoogleProviderHandler implements ProviderHandler {
     public void init(CapacitorFirebaseAuth plugin) {
         this.plugin = plugin;
 
-        String[] permissions = this.plugin.getConfig().getArray(CONFIG_KEY_PREFIX + "permissions.google", new String[0]);
+        String[] permissions = this.plugin.getConfig().getArray("permissions.google", new String[0]);
 
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this.plugin.getContext());
@@ -60,7 +58,7 @@ public class GoogleProviderHandler implements ProviderHandler {
             }
         }
 
-        String hostedDomain = this.plugin.getConfig().getString(CONFIG_KEY_PREFIX + "properties.google.hostedDomain");
+        String hostedDomain = this.plugin.getConfig().getString("properties.google.hostedDomain");
 
         if (hostedDomain != null) {
           gsBuilder.setHostedDomain(hostedDomain);
