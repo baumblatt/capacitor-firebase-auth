@@ -31,7 +31,7 @@ public class AppleProviderHandler implements ProviderHandler, OnSuccessListener<
     public void init(CapacitorFirebaseAuth plugin) {
         this.plugin = plugin;
 
-        String languageCode = this.plugin.getConfig().getString(CapacitorFirebaseAuth.CONFIG_KEY_PREFIX +"languageCode", "en");
+        String languageCode = this.plugin.getConfig().getString("languageCode", "en");
 
         this.provider = OAuthProvider.newBuilder("apple.com");
         this.provider.addCustomParameter("lang", languageCode);

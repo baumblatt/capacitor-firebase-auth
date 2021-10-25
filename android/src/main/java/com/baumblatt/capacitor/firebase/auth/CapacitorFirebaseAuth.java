@@ -49,7 +49,7 @@ public class CapacitorFirebaseAuth extends Plugin {
     private CapConfig config;
 
     public PluginConfig getConfig() {
-        return this.config.getPluginConfiguration("plugins.CapacitorFirebaseAuth");
+        return this.config.getPluginConfiguration("CapacitorFirebaseAuth");
     }
 
     public void load() {
