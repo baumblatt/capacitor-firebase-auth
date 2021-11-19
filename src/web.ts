@@ -1,7 +1,3 @@
-import 'firebase/auth';
-
-import firebase from 'firebase/app';
-
 import { WebPlugin } from '@capacitor/core';
 
 import { CapacitorFirebaseAuthPlugin, SignInOptions, SignInResult } from './definitions';
@@ -10,6 +6,10 @@ import { facebookSignInWeb } from './providers/facebook.provider';
 import { googleSignInWeb } from './providers/google.provider';
 import { phoneSignInWeb } from './providers/phone.provider';
 import { twitterSignInWeb } from './providers/twitter.provider';
+import { 
+    FacebookAuthProvider, GoogleAuthProvider, PhoneAuthProvider, TwitterAuthProvider, 
+    getAuth, signOut
+} from 'firebase/auth';
 
 export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFirebaseAuthPlugin {
   constructor() {
@@ -18,10 +18,10 @@ export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFire
 
   async signIn<T extends SignInResult>(options: { providerId: string, data?: SignInOptions }): Promise<T> {
       const appleProvider = 'apple.com';
-      const googleProvider = new firebase.auth.GoogleAuthProvider().providerId;
-      const facebookProvider = new firebase.auth.FacebookAuthProvider().providerId;
-      const twitterProvider = new firebase.auth.TwitterAuthProvider().providerId;
-      const phoneProvider = new firebase.auth.PhoneAuthProvider().providerId;
+      const googleProvider = new GoogleAuthProvider().providerId;
+      const facebookProvider = new FacebookAuthProvider().providerId;
+      const twitterProvider = new TwitterAuthProvider().providerId;
+      const phoneProvider = new PhoneAuthProvider(getAuth()).providerId;
       
       switch (options.providerId) {
           case appleProvider:
@@ -41,6 +41,6 @@ export class CapacitorFirebaseAuthWeb extends WebPlugin implements CapacitorFire
 
   async signOut(options: {}): Promise<void> {
       console.log(options);
-      return firebase.auth().signOut()
+      return signOut(getAuth())
   }
 }
