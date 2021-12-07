@@ -103,8 +103,17 @@ public class PhoneProviderHandler implements ProviderHandler {
 
         String code = data.getString("verificationCode", "");
         if(code.equalsIgnoreCase("null") || code.equalsIgnoreCase("")) {
-            PhoneAuthProvider.getInstance().verifyPhoneNumber
+            Boolean resendToken = data.getBoolean("resendToken", false);
+            if (resendToken) {
+                Log.d(PHONE_TAG, "resend token");
+                PhoneAuthProvider.getInstance().verifyPhoneNumber
+                    (phone, 60, TimeUnit.SECONDS, this.plugin.getActivity(), this.mCallbacks,
+                    this.mResendToken);
+            } else {
+                Log.d(PHONE_TAG, "verify phone number");
+                PhoneAuthProvider.getInstance().verifyPhoneNumber
                     (phone, 60, TimeUnit.SECONDS, this.plugin.getActivity(), this.mCallbacks);
+            }
         } else {
             AuthCredential credential = PhoneAuthProvider.getCredential(this.mVerificationId, code);
             this.mVerificationCode = code;

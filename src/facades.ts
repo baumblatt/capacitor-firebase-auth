@@ -37,7 +37,7 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 			if (!data) {
 				throw new Error('Phone and Verification data must be provided.')
 			}
-			return cfaSignInPhone(data.phone, data.verificationCode);
+			return cfaSignInPhone(data.phone, data.verificationCode, data.resendToken);
 		default:
 			return throwError(new Error(`The '${providerId}' provider was not supported`));
 	}
@@ -165,13 +165,14 @@ export const cfaSignInApple = (): Observable<firebase.User> => {
  * Call the Phone verification sign in, handling send and retrieve to code on native, but only sign in on web with retrieved credentials.
  * @param phone The user phone number.
  * @param verificationCode The verification code sent by SMS (optional).
+ * @param resendToken Whether a verification code should be re-sent (optional)
  */
-export const cfaSignInPhone = (phone: string, verificationCode?: string): Observable<firebase.User> => {
+export const cfaSignInPhone = (phone: string, verificationCode?: string, resendToken?: boolean): Observable<firebase.User> => {
 	return new Observable(observer => {
 		// get the provider id
 		const providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
 
-		plugin.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode } }).then((result: PhoneSignInResult) => {
+		plugin.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode, resendToken } }).then((result: PhoneSignInResult) => {
 			// if there is no verification code
 			if (!result.verificationCode) {
 				return observer.complete();
