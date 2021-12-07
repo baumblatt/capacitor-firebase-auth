@@ -29,7 +29,7 @@ export const cfaSignIn = (providerId: string, data?: SignInOptions): Observable<
 		case cfaSignInAppleProvider:
 			return cfaSignInApple();
 		case phoneProvider:
-			return cfaSignInPhone(data?.phone as string, data?.verificationCode as string);
+			return cfaSignInPhone(data?.phone as string, data?.verificationCode as string, data?.resendToken as boolean);
 		default:
 			return throwError(new Error(`The '${providerId}' provider was not supported`));
 	}
@@ -154,13 +154,14 @@ export const cfaSignInApple = (): Observable<{ userCredential: firebase.auth.Use
  * This implementation is just to keep everything in compliance if others providers in this alternative calls.
  * @param phone The user phone number.
  * @param verificationCode The verification code sent by SMS (optional).
+ * @param resendToken Whether a verification code should be re-sent (optional)
  */
-export const cfaSignInPhone = (phone: string, verificationCode?: string): Observable<{ userCredential: firebase.auth.UserCredential, result: PhoneSignInResult }> => {
+export const cfaSignInPhone = (phone: string, verificationCode?: string, resendToken?: boolean): Observable<{ userCredential: firebase.auth.UserCredential, result: PhoneSignInResult }> => {
 	return new Observable(observer => {
 		// get the provider id
 		const providerId = firebase.auth.PhoneAuthProvider.PROVIDER_ID;
 
-		CapacitorFirebaseAuth.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode } }).then((result: PhoneSignInResult) => {
+		CapacitorFirebaseAuth.signIn<PhoneSignInResult>({ providerId, data: { phone, verificationCode, resendToken } }).then((result: PhoneSignInResult) => {
 			// if there is no verification code
 			if (!result.verificationCode) {
 				return observer.complete();

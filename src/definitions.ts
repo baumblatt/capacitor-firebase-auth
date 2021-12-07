@@ -43,7 +43,8 @@ export class PhoneSignInResult implements SignInResult {
 export interface PhoneSignInOptions {
   container?: HTMLElement
   phone: string,
-  verificationCode?: string
+  verificationCode?: string,
+  resendToken?: boolean
 }
 
 export type SignInOptions = PhoneSignInOptions;
