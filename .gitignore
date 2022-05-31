@@ -1,5 +1,5 @@
 # compiled output
-/dist
+# /dist
 android/build
 android/capacitor-firebase-auth.iml
 ios/Plugin/Pods
