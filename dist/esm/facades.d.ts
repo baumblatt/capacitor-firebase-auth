@@ -1,7 +1,8 @@
-import 'firebase/auth';
-import firebase from 'firebase/app';
-import { Observable } from 'rxjs';
-import { CapacitorFirebaseAuthPlugin, SignInOptions } from './definitions';
+import "firebase/auth";
+import firebase from "firebase/app";
+import { Observable } from "rxjs";
+import { CapacitorFirebaseAuthPlugin, SignInOptions } from "./definitions";
+import { AppleName } from ".";
 export declare const CapacitorFirebaseAuth: CapacitorFirebaseAuthPlugin;
 /**
  * Call the sign in method on native layer and sign in on web layer with retrieved credentials.
@@ -25,7 +26,9 @@ export declare const cfaSignInAppleProvider = "apple.com";
 /**
  * Call the Apple sign in method on native and sign in on web layer with retrieved credentials.
  */
-export declare const cfaSignInApple: () => Observable<firebase.User>;
+export declare const cfaSignInApple: () => Observable<firebase.User & {
+    fullName: AppleName;
+}>;
 /**
  * Call the Phone verification sign in, handling send and retrieve to code on native, but only sign in on web with retrieved credentials.
  * @param phone The user phone number.

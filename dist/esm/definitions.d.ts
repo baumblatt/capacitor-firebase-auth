@@ -24,12 +24,20 @@ export declare class FacebookSignInResult implements SignInResult {
     providerId: string;
     constructor(idToken: string);
 }
+export declare type AppleName = {
+    namePrefix?: string;
+    givenName?: string;
+    middleName?: string;
+    familyName?: string;
+    nameSuffix?: string;
+};
 export declare class AppleSignInResult implements SignInResult {
     idToken: string;
     rawNonce: string;
     accessToken: string;
     secret: string;
     providerId: string;
+    fullName?: AppleName;
     constructor(idToken: string, rawNonce: string, accessToken: string, secret: string);
 }
 export declare class PhoneSignInResult implements SignInResult {
