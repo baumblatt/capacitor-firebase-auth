@@ -56,7 +56,8 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
             "nameSuffix" : fullName?.nameSuffix,
             "nickname" : fullName?.nickname
         ]
-        
+        print(jsResult)
+        print(jsResult["fullName"])
         return jsResult
     }
 }
