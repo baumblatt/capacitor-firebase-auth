@@ -56,7 +56,7 @@ class AppleProviderHandler: NSObject, ProviderHandler  {
             "nameSuffix" : fullName?.nameSuffix,
             "nickname" : fullName?.nickname
         ]
-        print(jsResult)
+        
         print(jsResult["fullName"])
         return jsResult
     }
@@ -103,7 +103,6 @@ extension AppleProviderHandler: ASAuthorizationControllerDelegate, ASAuthorizati
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
             // save the fullName from the appleIDCredential instance because it is not given in the actual credential See: https://github.com/firebase/firebase-ios-sdk/issues/4393
-            print(appleIDCredential)
             print(appleIDCredential.fullName)
             fullName = appleIDCredential.fullName;
             
